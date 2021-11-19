@@ -1,4 +1,6 @@
-package test;
+package com.hfych2.brickdestroy;
+
+import com.hfych2.brickdestroy.Brick;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

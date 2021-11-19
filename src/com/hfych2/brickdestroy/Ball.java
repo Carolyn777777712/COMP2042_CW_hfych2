@@ -1,4 +1,4 @@
-package test;
+package com.hfych2.brickdestroy;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
