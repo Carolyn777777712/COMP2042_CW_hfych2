@@ -20,14 +20,12 @@ package com.hfych2.brickdestroy;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
 
 public class Wall {
 
     final Levels levels = new Levels(this);
 
-    private Random rnd;
     private Rectangle area;
 
     Ball ball;
@@ -48,15 +46,14 @@ public class Wall {
         ballCount = 3;
         ballLost = false;
 
-        rnd = new Random();
 
         makeBall(ballPos);
         int speedX,speedY;
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = 2;
         }while(speedX == 0);
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -2;
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);
@@ -152,10 +149,10 @@ public class Wall {
         ball.moveTo(startPoint);
         int speedX,speedY;
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = 2;
         }while(speedX == 0);
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -2;
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);

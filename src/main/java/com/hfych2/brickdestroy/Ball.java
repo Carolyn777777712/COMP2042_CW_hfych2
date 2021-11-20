@@ -50,16 +50,19 @@ abstract public class Ball {
     protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
 
     public void move(){
-        RectangularShape tmp = (RectangularShape) ballFace;
         center.setLocation((center.getX() + speedX),(center.getY() + speedY));
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
+        double w = ball().getWidth();
+        double h = ball().getHeight();
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
+        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
         setPoints(w,h);
 
 
-        ballFace = tmp;
+        ballFace = ball();
+    }
+
+    private RectangularShape ball() {
+        return (RectangularShape) ballFace;
     }
 
     public void setSpeed(int x,int y){
@@ -102,12 +105,11 @@ abstract public class Ball {
     public void moveTo(Point p){
         center.setLocation(p);
 
-        RectangularShape tmp = (RectangularShape) ballFace;
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
+        double w = ball().getWidth();
+        double h = ball().getHeight();
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        ballFace = tmp;
+        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
+        ballFace = ball();
     }
 
     private void setPoints(double width,double height){
