@@ -52,13 +52,13 @@ public class Levels {
 
         brickCnt += lineCnt / 2;
 
-        Brick[] tmp = new Brick[brickCnt];
+        Brick[] makeBricks = new Brick[brickCnt];
 
         Dimension brickSize = new Dimension((int) brickLen, (int) brickHgt);
         Point p = new Point();
 
         int i;
-        for (i = 0; i < tmp.length; i++) {
+        for (i = 0; i < makeBricks.length; i++) {
             int line = i / brickOnLine;
             if (line == lineCnt)
                 break;
@@ -66,15 +66,15 @@ public class Levels {
             x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, type);
+            makeBricks[i] = makeBrick(p, brickSize, type);
         }
 
-        for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
+        for (double y = brickHgt; i < makeBricks.length; i++, y += 2 * brickHgt) {
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x, y);
-            tmp[i] = new ClayBrick(p, brickSize);
+            makeBricks[i] = new ClayBrick(p, brickSize);
         }
-        return tmp;
+        return makeBricks;
 
     }
 
@@ -95,13 +95,13 @@ public class Levels {
 
         brickCnt += lineCnt / 2;
 
-        Brick[] tmp = new Brick[brickCnt];
+        Brick[] makeBricks = new Brick[brickCnt];
 
         Dimension brickSize = new Dimension((int) brickLen, (int) brickHgt);
         Point p = new Point();
 
         int i;
-        for (i = 0; i < tmp.length; i++) {
+        for (i = 0; i < makeBricks.length; i++) {
             int line = i / brickOnLine;
             if (line == lineCnt)
                 break;
@@ -112,24 +112,24 @@ public class Levels {
             p.setLocation(x, y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p, brickSize, typeA) : makeBrick(p, brickSize, typeB);
+            makeBricks[i] = b ? makeBrick(p, brickSize, typeA) : makeBrick(p, brickSize, typeB);
         }
 
-        for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
+        for (double y = brickHgt; i < makeBricks.length; i++, y += 2 * brickHgt) {
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, typeA);
+            makeBricks[i] = makeBrick(p, brickSize, typeA);
         }
-        return tmp;
+        return makeBricks;
     }
 
     Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
-        Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY);
-        tmp[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, CEMENT);
-        tmp[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
-        tmp[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
-        return tmp;
+        Brick[][] levelsCount = new Brick[LEVELS_COUNT][];
+        levelsCount[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY);
+        levelsCount[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, CEMENT);
+        levelsCount[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
+        levelsCount[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
+        return levelsCount;
     }
 
     public void nextLevel() {
@@ -142,20 +142,20 @@ public class Levels {
     }
 
     Brick makeBrick(Point point, Dimension size, int type) {
-        Brick out;
+        Brick brickType;
         switch (type) {
             case CLAY:
-                out = new ClayBrick(point, size);
+                brickType = new ClayBrick(point, size);
                 break;
             case STEEL:
-                out = new SteelBrick(point, size);
+                brickType = new SteelBrick(point, size);
                 break;
             case CEMENT:
-                out = new CementBrick(point, size);
+                brickType = new CementBrick(point, size);
                 break;
             default:
                 throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
         }
-        return out;
+        return brickType;
     }
 }

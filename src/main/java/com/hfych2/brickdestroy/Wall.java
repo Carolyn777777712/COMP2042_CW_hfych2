@@ -69,10 +69,6 @@ public class Wall {
         ball = new RubberBall(ballPos);
     }
 
-    private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
-        return levels.makeLevels(drawArea, brickCount, lineCount, brickDimensionRatio);
-    }
-
     public void move(){
         player.move();
         ball.move();
