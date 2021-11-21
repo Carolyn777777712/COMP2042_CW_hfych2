@@ -29,24 +29,24 @@ public class Impacts {
 
     boolean impactWall() {
         for (Brick b : wall.getLevels().getBricks()) {
-            switch (b.findImpact(wall.getBall())) {
-                //Vertical Impact
-                case Brick.UP_IMPACT:
-                    wall.getBall().reverseY();
-                    return b.setImpact(wall.getBall().down, Crack.UP);
-                case Brick.DOWN_IMPACT:
-                    wall.getBall().reverseY();
-                    return b.setImpact(wall.getBall().up, Crack.DOWN);
+                switch (b.findImpact(wall.getBall())) {
+                    //Vertical Impact
+                    case Brick.UP_IMPACT:
+                        wall.getBall().reverseY();
+                        return b.setImpact(wall.getBall().down, Crack.UP);
+                    case Brick.DOWN_IMPACT:
+                        wall.getBall().reverseY();
+                        return b.setImpact(wall.getBall().up, Crack.DOWN);
 
-                //Horizontal Impact
-                case Brick.LEFT_IMPACT:
-                    wall.getBall().reverseX();
-                    return b.setImpact(wall.getBall().right, Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
-                    wall.getBall().reverseX();
-                    return b.setImpact(wall.getBall().left, Crack.LEFT);
+                    //Horizontal Impact
+                    case Brick.LEFT_IMPACT:
+                        wall.getBall().reverseX();
+                        return b.setImpact(wall.getBall().right, Crack.RIGHT);
+                    case Brick.RIGHT_IMPACT:
+                        wall.getBall().reverseX();
+                        return b.setImpact(wall.getBall().left, Crack.LEFT);
+                }
             }
-        }
         return false;
     }
 

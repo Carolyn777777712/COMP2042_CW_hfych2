@@ -42,6 +42,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Timer gameTimer;
 
     private Wall wall;
+    private Impacts impacts;
 
     private String message;
 
@@ -72,13 +73,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
+        impacts = new Impacts(this.wall);
+
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
 
         gameTimer = new Timer(10,e ->{
             wall.move();
-            wall.findImpacts();
+            impacts.findImpacts();
             message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),wall.getBallCount());
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
