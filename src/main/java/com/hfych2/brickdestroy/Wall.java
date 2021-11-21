@@ -25,6 +25,7 @@ import java.awt.geom.Point2D;
 public class Wall {
 
     final Levels levels = new Levels(this);
+    private final Impacts impacts = new Impacts(this);
 
     private Rectangle area;
 
@@ -35,6 +36,7 @@ public class Wall {
     private int brickCount;
     private int ballCount;
     private boolean ballLost;
+
 
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
@@ -75,54 +77,9 @@ public class Wall {
     }
 
     public void findImpacts(){
-        if(player.impact(ball)){
-            ball.reverseY();
-        }
-        else if(impactWall()){
-            /*for efficiency reverse is done into method impactWall
-            * because for every brick program checks for horizontal and vertical impacts
-            */
-            brickCount--;
-        }
-        else if(impactBorder()) {
-            ball.reverseX();
-        }
-        else if(ball.getPosition().getY() < area.getY()){
-            ball.reverseY();
-        }
-        else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
-            ballCount--;
-            ballLost = true;
-        }
+        impacts.findImpacts();
     }
 
-    private boolean impactWall(){
-        for(Brick b : levels.getBricks()){
-            switch(b.findImpact(ball)) {
-                //Vertical Impact
-                case Brick.UP_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.down, Crack.UP);
-                case Brick.DOWN_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.up, Crack.DOWN);
-
-                //Horizontal Impact
-                case Brick.LEFT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.right, Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.left, Crack.LEFT);
-            }
-        }
-        return false;
-    }
-
-    private boolean impactBorder(){
-        Point2D p = ball.getPosition();
-        return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
-    }
 
     public int getBrickCount(){
         return brickCount;
@@ -190,4 +147,27 @@ public class Wall {
         ballCount = 3;
     }
 
+    public void setBallLost(boolean ballLost) {
+        this.ballLost = ballLost;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public Levels getLevels() {
+        return levels;
+    }
+
+    public Rectangle getArea() {
+        return area;
+    }
+
+    public void setBallCount(int ballCount) {
+        this.ballCount = ballCount;
+    }
 }

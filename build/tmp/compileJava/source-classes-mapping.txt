@@ -28,5 +28,7 @@ com/hfych2/brickdestroy/DebugConsole.java
  com.hfych2.brickdestroy.DebugConsole
 com/hfych2/brickdestroy/Levels.java
  com.hfych2.brickdestroy.Levels
+com/hfych2/brickdestroy/Impacts.java
+ com.hfych2.brickdestroy.Impacts
 com/hfych2/brickdestroy/DebugPanel.java
  com.hfych2.brickdestroy.DebugPanel
