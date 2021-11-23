@@ -23,7 +23,11 @@ import java.awt.*;
 
 public class Wall {
 
-    final Levels levels = new Levels(this);
+/*    public void setLevels(Levels levels) {
+        this.levels = levels;
+    }*/
+
+    private final Levels levels = new Levels(this);
 
     private Rectangle area;
     private int brickCount;

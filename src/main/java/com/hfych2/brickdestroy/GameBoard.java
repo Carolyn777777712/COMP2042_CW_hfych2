@@ -76,8 +76,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
 
-
         this.initialize();
+
+        initialiseGameBoard(owner);
+
+    }
+
+    //new stuff
+    public static GameBoard createGameBoard(JFrame owner) {
+        return new GameBoard(owner);
+    }
+
+    private void initialiseGameBoard(JFrame owner){
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2);
 
@@ -106,47 +116,44 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         player = new Player((Point) ballPos.clone(),150,10, new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         //new
 
-        gameTimer = new Timer(10,e ->{
-
-            move();
-            impacts.findImpacts();
-
-            message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),getBallCount());
-
-            if(isBallLost())
-            {
-                if(ballEnd())
-                {
-                    wall.wallReset();
-                    resetGameBoard();
-                    message = "Game over";
-                }
-                ballReset();
-                gameTimer.stop();
-            }
-            else if(wall.isDone()){
-                if(wall.hasLevel()){
-                    message = "Go to Next Level";
-                    gameTimer.stop();
-                    ballReset();
-                    wall.wallReset();
-                    resetGameBoard();
-                    wall.nextLevel();
-                }
-                else{
-                    message = "ALL WALLS DESTROYED";
-                    gameTimer.stop();
-                }
-            }
-
-            repaint();
-        });
+        gameTimer = new Timer(10,e -> this.gameCycle());
 
     }
 
-    //new stuff
-    public static GameBoard createGameBoard(JFrame owner) {
-        return new GameBoard(owner);
+    private void gameCycle(){
+
+        move();
+        impacts.findImpacts();
+
+        message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),getBallCount());
+
+        if(isBallLost())
+        {
+            if(ballEnd())
+            {
+                wall.wallReset();
+                resetGameBoard();
+                message = "Game over";
+            }
+            ballReset();
+            gameTimer.stop();
+        }
+        else if(wall.isDone()){
+            if(wall.hasLevel()){
+                message = "Go to Next Level";
+                gameTimer.stop();
+                ballReset();
+                wall.wallReset();
+                resetGameBoard();
+                wall.nextLevel();
+            }
+            else{
+                message = "ALL WALLS DESTROYED";
+                gameTimer.stop();
+            }
+        }
+
+        repaint();
     }
 
     private void makeBall(Point2D ballPos){
@@ -215,8 +222,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void setBallCount(int ballCount) {
         this.ballCount = ballCount;
-    }
-    //new stuff
+    }//new stuff
 
     private void initialize(){
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
@@ -239,7 +245,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         drawBall(ball,g2d);
 
-        for(Brick b : wall.levels.getBricks())
+        for(Brick b : wall.getLevels().getBricks())
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
