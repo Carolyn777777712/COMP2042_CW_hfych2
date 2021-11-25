@@ -26,13 +26,15 @@ com/hfych2/brickdestroy/DebugConsole.java
  com.hfych2.brickdestroy.DebugConsole
 com/hfych2/brickdestroy/GameView.java
  com.hfych2.brickdestroy.GameView
-com/hfych2/brickdestroy/GameFrame.java
- com.hfych2.brickdestroy.GameFrame
-com/hfych2/brickdestroy/HomeMenu.java
- com.hfych2.brickdestroy.HomeMenu
+com/hfych2/brickdestroy/DebugPanel.java
+ com.hfych2.brickdestroy.DebugPanel
 com/hfych2/brickdestroy/Impacts.java
  com.hfych2.brickdestroy.Impacts
 com/hfych2/brickdestroy/GraphicsMain.java
  com.hfych2.brickdestroy.GraphicsMain
-com/hfych2/brickdestroy/DebugPanel.java
- com.hfych2.brickdestroy.DebugPanel
+com/hfych2/brickdestroy/HomeMenuController.java
+ com.hfych2.brickdestroy.HomeMenuController
+com/hfych2/brickdestroy/GameFrame.java
+ com.hfych2.brickdestroy.GameFrame
+com/hfych2/brickdestroy/HomeMenu.java
+ com.hfych2.brickdestroy.HomeMenu
