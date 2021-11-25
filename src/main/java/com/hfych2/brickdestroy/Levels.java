@@ -1,38 +1,22 @@
 package com.hfych2.brickdestroy;
 
+
 import java.awt.*;
 
+
 public class Levels {
+
     private final Wall wall;
+
     private static final int LEVELS_COUNT = 4;
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
     private Brick[] bricks;
 
-    public Brick[] getBricks() {
-        return bricks;
-    }
+    private Brick[][] levels;//all levels
+    private int level;//current level indicator
 
-    private Brick[][] levels;
-
-    public Brick[][] getLevels() {
-        return levels;
-    }
-
-    public void setLevels(Brick[][] levels) {
-        this.levels = levels;
-    }
-
-    private int level;
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     public Levels(Wall wall) {
         this.wall = wall;
@@ -157,5 +141,17 @@ public class Levels {
                 throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
         }
         return brickType;
+    }
+
+    public Brick[] getBricks() {
+        return bricks;
+    }
+
+    public void setLevels(Brick[][] levels) {
+        this.levels = levels;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
