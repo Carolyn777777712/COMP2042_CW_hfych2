@@ -32,12 +32,15 @@ public class DebugConsole extends JDialog implements WindowListener{
     private GameBoard gameBoard;
     private Wall wall;
 
+    private GameView gameView;
 
-    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard, GameView gameView){
 
         this.wall = wall;
         this.owner = owner;
         this.gameBoard = gameBoard;
+
+        this.gameView = gameView;
         initialize();
 
         debugPanel = new DebugPanel(wall,gameBoard);
@@ -71,7 +74,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameBoard.repaint();
+        gameView.repaint();
     }
 
     @Override
