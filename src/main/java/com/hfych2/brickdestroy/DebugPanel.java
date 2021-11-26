@@ -51,7 +51,7 @@ public class DebugPanel extends JPanel {
        initialize();
 
         skipLevelsButton = skipLevelsButton();
-/*        resetBallsButton = resetBallsButton();*/
+        resetBallsButton = resetBallsButton();
 
         changeBallSpeedSlider = changeBallSpeedSlider(1,10);
         changeBallSpeedButton = changeBallSpeedButton();
@@ -59,7 +59,7 @@ public class DebugPanel extends JPanel {
         this.add(changeBallSpeedSlider);
         this.add(changeBallSpeedButton);
 
-/*        this.add(resetBallsButton);*/
+        this.add(resetBallsButton);
         this.add(skipLevelsButton);
 
     }
@@ -124,17 +124,17 @@ public class DebugPanel extends JPanel {
         });
         return skipLevelsButton;
     }
-/*    private JButton resetBallsButton(){
+    private JButton resetBallsButton(){
         JButton resetBallsButton = new JButton("Reset Balls");
         resetBallsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameBoard.ballReset();
-                gameBoard.ballReset();
+                gameBoard.resetGameBoard();
             }
         });
         return resetBallsButton;
-    }*/
+    }
 
 
     public void setValues(int x,int y){
