@@ -1,13 +1,17 @@
 package com.hfych2.brickdestroy;
 
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
+
 
 /**
  * Created by filippo on 04/09/16.
  *
  */
+
+
 abstract public class Ball {
 
     private Shape ballFace;
@@ -24,6 +28,7 @@ abstract public class Ball {
 
     private int speedX;
     private int speedY;
+
 
     public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
         this.center = center;
@@ -49,6 +54,10 @@ abstract public class Ball {
 
     protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
 
+    private RectangularShape ball() {
+        return (RectangularShape) ballFace;
+    }
+
     public void move(){
         center.setLocation((center.getX() + speedX),(center.getY() + speedY));
         double w = ball().getWidth();
@@ -57,12 +66,25 @@ abstract public class Ball {
         ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
         setPoints(w,h);
 
-
         ballFace = ball();
     }
 
-    private RectangularShape ball() {
-        return (RectangularShape) ballFace;
+    public void moveTo(Point p){
+        center.setLocation(p);
+
+        double w = ball().getWidth();
+        double h = ball().getHeight();
+
+        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
+        ballFace = ball();
+    }
+
+    private void setPoints(double width,double height){
+        up.setLocation(center.getX(),center.getY()-(height / 2));
+        down.setLocation(center.getX(),center.getY()+(height / 2));
+
+        left.setLocation(center.getX()-(width / 2),center.getY());
+        right.setLocation(center.getX()+(width / 2),center.getY());
     }
 
     public void setSpeed(int x,int y){
@@ -76,6 +98,14 @@ abstract public class Ball {
 
     public void setYSpeed(int s){
         speedY = s;
+    }
+
+    public int getSpeedX(){
+        return speedX;
+    }
+
+    public int getSpeedY(){
+        return speedY;
     }
 
     public void reverseX(){
@@ -101,32 +131,5 @@ abstract public class Ball {
     public Shape getBallFace(){
         return ballFace;
     }
-
-    public void moveTo(Point p){
-        center.setLocation(p);
-
-        double w = ball().getWidth();
-        double h = ball().getHeight();
-
-        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        ballFace = ball();
-    }
-
-    private void setPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
-
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
-    }
-
-    public int getSpeedX(){
-        return speedX;
-    }
-
-    public int getSpeedY(){
-        return speedY;
-    }
-
 
 }

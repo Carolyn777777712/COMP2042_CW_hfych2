@@ -41,7 +41,6 @@ public class CementBrick extends Brick {
         return true;
     }
 
-
     @Override
     public Shape getBrick() {
         return brickFace;
@@ -49,9 +48,9 @@ public class CementBrick extends Brick {
 
     private void updateBrick(){
         if(!super.isBroken()){
-            GeneralPath gp = crack.draw();
-            gp.append(super.brickFace,false);
-            brickFace = gp;
+            GeneralPath path = crack.draw();
+            path.append(super.brickFace,false);
+            brickFace = path;
         }
     }
 

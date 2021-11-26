@@ -17,12 +17,13 @@
  */
 package com.hfych2.brickdestroy;
 
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-public class RubberBall extends Ball {
 
+public class RubberBall extends Ball {
 
     private static final int DEF_RADIUS = 10;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);

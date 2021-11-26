@@ -17,6 +17,7 @@
  */
 package com.hfych2.brickdestroy;
 
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -38,7 +39,6 @@ public class SteelBrick extends Brick {
         rnd = new Random();
         brickFace = super.brickFace;
     }
-
 
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {

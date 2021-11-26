@@ -1,5 +1,11 @@
 com/hfych2/brickdestroy/HomeMenuController.java
  com.hfych2.brickdestroy.HomeMenuController
+com/hfych2/brickdestroy/GameFrame.java
+ com.hfych2.brickdestroy.GameFrame
+com/hfych2/brickdestroy/HomeMenu.java
+ com.hfych2.brickdestroy.HomeMenu
+com/hfych2/brickdestroy/GraphicsMain.java
+ com.hfych2.brickdestroy.GraphicsMain
 com/hfych2/brickdestroy/Wall.java
  com.hfych2.brickdestroy.Wall
 com/hfych2/brickdestroy/GameBoard.java
@@ -22,18 +28,12 @@ com/hfych2/brickdestroy/CementBrick.java
  com.hfych2.brickdestroy.CementBrick
 com/hfych2/brickdestroy/SteelBrick.java
  com.hfych2.brickdestroy.SteelBrick
-com/hfych2/brickdestroy/GameFrame.java
- com.hfych2.brickdestroy.GameFrame
 com/hfych2/brickdestroy/Crack.java
  com.hfych2.brickdestroy.Crack
 com/hfych2/brickdestroy/ClayBrick.java
  com.hfych2.brickdestroy.ClayBrick
-com/hfych2/brickdestroy/HomeMenu.java
- com.hfych2.brickdestroy.HomeMenu
 com/hfych2/brickdestroy/Levels.java
  com.hfych2.brickdestroy.Levels
-com/hfych2/brickdestroy/GraphicsMain.java
- com.hfych2.brickdestroy.GraphicsMain
 com/hfych2/brickdestroy/Brick.java
  com.hfych2.brickdestroy.Brick
 com/hfych2/brickdestroy/DebugPanel.java

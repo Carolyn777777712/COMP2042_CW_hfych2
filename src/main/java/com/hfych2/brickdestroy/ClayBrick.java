@@ -1,6 +1,5 @@
 package com.hfych2.brickdestroy;
 
-import com.hfych2.brickdestroy.Brick;
 
 import java.awt.*;
 import java.awt.Point;
@@ -18,10 +17,6 @@ public class ClayBrick extends Brick {
     private static final int CLAY_STRENGTH = 1;
 
 
-
-
-
-
     public ClayBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
@@ -35,6 +30,5 @@ public class ClayBrick extends Brick {
     public Shape getBrick() {
         return super.brickFace;
     }
-
 
 }
