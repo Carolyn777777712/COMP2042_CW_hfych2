@@ -1,14 +1,19 @@
 package com.hfych2.brickdestroy;
 
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
+
 public class Crack {
+
+    private final Brick brick;
 
     private static final int CRACK_SECTIONS = 3;
     private static final double JUMP_PROBABILITY = 0.7;
+
 
     public static final int LEFT = 10;
     public static final int RIGHT = 20;
@@ -17,14 +22,15 @@ public class Crack {
     public static final int VERTICAL = 100;
     public static final int HORIZONTAL = 200;
 
+
     private static Random rnd;
+
 
     private GeneralPath crack;
 
     private int crackDepth;
     private int steps;
 
-    Brick brick;
 
     public Crack(Brick brick, int crackDepth, int steps){
 
@@ -45,40 +51,40 @@ public class Crack {
         crack.reset();
     }
 
-    protected void makeCrack(Point2D point, int direction){
+    protected void crackBounds(Point2D point, int direction){
         Rectangle bounds = brick.brickFace.getBounds();
 
         Point impact = new Point((int)point.getX(),(int)point.getY());
         Point start = new Point();
         Point end = new Point();
-
+        Point randomPoint;
 
         switch(direction){
             case LEFT:
                 start.setLocation(bounds.x + bounds.width, bounds.y);
                 end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
-                Point tmp = makeRandomPoint(start,end,VERTICAL);
-                makeCrack(impact,tmp);
+                randomPoint = makeRandomPoint(start,end,VERTICAL);
+                makeCrack(impact,randomPoint);
 
                 break;
             case RIGHT:
                 start.setLocation(bounds.getLocation());
                 end.setLocation(bounds.x, bounds.y + bounds.height);
-                tmp = makeRandomPoint(start,end,VERTICAL);
-                makeCrack(impact,tmp);
+                randomPoint = makeRandomPoint(start,end,VERTICAL);
+                makeCrack(impact,randomPoint);
 
                 break;
             case UP:
                 start.setLocation(bounds.x, bounds.y + bounds.height);
                 end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
-                tmp = makeRandomPoint(start,end,HORIZONTAL);
-                makeCrack(impact,tmp);
+                randomPoint = makeRandomPoint(start,end,HORIZONTAL);
+                makeCrack(impact,randomPoint);
                 break;
             case DOWN:
                 start.setLocation(bounds.getLocation());
                 end.setLocation(bounds.x + bounds.width, bounds.y);
-                tmp = makeRandomPoint(start,end,HORIZONTAL);
-                makeCrack(impact,tmp);
+                randomPoint = makeRandomPoint(start,end,HORIZONTAL);
+                makeCrack(impact,randomPoint);
 
                 break;
 
@@ -129,29 +135,28 @@ public class Crack {
     }
 
     private int jumps(int bound,double probability){
-
         if(rnd.nextDouble() > probability)
             return randomInBounds(bound);
         return  0;
 
     }
 
-    private Point makeRandomPoint(Point from,Point to, int direction){
+    private Point makeRandomPoint(Point from, Point to, int direction){
 
-        Point out = new Point();
-        int pos;
+        Point randomPoint = new Point();
+        int position;
 
         switch(direction){
             case HORIZONTAL:
-                pos = rnd.nextInt(to.x - from.x) + from.x;
-                out.setLocation(pos,to.y);
+                position = rnd.nextInt(to.x - from.x) + from.x;
+                randomPoint.setLocation(position,to.y);
                 break;
             case VERTICAL:
-                pos = rnd.nextInt(to.y - from.y) + from.y;
-                out.setLocation(to.x,pos);
+                position = rnd.nextInt(to.y - from.y) + from.y;
+                randomPoint.setLocation(to.x, position);
                 break;
         }
-        return out;
+        return randomPoint;
     }
 
 }

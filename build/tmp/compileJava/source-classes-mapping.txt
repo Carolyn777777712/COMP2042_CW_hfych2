@@ -1,25 +1,3 @@
-com/hfych2/brickdestroy/HomeMenu.java
- com.hfych2.brickdestroy.HomeMenu
-com/hfych2/brickdestroy/SteelBrick.java
- com.hfych2.brickdestroy.SteelBrick
-com/hfych2/brickdestroy/Brick.java
- com.hfych2.brickdestroy.Brick
-com/hfych2/brickdestroy/ClayBrick.java
- com.hfych2.brickdestroy.ClayBrick
-com/hfych2/brickdestroy/GraphicsMain.java
- com.hfych2.brickdestroy.GraphicsMain
-com/hfych2/brickdestroy/RubberBall.java
- com.hfych2.brickdestroy.RubberBall
-com/hfych2/brickdestroy/Player.java
- com.hfych2.brickdestroy.Player
-com/hfych2/brickdestroy/Ball.java
- com.hfych2.brickdestroy.Ball
-com/hfych2/brickdestroy/Crack.java
- com.hfych2.brickdestroy.Crack
-com/hfych2/brickdestroy/CementBrick.java
- com.hfych2.brickdestroy.CementBrick
-com/hfych2/brickdestroy/GameFrame.java
- com.hfych2.brickdestroy.GameFrame
 com/hfych2/brickdestroy/HomeMenuController.java
  com.hfych2.brickdestroy.HomeMenuController
 com/hfych2/brickdestroy/Wall.java
@@ -32,9 +10,35 @@ com/hfych2/brickdestroy/DebugConsole.java
  com.hfych2.brickdestroy.DebugConsole
 com/hfych2/brickdestroy/GameView.java
  com.hfych2.brickdestroy.GameView
-com/hfych2/brickdestroy/Levels.java
- com.hfych2.brickdestroy.Levels
+com/hfych2/brickdestroy/RubberBall.java
+ com.hfych2.brickdestroy.RubberBall
+com/hfych2/brickdestroy/Player.java
+ com.hfych2.brickdestroy.Player
+com/hfych2/brickdestroy/Ball.java
+ com.hfych2.brickdestroy.Ball
 com/hfych2/brickdestroy/Impacts.java
  com.hfych2.brickdestroy.Impacts
+com/hfych2/brickdestroy/CementBrick.java
+ com.hfych2.brickdestroy.CementBrick
+com/hfych2/brickdestroy/SteelBrick.java
+ com.hfych2.brickdestroy.SteelBrick
+com/hfych2/brickdestroy/GameFrame.java
+ com.hfych2.brickdestroy.GameFrame
+com/hfych2/brickdestroy/Crack.java
+ com.hfych2.brickdestroy.Crack
+com/hfych2/brickdestroy/ClayBrick.java
+ com.hfych2.brickdestroy.ClayBrick
+com/hfych2/brickdestroy/HomeMenu.java
+ com.hfych2.brickdestroy.HomeMenu
+com/hfych2/brickdestroy/Levels.java
+ com.hfych2.brickdestroy.Levels
+com/hfych2/brickdestroy/GraphicsMain.java
+ com.hfych2.brickdestroy.GraphicsMain
+com/hfych2/brickdestroy/Brick.java
+ com.hfych2.brickdestroy.Brick
 com/hfych2/brickdestroy/DebugPanel.java
  com.hfych2.brickdestroy.DebugPanel
+ com.hfych2.brickdestroy.DebugPanel$1
+ com.hfych2.brickdestroy.DebugPanel$2
+ com.hfych2.brickdestroy.DebugPanel$3
+ com.hfych2.brickdestroy.DebugPanel$4
