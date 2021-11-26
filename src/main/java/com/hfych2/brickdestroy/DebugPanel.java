@@ -17,74 +17,130 @@
  */
 package com.hfych2.brickdestroy;
 
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 
 public class DebugPanel extends JPanel {
 
-    private static final Color DEF_BKG = Color.WHITE;
-
-
-    private JButton skipLevel;
-    private JButton resetBalls;
-
-    private JSlider ballXSpeed;
-    private JSlider ballYSpeed;
-
     private Wall wall;
     private GameBoard gameBoard;//new
 
-    public DebugPanel(Wall wall, GameBoard gameBoard){
+    private int clicks = 2;
+    private JButton skipLevelsButton;
+
+
+    private static final Color DEF_BKG = Color.WHITE;
+
+    private JButton resetBallsButton;
+    private JButton changeBallSpeedButton;
+
+    private JSlider changeBallSpeedSlider;
+
+
+    private DebugPanel(Wall wall, GameBoard gameBoard){
 
         this.wall = wall;
         this.gameBoard = gameBoard;
 
-        initialize();
+       initialize();
 
-        skipLevel = makeButton("Skip Level",e -> {
-                                                        wall.nextLevel();
-                                                        gameBoard.ballReset();
-        });
-        resetBalls = makeButton("Reset Balls",e -> gameBoard.resetGameBoard());
+/*        skipLevelsButton = skipLevelsButton();
+        resetBallsButton = resetBallsButton();*/
 
-        ballXSpeed = makeSlider(-4,4,e -> gameBoard.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4,4,e -> gameBoard.setBallYSpeed(ballYSpeed.getValue()));
+        changeBallSpeedSlider = changeBallSpeedSlider(1,10);
+        changeBallSpeedButton = changeBallSpeedButton();
 
-        this.add(skipLevel);
-        this.add(resetBalls);
+        this.add(changeBallSpeedSlider);
+        this.add(changeBallSpeedButton);
 
-        this.add(ballXSpeed);
-        this.add(ballYSpeed);
+/*        this.add(resetBallsButton);
+        this.add(skipLevelsButton);*/
 
     }
+
+    public static DebugPanel createDebugPanel(Wall wall, GameBoard gameBoard) {
+        return new DebugPanel(wall, gameBoard);
+    }
+
 
     private void initialize(){
         this.setBackground(DEF_BKG);
-        this.setLayout(new GridLayout(2,2));
+        this.setLayout(new GridLayout(9,9));
+    }
+    private JButton changeBallSpeedButton(){
+        JButton changeBallSpeedButton = new JButton("Reset Ball Speed");
+        changeBallSpeedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double overallSpeed;
+
+                overallSpeed = changeBallSpeedSlider.getValue();
+
+                changeBallSpeedButton.setText("Set ball speed to: "+ String.valueOf(overallSpeed));
+
+            }
+        });
+        return changeBallSpeedButton;
     }
 
-    private JButton makeButton(String title, ActionListener e){
-        JButton out = new JButton(title);
-        out.addActionListener(e);
-        return  out;
+    private JSlider changeBallSpeedSlider(int min, int max){
+        JSlider changeBallSpeedSlider = new JSlider(min, max);
+        changeBallSpeedSlider.setMajorTickSpacing(1);
+        changeBallSpeedSlider.setSnapToTicks(true);
+        changeBallSpeedSlider.setPaintTicks(true);
+        changeBallSpeedSlider.setPaintLabels(true);
+        changeBallSpeedSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                gameBoard.setBallXSpeed(changeBallSpeedSlider.getValue());
+                gameBoard.setBallXSpeed(changeBallSpeedSlider.getValue());
+            }
+        });
+
+        return changeBallSpeedSlider;
     }
 
-    private JSlider makeSlider(int min, int max, ChangeListener e){
-        JSlider out = new JSlider(min,max);
-        out.setMajorTickSpacing(1);
-        out.setSnapToTicks(true);
-        out.setPaintTicks(true);
-        out.addChangeListener(e);
-        return out;
+ /*  private JButton skipLevelsButton(){
+        JButton skipLevelsButton = new JButton("Skip to: ");
+        skipLevelsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                skipLevelsButton.setText("Skip to: " + "level  " + clicks);
+                clicks++;
+                wall.nextLevel();
+                gameBoard.ballReset();
+
+                if(clicks == 5){
+                    skipLevelsButton.setText("Last Level");
+                    skipLevelsButton.setEnabled(false);
+                }
+            }
+        });
+        return skipLevelsButton;
     }
+
+    private JButton resetBallsButton(){
+        JButton resetBallsButton = new JButton("Reset Balls");
+        resetBallsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.ballReset();
+                gameBoard.ballReset();
+            }
+        });
+        return resetBallsButton;
+    }
+*/
 
     public void setValues(int x,int y){
-        ballXSpeed.setValue(x);
-        ballYSpeed.setValue(y);
+        changeBallSpeedSlider.setValue(x);
+        changeBallSpeedSlider.setValue(y);
     }
 
 }
