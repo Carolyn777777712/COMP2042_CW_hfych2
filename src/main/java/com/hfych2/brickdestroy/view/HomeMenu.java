@@ -27,11 +27,16 @@ import java.awt.geom.Rectangle2D;
 
 public class HomeMenu extends JPanel {
 
+    private GameFrame owner;
+    private Dimension area;
+
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
+    private static final String INFO_TEXT = "Info";
     private static final String EXIT_TEXT = "Exit";
+
 
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
@@ -45,7 +50,7 @@ public class HomeMenu extends JPanel {
     private Rectangle menuFace;
     private Rectangle startButton;
     private Rectangle exitButton;
-
+    private Rectangle infoButton;
 
     private BasicStroke borderStoke;
     private BasicStroke borderStoke_noDashes;
@@ -55,21 +60,15 @@ public class HomeMenu extends JPanel {
     private Font creditsFont;
     private Font buttonFont;
 
-    private GameFrame owner;
-    private Dimension area;
-
     private boolean startClicked;
-    private boolean menuClicked;
-
-
-    private static final String INFO_TEXT = "Info";
-    private Rectangle infoButton;
     private boolean infoClicked;
+    private boolean exitClicked;
+
 
     public HomeMenu(GameFrame owner,Dimension area){
+
         this.owner = owner;
         this.area = area;
-
 
         initialise();
 
@@ -78,19 +77,20 @@ public class HomeMenu extends JPanel {
     }
 
     private void initialise(){
+
         this.setFocusable(true);
         this.requestFocusInWindow();
     }
 
     private void initialiseHomeMenu(Dimension area){
+
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
 
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
-        exitButton = new Rectangle(btnDim);
-
         infoButton = new Rectangle(btnDim);
+        exitButton = new Rectangle(btnDim);
 
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
@@ -103,6 +103,7 @@ public class HomeMenu extends JPanel {
 
 
     public void paint(Graphics g){
+
         drawMenu((Graphics2D)g);
     }
 
@@ -135,6 +136,7 @@ public class HomeMenu extends JPanel {
     }
 
     private void drawContainer(Graphics2D g2d){
+
         Color prev = g2d.getColor();
 
         g2d.setColor(BG_COLOR);
@@ -192,26 +194,23 @@ public class HomeMenu extends JPanel {
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
-        Rectangle2D mTxtRect = buttonFont.getStringBounds(EXIT_TEXT,frc);
-
+        Rectangle2D startRect = buttonFont.getStringBounds(START_TEXT,frc);
         Rectangle2D infoRect = buttonFont.getStringBounds(INFO_TEXT,frc);
+        Rectangle2D exitRect = buttonFont.getStringBounds(EXIT_TEXT,frc);
 
         g2d.setFont(buttonFont);
 
+        //startButton
         int x = (menuFace.width - startButton.width) / 2;
         int y =(int) ((menuFace.height - startButton.height) * 0.5);
 
         startButton.setLocation(x,y);
 
-        x = (int)(startButton.getWidth() - txtRect.getWidth()) / 2;
-        y = (int)(startButton.getHeight() - txtRect.getHeight()) / 2;
+        x = (int)(startButton.getWidth() - startRect.getWidth()) / 2;
+        y = (int)(startButton.getHeight() - startRect.getHeight()) / 2;
 
         x += startButton.x;
         y += startButton.y + (startButton.height * 0.9);
-
-
-
 
         if(startClicked){
             Color tmp = g2d.getColor();
@@ -226,11 +225,11 @@ public class HomeMenu extends JPanel {
             g2d.drawString(START_TEXT,x,y);
         }
 
+        //infoButton
         x = startButton.x;
         y = startButton.y;
 
         y *= 1.25;
-
 
         infoButton.setLocation(x,y);
 
@@ -254,7 +253,7 @@ public class HomeMenu extends JPanel {
             g2d.drawString(INFO_TEXT,x,y);
         }
 
-
+        //exitButton
         x = infoButton.x;
         y = infoButton.y;
 
@@ -263,13 +262,13 @@ public class HomeMenu extends JPanel {
         exitButton.setLocation(x,y);
 
 
-        x = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
-        y = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
+        x = (int)(exitButton.getWidth() - exitRect.getWidth()) / 2;
+        y = (int)(exitButton.getHeight() - exitRect.getHeight()) / 2;
 
         x += exitButton.x;
         y += exitButton.y + (startButton.height * 0.9);
 
-        if(menuClicked){
+        if(exitClicked){
             Color tmp = g2d.getColor();
 
             g2d.setColor(CLICKED_BUTTON_COLOR);
@@ -284,10 +283,6 @@ public class HomeMenu extends JPanel {
         }
     }
 
-    public Rectangle getExitButton() {
-        return exitButton;
-    }
-
     public GameFrame getOwner() {
         return owner;
     }
@@ -296,31 +291,35 @@ public class HomeMenu extends JPanel {
         return startButton;
     }
 
-    public boolean isStartClicked() {
-        return startClicked;
-    }
-
-    public boolean isMenuClicked() {
-        return menuClicked;
-    }
-
-    public void setStartClicked(boolean startClicked) {
-        this.startClicked = startClicked;
-    }
-
-    public void setMenuClicked(boolean menuClicked) {
-        this.menuClicked = menuClicked;
-    }
-
     public Rectangle getInfoButton(){
         return infoButton;
+    }
+
+    public Rectangle getExitButton() {
+        return exitButton;
+    }
+
+    public boolean isStartClicked() {
+        return startClicked;
     }
 
     public boolean isInfoClicked(){
         return infoClicked;
     }
 
+    public boolean isExitClicked() {
+        return exitClicked;
+    }
+
+    public void setStartClicked(boolean startClicked) {
+        this.startClicked = startClicked;
+    }
+
     public void setInfoClicked(boolean infoClicked){
         this.infoClicked = infoClicked;
+    }
+
+    public void setExitClicked(boolean exitClicked) {
+        this.exitClicked = exitClicked;
     }
 }

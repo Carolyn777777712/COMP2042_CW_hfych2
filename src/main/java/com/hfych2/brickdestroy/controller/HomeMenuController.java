@@ -43,7 +43,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
             homeMenu.repaint(homeMenu.getInfoButton().x, homeMenu.getInfoButton().y, homeMenu.getInfoButton().width + 1, homeMenu.getInfoButton().height + 1);
         }
         else if (homeMenu.getExitButton().contains(p)) {
-            homeMenu.setMenuClicked(true);
+            homeMenu.setExitClicked(true);
             homeMenu.repaint(homeMenu.getExitButton().x, homeMenu.getExitButton().y, homeMenu.getExitButton().width + 1, homeMenu.getExitButton().height + 1);
         }
     }
@@ -57,8 +57,8 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
             homeMenu.setInfoClicked(false);
             homeMenu.repaint(homeMenu.getInfoButton().x, homeMenu.getInfoButton().y, homeMenu.getInfoButton().width + 1, homeMenu.getInfoButton().height + 1);
         }
-        else if (homeMenu.isMenuClicked()) {
-            homeMenu.setMenuClicked(false);
+        else if (homeMenu.isExitClicked()) {
+            homeMenu.setExitClicked(false);
             homeMenu.repaint(homeMenu.getExitButton().x, homeMenu.getExitButton().y, homeMenu.getExitButton().width + 1, homeMenu.getExitButton().height + 1);
         }
     }
