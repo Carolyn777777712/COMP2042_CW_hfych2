@@ -22,6 +22,7 @@ import com.hfych2.brickdestroy.controller.HomeMenuController;
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.view.GameView;
 import com.hfych2.brickdestroy.view.HomeMenu;
+import com.hfych2.brickdestroy.view.InfoView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,8 +38,11 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private GameView gameView;
     private GameController gameController;
 
+
     private HomeMenu homeMenu;
     private HomeMenuController homeMenuController;
+
+    private InfoView infoView;
 
     private boolean gaming;
 
@@ -56,12 +60,11 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         homeMenu = new HomeMenu(this,new Dimension(500,500));
         homeMenuController = new HomeMenuController(homeMenu);
 
+        infoView = new InfoView(this);
+
         this.add(homeMenu,BorderLayout.CENTER);
         this.addMouseListener(homeMenuController);
         this.addMouseMotionListener(homeMenuController);
-
-        this.setUndecorated(true);
-
 
     }
 
@@ -77,6 +80,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
+        this.remove(infoView);
         this.add(gameView,BorderLayout.CENTER);
         this.gameView.setPreferredSize(new Dimension(gameBoard.getDefWidth(),gameBoard.getDefHeight()));
         this.setFocusable(true);
@@ -88,6 +92,16 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
         this.addWindowFocusListener(this);
+
+    }
+    public void enableView(){
+        this.dispose();
+        this.remove(homeMenu);
+        this.add(infoView,BorderLayout.CENTER);
+        this.setFocusable(true);
+        this.addKeyListener(infoView);
+        this.setUndecorated(false);
+        initialize();
 
     }
 
@@ -118,4 +132,5 @@ public class GameFrame extends JFrame implements WindowFocusListener {
             gameController.onLostFocus();
 
     }
+
 }

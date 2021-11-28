@@ -1,13 +1,11 @@
 package com.hfych2.brickdestroy.controller;
 
 import com.hfych2.brickdestroy.view.HomeMenu;
-import com.hfych2.brickdestroy.view.InfoView;
 
-import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
+
 
 public class HomeMenuController implements MouseListener, MouseMotionListener{
 
@@ -25,11 +23,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
             homeMenu.getOwner().enableGameBoard();
 
         } else if (homeMenu.getInfoButton().contains(p)){
-
-            homeMenu.getOwner().dispose();
-            homeMenu.getOwner().add(homeMenu.getInfoView(),BorderLayout.CENTER);
-            homeMenu.getOwner().setUndecorated(false);
-            homeMenu.getOwner().setVisible(true);
+            homeMenu.getOwner().enableView();
         }
         else if (homeMenu.getExitButton().contains(p)) {
             System.out.println("Goodbye " + System.getProperty("user.name"));

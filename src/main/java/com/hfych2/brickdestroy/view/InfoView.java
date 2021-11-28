@@ -1,8 +1,9 @@
 package com.hfych2.brickdestroy.view;
 
 
+import com.hfych2.brickdestroy.controller.GameFrame;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.BadLocationException;
@@ -10,9 +11,11 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
+import java.awt.event.*;
 
 
-public class InfoView extends JTextPane {
+
+public class InfoView extends JTextPane implements KeyListener{
 
     private static final String titleText = "Instructions";
 
@@ -20,7 +23,12 @@ public class InfoView extends JTextPane {
     private static SimpleAttributeSet attributes;
     private MatteBorder border;
 
-    public InfoView() {
+    private GameFrame owner;
+
+
+    public InfoView(GameFrame owner) {
+
+        this.owner = owner;
 
         instructions = this.getStyledDocument();
 
@@ -30,15 +38,19 @@ public class InfoView extends JTextPane {
         title.setTitleFont(new Font("Monospaced", Font.BOLD,15));
         title.setTitleColor(new Color(255,101,71));
         setBorder(title);
+        setEditable(false);
 
+        setPreferredSize(new Dimension(600,500));
 
         playerInstructions();
         gameOperations();
         scoreCalculations();
+        backToMainMenu();
+
         setBackground(new Color(162,228,201));
 
-
     }
+
 
     private void bulletStyle(){
         attributes = new SimpleAttributeSet();
@@ -58,11 +70,10 @@ public class InfoView extends JTextPane {
         StyleConstants.setBold(attributes,false);
     }
 
-
     private void playerInstructions(){
         try {
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u2022 To move player: \n", attributes);
+            instructions.insertString(instructions.getLength(), "\u2022 To Move Player: \n", attributes);
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 Press 'A' key to move player left\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Press 'D' key to move player right\n", attributes);
@@ -75,11 +86,15 @@ public class InfoView extends JTextPane {
     private void gameOperations(){
         try{
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u2022 To pause game: \n", attributes);
+            instructions.insertString(instructions.getLength(), "\u2022 To Start or Pause game: \n", attributes);
             subBulletsStyle();
-            instructions.insertString(instructions.getLength(), "\t \u2022 Press 'ESC' to pause game\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Press 'SPACEBAR' to start or pause the game\n", attributes);
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u2022 To access Debug Console: \n", attributes);
+            instructions.insertString(instructions.getLength(), "\u2022 To Access Pause Menu: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Press 'ESC' to enter Pause Menu\n", attributes);
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 To Access Debug Console: \n", attributes);
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 Hold 'ALT' and 'SHIFT' and 'F1'\n", attributes);
 
@@ -101,4 +116,31 @@ public class InfoView extends JTextPane {
             e.printStackTrace();
         }
     }
+
+    private void backToMainMenu(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u002A Press 'ENTER' to start playing :)", attributes);
+        }catch (BadLocationException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            owner.enableGameBoard();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
 }

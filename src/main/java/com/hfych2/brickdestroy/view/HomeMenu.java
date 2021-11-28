@@ -25,7 +25,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 
-public class HomeMenu extends JComponent {
+public class HomeMenu extends JPanel {
 
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
@@ -62,11 +62,6 @@ public class HomeMenu extends JComponent {
     private boolean menuClicked;
 
 
-    public InfoView getInfoView() {
-        return infoView;
-    }
-
-    private InfoView infoView;
     private static final String INFO_TEXT = "Info";
     private Rectangle infoButton;
     private boolean infoClicked;
@@ -75,7 +70,6 @@ public class HomeMenu extends JComponent {
         this.owner = owner;
         this.area = area;
 
-        infoView = new InfoView();
 
         initialise();
 
