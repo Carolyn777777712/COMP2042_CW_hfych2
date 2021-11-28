@@ -31,7 +31,7 @@ public class HomeMenu extends JComponent {
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
-    private static final String MENU_TEXT = "Exit";
+    private static final String EXIT_TEXT = "Exit";
 
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
@@ -44,7 +44,7 @@ public class HomeMenu extends JComponent {
 
     private Rectangle menuFace;
     private Rectangle startButton;
-    private Rectangle menuButton;
+    private Rectangle exitButton;
 
 
     private BasicStroke borderStoke;
@@ -62,9 +62,20 @@ public class HomeMenu extends JComponent {
     private boolean menuClicked;
 
 
+    public InfoView getInfoView() {
+        return infoView;
+    }
+
+    private InfoView infoView;
+    private static final String INFO_TEXT = "Info";
+    private Rectangle infoButton;
+    private boolean infoClicked;
+
     public HomeMenu(GameFrame owner,Dimension area){
         this.owner = owner;
         this.area = area;
+
+        infoView = new InfoView();
 
         initialise();
 
@@ -83,7 +94,9 @@ public class HomeMenu extends JComponent {
 
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
-        menuButton = new Rectangle(btnDim);
+        exitButton = new Rectangle(btnDim);
+
+        infoButton = new Rectangle(btnDim);
 
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
@@ -186,12 +199,14 @@ public class HomeMenu extends JComponent {
         FontRenderContext frc = g2d.getFontRenderContext();
 
         Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
-        Rectangle2D mTxtRect = buttonFont.getStringBounds(MENU_TEXT,frc);
+        Rectangle2D mTxtRect = buttonFont.getStringBounds(EXIT_TEXT,frc);
+
+        Rectangle2D infoRect = buttonFont.getStringBounds(INFO_TEXT,frc);
 
         g2d.setFont(buttonFont);
 
         int x = (menuFace.width - startButton.width) / 2;
-        int y =(int) ((menuFace.height - startButton.height) * 0.8);
+        int y =(int) ((menuFace.height - startButton.height) * 0.5);
 
         startButton.setLocation(x,y);
 
@@ -220,37 +235,63 @@ public class HomeMenu extends JComponent {
         x = startButton.x;
         y = startButton.y;
 
+        y *= 1.25;
+
+
+        infoButton.setLocation(x,y);
+
+        x = (int)(infoButton.getWidth() - infoRect.getWidth()) / 2;
+        y = (int)(infoButton.getHeight() - infoRect.getHeight()) / 2;
+
+        x += infoButton.x;
+        y += infoButton.y + (exitButton.height * 0.9);
+
+        if(infoClicked){
+            Color tmp = g2d.getColor();
+
+            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.draw(infoButton);
+            g2d.setColor(CLICKED_TEXT);
+            g2d.drawString(INFO_TEXT,x,y);
+            g2d.setColor(tmp);
+        }
+        else{
+            g2d.draw(infoButton);
+            g2d.drawString(INFO_TEXT,x,y);
+        }
+
+
+        x = infoButton.x;
+        y = infoButton.y;
+
         y *= 1.2;
 
-        menuButton.setLocation(x,y);
+        exitButton.setLocation(x,y);
 
 
+        x = (int)(exitButton.getWidth() - mTxtRect.getWidth()) / 2;
+        y = (int)(exitButton.getHeight() - mTxtRect.getHeight()) / 2;
 
-
-        x = (int)(menuButton.getWidth() - mTxtRect.getWidth()) / 2;
-        y = (int)(menuButton.getHeight() - mTxtRect.getHeight()) / 2;
-
-        x += menuButton.x;
-        y += menuButton.y + (startButton.height * 0.9);
+        x += exitButton.x;
+        y += exitButton.y + (startButton.height * 0.9);
 
         if(menuClicked){
             Color tmp = g2d.getColor();
 
             g2d.setColor(CLICKED_BUTTON_COLOR);
-            g2d.draw(menuButton);
+            g2d.draw(exitButton);
             g2d.setColor(CLICKED_TEXT);
-            g2d.drawString(MENU_TEXT,x,y);
+            g2d.drawString(EXIT_TEXT,x,y);
             g2d.setColor(tmp);
         }
         else{
-            g2d.draw(menuButton);
-            g2d.drawString(MENU_TEXT,x,y);
+            g2d.draw(exitButton);
+            g2d.drawString(EXIT_TEXT,x,y);
         }
-
     }
 
-    public Rectangle getMenuButton() {
-        return menuButton;
+    public Rectangle getExitButton() {
+        return exitButton;
     }
 
     public GameFrame getOwner() {
@@ -275,5 +316,17 @@ public class HomeMenu extends JComponent {
 
     public void setMenuClicked(boolean menuClicked) {
         this.menuClicked = menuClicked;
+    }
+
+    public Rectangle getInfoButton(){
+        return infoButton;
+    }
+
+    public boolean isInfoClicked(){
+        return infoClicked;
+    }
+
+    public void setInfoClicked(boolean infoClicked){
+        this.infoClicked = infoClicked;
     }
 }
