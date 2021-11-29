@@ -17,12 +17,16 @@
  */
 package com.hfych2.brickdestroy.view;
 
+
 import com.hfych2.brickdestroy.controller.GameFrame;
 
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 
 
 public class HomeMenu extends JPanel {
@@ -33,27 +37,24 @@ public class HomeMenu extends JPanel {
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
-    private static final String START_TEXT = "Start";
-    private static final String INFO_TEXT = "Info";
-    private static final String EXIT_TEXT = "Exit";
+    private static final String START_TEXT = "START";
+    private static final String INFO_TEXT = "INFO";
+    private static final String EXIT_TEXT = "EXIT";
 
 
-    private static final Color BG_COLOR = Color.GREEN.darker();
-    private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
-    private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-    private static final Color TEXT_COLOR = new Color(16, 52, 166);//egyptian blue
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
-    private static final Color CLICKED_TEXT = Color.WHITE;
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
+    private static final Color TEXT_COLOR = new Color(255,243,125);
+    private static final Color CLICKED_TEXT = Color.BLACK;
+    private static final Color ENTERED_TEXT = Color.BLACK;
+
+    private static final Color CLICKED_BUTTON_COLOR = Color.RED;
+    private static final Color ENTERED_START_BUTTON_COLOR = new Color(247,129,131);
+    private static final Color ENTERED_EXIT_BUTTON_COLOR = new Color(255,179,112);
+
 
     private Rectangle menuFace;
     private Rectangle startButton;
     private Rectangle exitButton;
     private Rectangle infoButton;
-
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
 
     private Font greetingsFont;
     private Font gameTitleFont;
@@ -63,6 +64,13 @@ public class HomeMenu extends JPanel {
     private boolean startClicked;
     private boolean infoClicked;
     private boolean exitClicked;
+
+    private Image backgroundImage;
+    private Image scaledBackground;
+
+    private boolean startEntered;
+    private boolean infoEntered;
+    private boolean exitEntered;
 
 
     public HomeMenu(GameFrame owner,Dimension area){
@@ -87,18 +95,24 @@ public class HomeMenu extends JPanel {
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
 
-        Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
+        Dimension btnDim = new Dimension(area.width / 2, area.height / 8);
         startButton = new Rectangle(btnDim);
         infoButton = new Rectangle(btnDim);
         exitButton = new Rectangle(btnDim);
 
-        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
         creditsFont = new Font("Monospaced",Font.PLAIN,10);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
+
+        try {
+            backgroundImage = ImageIO.read(this.getClass().getResource("/images/brickWall.jpg"));
+            scaledBackground = backgroundImage.getScaledInstance(area.width, area.height, Image.SCALE_SMOOTH);
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
 
@@ -110,7 +124,7 @@ public class HomeMenu extends JPanel {
 
     public void drawMenu(Graphics2D g2d){
 
-        drawContainer(g2d);
+        g2d.drawImage(scaledBackground,0,0,null);
 
         /*
         all the following method calls need a relative
@@ -133,28 +147,6 @@ public class HomeMenu extends JPanel {
         g2d.translate(-x,-y);
         g2d.setFont(prevFont);
         g2d.setColor(prevColor);
-    }
-
-    private void drawContainer(Graphics2D g2d){
-
-        Color prev = g2d.getColor();
-
-        g2d.setColor(BG_COLOR);
-        g2d.fill(menuFace);
-
-        Stroke tmp = g2d.getStroke();
-
-        g2d.setStroke(borderStoke_noDashes);
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(menuFace);
-
-        g2d.setStroke(borderStoke);
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(menuFace);
-
-        g2d.setStroke(tmp);
-
-        g2d.setColor(prev);
     }
 
     private void drawText(Graphics2D g2d){
@@ -213,14 +205,22 @@ public class HomeMenu extends JPanel {
         y += startButton.y + (startButton.height * 0.9);
 
         if(startClicked){
-            Color tmp = g2d.getColor();
             g2d.setColor(CLICKED_BUTTON_COLOR);
             g2d.draw(startButton);
+            g2d.fill(startButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(START_TEXT,x,y);
-            g2d.setColor(tmp);
+        }
+        else if(startEntered){
+            g2d.setColor(ENTERED_START_BUTTON_COLOR);
+            g2d.draw(startButton);
+            g2d.fill(startButton);
+            g2d.setColor(ENTERED_TEXT);
+            g2d.drawString(START_TEXT,x,y);
+
         }
         else{
+            g2d.setColor(TEXT_COLOR);
             g2d.draw(startButton);
             g2d.drawString(START_TEXT,x,y);
         }
@@ -229,7 +229,7 @@ public class HomeMenu extends JPanel {
         x = startButton.x;
         y = startButton.y;
 
-        y *= 1.25;
+        y *= 1.4;
 
         infoButton.setLocation(x,y);
 
@@ -237,18 +237,27 @@ public class HomeMenu extends JPanel {
         y = (int)(infoButton.getHeight() - infoRect.getHeight()) / 2;
 
         x += infoButton.x;
-        y += infoButton.y + (exitButton.height * 0.9);
+        y += infoButton.y + (startButton.height * 0.9);
+
+        g2d.setFont(buttonFont);
 
         if(infoClicked){
-            Color tmp = g2d.getColor();
-
             g2d.setColor(CLICKED_BUTTON_COLOR);
             g2d.draw(infoButton);
+            g2d.fill(infoButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(INFO_TEXT,x,y);
-            g2d.setColor(tmp);
+        }
+        else if(infoEntered){
+            g2d.draw(infoButton);
+            g2d.setColor(TEXT_COLOR);
+            g2d.fill(infoButton);
+            g2d.setColor(ENTERED_TEXT);
+            g2d.drawString(INFO_TEXT,x,y);
+
         }
         else{
+            g2d.setColor(TEXT_COLOR);
             g2d.draw(infoButton);
             g2d.drawString(INFO_TEXT,x,y);
         }
@@ -257,7 +266,7 @@ public class HomeMenu extends JPanel {
         x = infoButton.x;
         y = infoButton.y;
 
-        y *= 1.2;
+        y *= 1.25;
 
         exitButton.setLocation(x,y);
 
@@ -266,18 +275,25 @@ public class HomeMenu extends JPanel {
         y = (int)(exitButton.getHeight() - exitRect.getHeight()) / 2;
 
         x += exitButton.x;
-        y += exitButton.y + (startButton.height * 0.9);
+        y += exitButton.y + (infoButton.height * 0.9);
 
         if(exitClicked){
-            Color tmp = g2d.getColor();
-
             g2d.setColor(CLICKED_BUTTON_COLOR);
             g2d.draw(exitButton);
+            g2d.fill(exitButton);
             g2d.setColor(CLICKED_TEXT);
             g2d.drawString(EXIT_TEXT,x,y);
-            g2d.setColor(tmp);
+        }
+        else if(exitEntered){
+            g2d.setColor(ENTERED_EXIT_BUTTON_COLOR);
+            g2d.draw(exitButton);
+            g2d.fill(exitButton);
+            g2d.setColor(ENTERED_TEXT);
+            g2d.drawString(EXIT_TEXT,x,y);
+
         }
         else{
+            g2d.setColor(TEXT_COLOR);
             g2d.draw(exitButton);
             g2d.drawString(EXIT_TEXT,x,y);
         }
@@ -322,4 +338,17 @@ public class HomeMenu extends JPanel {
     public void setExitClicked(boolean exitClicked) {
         this.exitClicked = exitClicked;
     }
+
+    public void setStartEntered(boolean startEntered){
+        this.startEntered = startEntered;
+    }
+
+    public void setInfoEntered(boolean infoEntered){
+        this.infoEntered = infoEntered;
+    }
+
+    public void setExitEntered(boolean exitEntered){
+        this.exitEntered = exitEntered;
+    }
+
 }

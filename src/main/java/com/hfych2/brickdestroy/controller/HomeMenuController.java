@@ -53,6 +53,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         if (homeMenu.isStartClicked()) {
             homeMenu.setStartClicked(false);
             homeMenu.repaint(homeMenu.getStartButton().x, homeMenu.getStartButton().y, homeMenu.getStartButton().width + 1, homeMenu.getStartButton().height + 1);
+
         } else if (homeMenu.isInfoClicked()){
             homeMenu.setInfoClicked(false);
             homeMenu.repaint(homeMenu.getInfoButton().x, homeMenu.getInfoButton().y, homeMenu.getInfoButton().width + 1, homeMenu.getInfoButton().height + 1);
@@ -66,10 +67,28 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
+            homeMenu.setStartEntered(true);
+            homeMenu.repaint(homeMenu.getStartButton().x, homeMenu.getStartButton().y, homeMenu.getStartButton().width + 1, homeMenu.getStartButton().height + 1);
+
+            homeMenu.setInfoEntered(true);
+            homeMenu.repaint(homeMenu.getInfoButton().x, homeMenu.getInfoButton().y, homeMenu.getInfoButton().width + 1, homeMenu.getInfoButton().height + 1);
+
+            homeMenu.setExitEntered(true);
+            homeMenu.repaint(homeMenu.getExitButton().x, homeMenu.getExitButton().y, homeMenu.getExitButton().width + 1, homeMenu.getExitButton().height + 1);
+
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
+
+            homeMenu.setStartEntered(false);
+            homeMenu.repaint(homeMenu.getStartButton().x, homeMenu.getStartButton().y, homeMenu.getStartButton().width + 1, homeMenu.getStartButton().height + 1);
+
+            homeMenu.setInfoEntered(false);
+            homeMenu.repaint(homeMenu.getInfoButton().x, homeMenu.getInfoButton().y, homeMenu.getInfoButton().width + 1, homeMenu.getInfoButton().height + 1);
+
+            homeMenu.setExitEntered(false);
+            homeMenu.repaint(homeMenu.getExitButton().x, homeMenu.getExitButton().y, homeMenu.getExitButton().width + 1, homeMenu.getExitButton().height + 1);
 
     }
 
