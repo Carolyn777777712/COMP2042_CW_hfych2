@@ -17,41 +17,35 @@
  */
 package com.hfych2.brickdestroy.controller;
 
+
 import com.hfych2.brickdestroy.model.Ball;
-import com.hfych2.brickdestroy.model.GameBoard;
-import com.hfych2.brickdestroy.model.Wall;
 import com.hfych2.brickdestroy.view.DebugPanel;
-import com.hfych2.brickdestroy.view.GameView;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+
 public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
 
-
     private JFrame owner;
     private DebugPanel debugPanel;
-    private GameBoard gameBoard;
-    private Wall wall;
+    private GameController gameController;
 
-    private GameView gameView;
 
-    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard, GameView gameView){
+public DebugConsole(GameController gameController){
 
-        this.wall = wall;
-        this.owner = owner;
-        this.gameBoard = gameBoard;
+        this.owner = gameController.getGameBoard().getOwner();
+        this.gameController = gameController;
 
-        this.gameView = gameView;
         initialize();
 
-        debugPanel = DebugPanel.createDebugPanel(wall,gameBoard);
+        debugPanel = DebugPanel.createDebugPanel( gameController);
         this.add(debugPanel,BorderLayout.CENTER);
-
 
         this.pack();
     }
@@ -80,7 +74,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameView.repaint();
+        gameController.getGameView().repaint();
     }
 
     @Override
@@ -101,7 +95,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball ball = gameBoard.getBall();
+        Ball ball = gameController.getGameBoard().getBall();
         debugPanel.setValues(ball.getSpeedX(),ball.getSpeedY());
     }
 

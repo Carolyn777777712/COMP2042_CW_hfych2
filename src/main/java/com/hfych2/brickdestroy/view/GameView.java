@@ -1,5 +1,6 @@
 package com.hfych2.brickdestroy.view;
 
+import com.hfych2.brickdestroy.controller.GameController;
 import com.hfych2.brickdestroy.model.Ball;
 import com.hfych2.brickdestroy.model.Brick;
 import com.hfych2.brickdestroy.model.GameBoard;
@@ -36,6 +37,8 @@ public class GameView extends JPanel {
     private String message;
     private int strLen;
 
+    private String scoreMessage;
+
 
     public GameView(){
         initialise();
@@ -45,7 +48,9 @@ public class GameView extends JPanel {
     {
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         message = "";
+        scoreMessage = "";
         strLen = 0;
+
     }
 
     public void updateView(GameBoard gameBoard){
@@ -60,6 +65,7 @@ public class GameView extends JPanel {
 
         g2d.setColor(Color.BLUE);
         g2d.drawString(message, 250, 225);
+        g2d.drawString(scoreMessage,225,250);
 
         drawBall(gameBoard.getBall(), g2d);
 
@@ -75,14 +81,14 @@ public class GameView extends JPanel {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    void clear(Graphics2D g2d) {
+    private void clear(Graphics2D g2d) {
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(tmp);
     }
 
-    void drawBrick(Brick brick, Graphics2D g2d) {
+    private void drawBrick(Brick brick, Graphics2D g2d) {
         Color tmp = g2d.getColor();
 
         g2d.setColor(brick.getInnerColor());
@@ -95,7 +101,7 @@ public class GameView extends JPanel {
         g2d.setColor(tmp);
     }
 
-    void drawBall(Ball ball, Graphics2D g2d) {
+    private void drawBall(Ball ball, Graphics2D g2d) {
         Color tmp = g2d.getColor();
 
         Shape s = ball.getBallFace();
@@ -109,7 +115,7 @@ public class GameView extends JPanel {
         g2d.setColor(tmp);
     }
 
-    void drawPlayer(Player p, Graphics2D g2d) {
+    private void drawPlayer(Player p, Graphics2D g2d) {
         Color tmp = g2d.getColor();
 
         Shape s = p.getPlayerFace();
@@ -122,12 +128,12 @@ public class GameView extends JPanel {
         g2d.setColor(tmp);
     }
 
-    void drawMenu(Graphics2D g2d) {
+    private void drawMenu(Graphics2D g2d) {
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
 
-    void obscureGameBoard(Graphics2D g2d) {
+    private void obscureGameBoard(Graphics2D g2d) {
 
         Composite tmp = g2d.getComposite();
         Color tmpColor = g2d.getColor();
@@ -142,7 +148,7 @@ public class GameView extends JPanel {
         g2d.setColor(tmpColor);
     }
 
-    void drawPauseMenu(Graphics2D g2d) {
+    private void drawPauseMenu(Graphics2D g2d) {
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
@@ -198,6 +204,11 @@ public class GameView extends JPanel {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setScoreMessage(String scoreMessage) {
+        this.scoreMessage = scoreMessage;
+    }
+
 
     public Rectangle getContinueButtonRect() {
         return continueButtonRect;

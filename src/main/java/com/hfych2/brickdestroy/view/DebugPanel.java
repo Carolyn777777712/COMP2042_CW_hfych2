@@ -18,8 +18,8 @@
 package com.hfych2.brickdestroy.view;
 
 
-import com.hfych2.brickdestroy.model.GameBoard;
-import com.hfych2.brickdestroy.model.Wall;
+import com.hfych2.brickdestroy.controller.GameController;
+
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -31,8 +31,8 @@ import java.awt.event.ActionListener;
 
 public class DebugPanel extends JPanel {
 
-    private Wall wall;
-    private GameBoard gameBoard;//new
+
+    private GameController gameController;
 
     private int clicks = 2;
     private JButton skipLevelsButton;
@@ -46,10 +46,9 @@ public class DebugPanel extends JPanel {
     private JSlider changeBallSpeedSlider;
 
 
-    private DebugPanel(Wall wall, GameBoard gameBoard){
+    private DebugPanel(GameController gameController){
 
-        this.wall = wall;
-        this.gameBoard = gameBoard;
+        this.gameController = gameController;
 
        initialize();
 
@@ -67,8 +66,8 @@ public class DebugPanel extends JPanel {
 
     }
 
-    public static DebugPanel createDebugPanel(Wall wall, GameBoard gameBoard) {
-        return new DebugPanel(wall, gameBoard);
+    public static DebugPanel createDebugPanel(GameController gameController) {
+        return new DebugPanel(gameController);
     }
 
 
@@ -87,6 +86,9 @@ public class DebugPanel extends JPanel {
 
                 changeBallSpeedButton.setText("Set ball speed to: "+ String.valueOf(overallSpeed));
 
+                gameController.getGameBoard().setBallXSpeed(changeBallSpeedSlider.getValue());
+                gameController.getGameBoard().setBallYSpeed(changeBallSpeedSlider.getValue());
+
             }
         });
         return changeBallSpeedButton;
@@ -98,13 +100,13 @@ public class DebugPanel extends JPanel {
         changeBallSpeedSlider.setSnapToTicks(true);
         changeBallSpeedSlider.setPaintTicks(true);
         changeBallSpeedSlider.setPaintLabels(true);
-        changeBallSpeedSlider.addChangeListener(new ChangeListener() {
+/*        changeBallSpeedSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                gameBoard.setBallXSpeed(changeBallSpeedSlider.getValue());
-                gameBoard.setBallYSpeed(changeBallSpeedSlider.getValue());
+                gameController.getGameBoard().setBallXSpeed(changeBallSpeedSlider.getValue());
+                gameController.getGameBoard().setBallYSpeed(changeBallSpeedSlider.getValue());
             }
-        });
+        });*/
 
         return changeBallSpeedSlider;
     }
@@ -116,8 +118,9 @@ public class DebugPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 skipLevelsButton.setText("Skip to: " + "level  " + clicks);
                 clicks++;
-                wall.nextLevel();
-                gameBoard.ballReset();
+                gameController.getGameBoard().getWall().nextLevel();
+                gameController.getGameBoard().ballReset();
+                gameController.resetScore();
 
                 if(clicks == 5){
                     skipLevelsButton.setText("Last Level");
@@ -132,8 +135,8 @@ public class DebugPanel extends JPanel {
         resetBallsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameBoard.ballReset();
-                gameBoard.resetGameBoard();
+                gameController.getGameBoard().ballReset();
+                gameController.getGameBoard().resetGameBoard();
             }
         });
         return resetBallsButton;

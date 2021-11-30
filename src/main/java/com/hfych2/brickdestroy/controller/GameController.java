@@ -18,6 +18,23 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private DebugConsole debugConsole;
 
     private Timer gameTimer;
+    private int total = 0;
+    private int minutes = 0;
+    private int seconds = 0;
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public GameView getGameView() {
+        return gameView;
+    }
+
+
+    private Timer scoreTimer;
+    private String formatSeconds;
+    private String formatMinutes;
+
 
     public GameController(GameBoard gameBoard, GameView gameView) {
 
@@ -26,9 +43,34 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         gameView.updateView(this.gameBoard);
 
-        debugConsole = new DebugConsole(gameBoard.getOwner(), gameBoard.getWall(), gameBoard, gameView);
+          scoreTimer = new Timer(1000, e -> {
+                                                    total = total + 1000;
+                                                    minutes = (total/60000) % 60;
+                                                    seconds = (total/1000) % 60;
+
+                                                    formatSeconds = String.format("%02d",seconds);
+                                                    formatMinutes = String.format("%02d",minutes);
+
+                                                    gameView.setScoreMessage("Time Taken (mm:ss) "
+                                                            + formatMinutes + ":" + formatSeconds);
+        });
+
+        debugConsole = new DebugConsole(this);
 
         gameTimer = new Timer(10,e -> gameCycle());
+    }
+
+    public void resetScore(){
+
+        scoreTimer.stop();
+        total = 0;
+        minutes = 0;
+        seconds = 0;
+
+        formatSeconds = String.format("%02d",seconds);
+        formatMinutes = String.format("%02d",minutes);
+
+        gameView.setScoreMessage("Time Taken(mm:ss) "+ formatMinutes + ":" + formatSeconds);
     }
 
     private void gameCycle() {
@@ -50,6 +92,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");
                 gameTimer.stop();
+                resetScore();
                 gameBoard.ballReset();
                 gameBoard.getWall().wallReset();
                 gameBoard.resetGameBoard();
@@ -79,18 +122,36 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             case KeyEvent.VK_ESCAPE:
                 gameBoard.setShowPauseMenu(!gameBoard.isShowPauseMenu());
                 gameView.repaint();
+                scoreTimer.stop();
                 gameTimer.stop();
                 break;
             case KeyEvent.VK_SPACE:
-                if (!gameBoard.isShowPauseMenu())
-                    if (gameTimer.isRunning())
+                if (!gameBoard.isShowPauseMenu()) {
+                    if (gameTimer.isRunning()) {
                         gameTimer.stop();
-                    else
+                    } else {
                         gameTimer.start();
+                    }
+                    if (scoreTimer.isRunning()) {
+                        scoreTimer.stop();
+                    } else {
+                        scoreTimer.start();
+                    }
+                }
+                else {
+                    if (scoreTimer.isRunning()) {
+                        scoreTimer.stop();
+                    } else {
+                        scoreTimer.start();
+                    }
+                }
+
                 break;
             case KeyEvent.VK_F1:
-                if (keyEvent.isAltDown() && keyEvent.isShiftDown())
+                if (keyEvent.isAltDown() && keyEvent.isShiftDown()) {
                     debugConsole.setVisible(true);
+                    scoreTimer.stop();
+                }
             default:
                 gameBoard.getPlayer().stop();
         }
@@ -115,6 +176,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             gameBoard.ballReset();//new
             gameBoard.getWall().wallReset();
             gameBoard.resetGameBoard();//new
+            resetScore();
             gameBoard.setShowPauseMenu(false);
             gameView.repaint();
         } else if (gameView.getExitButtonRect().contains(p)) {
@@ -163,6 +225,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     public void onLostFocus() {
         gameTimer.stop();
+        scoreTimer.stop();
         gameView.setMessage("Focus Lost");
         gameView.repaint();
     }
