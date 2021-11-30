@@ -1,6 +1,8 @@
 package com.hfych2.brickdestroy.model;
 
+
 import java.awt.geom.Point2D;
+
 
 public class Impacts {
     private final Wall wall;

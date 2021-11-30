@@ -18,9 +18,6 @@
 package com.hfych2.brickdestroy.model;
 
 
-import com.hfych2.brickdestroy.model.Brick;
-import com.hfych2.brickdestroy.model.Levels;
-
 import java.awt.*;
 
 

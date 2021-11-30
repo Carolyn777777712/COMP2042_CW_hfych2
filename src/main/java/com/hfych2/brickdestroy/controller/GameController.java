@@ -1,13 +1,17 @@
 package com.hfych2.brickdestroy.controller;
 
+
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.view.GameView;
+
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class GameController implements KeyListener, MouseListener, MouseMotionListener{
+
     private GameBoard gameBoard;
     private GameView gameView;
 
@@ -16,15 +20,18 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private Timer gameTimer;
 
     public GameController(GameBoard gameBoard, GameView gameView) {
+
         this.gameBoard = gameBoard;
         this.gameView = gameView;
+
+        gameView.updateView(this.gameBoard);
 
         debugConsole = new DebugConsole(gameBoard.getOwner(), gameBoard.getWall(), gameBoard, gameView);
 
         gameTimer = new Timer(10,e -> gameCycle());
     }
 
-    void gameCycle() {
+    private void gameCycle() {
 
         gameBoard.move();
         gameBoard.getImpacts().findImpacts();

@@ -1,5 +1,6 @@
 package com.hfych2.brickdestroy.model;
 
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;

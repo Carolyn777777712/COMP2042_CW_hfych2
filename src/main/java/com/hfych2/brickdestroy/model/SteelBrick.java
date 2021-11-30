@@ -18,8 +18,6 @@
 package com.hfych2.brickdestroy.model;
 
 
-import com.hfych2.brickdestroy.model.Brick;
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;

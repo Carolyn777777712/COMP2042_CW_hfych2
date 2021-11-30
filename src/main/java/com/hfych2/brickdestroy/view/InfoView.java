@@ -3,6 +3,7 @@ package com.hfych2.brickdestroy.view;
 
 import com.hfych2.brickdestroy.controller.GameFrame;
 
+
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
@@ -12,7 +13,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
-
 
 
 public class InfoView extends JTextPane implements KeyListener{

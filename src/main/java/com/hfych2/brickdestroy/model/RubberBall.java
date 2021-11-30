@@ -18,8 +18,6 @@
 package com.hfych2.brickdestroy.model;
 
 
-import com.hfych2.brickdestroy.model.Ball;
-
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;

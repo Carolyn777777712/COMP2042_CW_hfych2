@@ -17,12 +17,12 @@
  */
 package com.hfych2.brickdestroy.controller;
 
-import com.hfych2.brickdestroy.controller.GameController;
-import com.hfych2.brickdestroy.controller.HomeMenuController;
+
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.view.GameView;
 import com.hfych2.brickdestroy.view.HomeMenu;
 import com.hfych2.brickdestroy.view.InfoView;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,7 +54,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLayout(new BorderLayout());
 
         gameBoard = GameBoard.createGameBoard(this);
-        gameView = new GameView(gameBoard);
+        gameView = new GameView();
         gameController = new GameController(gameBoard, gameView);
 
         homeMenu = new HomeMenu(this,new Dimension(500,500));

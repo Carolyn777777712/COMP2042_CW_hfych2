@@ -5,13 +5,15 @@ import com.hfych2.brickdestroy.model.Brick;
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.model.Player;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 
-public class GameView extends JComponent {
 
-    private final GameBoard gameBoard;
+public class GameView extends JPanel {
+
+    private GameBoard gameBoard;
 
 
     private static final Color BG_COLOR = Color.WHITE;
@@ -35,9 +37,7 @@ public class GameView extends JComponent {
     private int strLen;
 
 
-    public GameView(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-
+    public GameView(){
         initialise();
     }
 
@@ -46,6 +46,10 @@ public class GameView extends JComponent {
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         message = "";
         strLen = 0;
+    }
+
+    public void updateView(GameBoard gameBoard){
+        this.gameBoard = gameBoard;
     }
 
     public void paint(Graphics g) {
