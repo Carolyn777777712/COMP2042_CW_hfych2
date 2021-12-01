@@ -122,7 +122,7 @@ public class DebugPanel extends JPanel {
                 gameController.getGameBoard().ballReset();
                 gameController.resetScore();
 
-                if(clicks == 5){
+                if(!gameController.getGameBoard().getWall().hasLevel()){
                     skipLevelsButton.setText("Last Level");
                     skipLevelsButton.setEnabled(false);
                 }
