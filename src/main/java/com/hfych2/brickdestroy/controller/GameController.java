@@ -2,12 +2,15 @@ package com.hfych2.brickdestroy.controller;
 
 
 import com.hfych2.brickdestroy.model.GameBoard;
+import com.hfych2.brickdestroy.model.PlayerInfo;
 import com.hfych2.brickdestroy.view.GameView;
 
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
 
 
 public class GameController implements KeyListener, MouseListener, MouseMotionListener{
@@ -24,6 +27,14 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     private final int penaltyScore = 20000;
     //private final int rewardScore = -20000;
+
+    private ArrayList<String> userName = new ArrayList<String>();
+    private String newUser;
+    private int save;
+    private String highScoreUserName = "";
+    private ArrayList<Integer> scores = new ArrayList<Integer>();
+    private PlayerInfo playerInfo;
+
 
     public GameBoard getGameBoard() {
         return gameBoard;
@@ -72,6 +83,8 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         debugConsole = new DebugConsole(this);
 
         gameTimer = new Timer(10,e -> gameCycle());
+
+        playerInfo = new PlayerInfo(userName,scores);
     }
 
     public void resetScore(){
@@ -106,7 +119,19 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         } else if (gameBoard.getWall().isDone()) {
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");
+                save = JOptionPane.showConfirmDialog(
+                        gameBoard.getOwner(),
+                        "Would you like to save the current score?",
+                        "Save Score",
+                        JOptionPane.YES_NO_OPTION);
                 gameTimer.stop();
+                if (save == 0){
+                    scoreSaving();
+/*                    resetScore();
+                    gameBoard.ballReset();
+                    gameBoard.getWall().wallReset();
+                    gameBoard.resetGameBoard();*/
+                }
                 resetScore();
                 gameBoard.ballReset();
                 gameBoard.getWall().wallReset();
@@ -235,5 +260,36 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         scoreTimer.stop();
         gameView.setMessage("Focus Lost");
         gameView.repaint();
+    }
+
+    private void scoreSaving() {
+        newUser = JOptionPane.showInputDialog(gameView, "What is your name?", "Save Score", JOptionPane.INFORMATION_MESSAGE);
+
+        playerInfo.getUserName().add(newUser);
+        playerInfo.getScore().add(total);
+
+
+        Integer maxScore = Collections.min(playerInfo.getScore());
+        Integer maxScoreIndex = playerInfo.getScore().indexOf(maxScore);
+        highScoreUserName = playerInfo.getUserName().get(maxScoreIndex);
+
+        int maxMinutes = 0;
+        int maxSeconds = 0;
+
+        maxScore = maxScore + 1000;
+        maxMinutes = (maxScore/60000) % 60;
+        maxSeconds = (maxScore/1000) % 60;
+
+        String formatMaxSeconds;
+        String formatMaxMinutes;
+
+        formatMaxSeconds = String.format("%02d",maxSeconds);
+        formatMaxMinutes = String.format("%02d",maxMinutes);
+
+        System.out.println("Highest score is" + highScoreUserName + ", with a score of " +formatMaxMinutes+":"+formatMaxSeconds);
+
+        System.out.println( Arrays.toString(playerInfo.getUserName().toArray()));
+        JOptionPane.showMessageDialog(gameView,"This is your score " +formatMinutes+":"+formatSeconds,"Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+
     }
 }
