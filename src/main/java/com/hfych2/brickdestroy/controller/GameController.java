@@ -22,6 +22,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private int minutes = 0;
     private int seconds = 0;
 
+    private final int penaltyScore = 20000;
+    //private final int rewardScore = -20000;
+
     public GameBoard getGameBoard() {
         return gameBoard;
     }
@@ -44,6 +47,17 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         gameView.updateView(this.gameBoard);
 
           scoreTimer = new Timer(1000, e -> {
+
+              if(debugConsole.getDebugPanel().isGivePenalty()){
+                  total = total + penaltyScore;
+              }
+              debugConsole.getDebugPanel().setGivePenalty(false);
+
+/*              if(debugConsole.getDebugPanel().isGiveReward()){
+                  total = total + rewardScore;
+              }
+              debugConsole.getDebugPanel().setGiveReward(false);*/
+
                                                     total = total + 1000;
                                                     minutes = (total/60000) % 60;
                                                     seconds = (total/1000) % 60;
@@ -88,6 +102,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             }
             gameBoard.ballReset();
             gameTimer.stop();
+            scoreTimer.stop();
         } else if (gameBoard.getWall().isDone()) {
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");
@@ -138,14 +153,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         scoreTimer.start();
                     }
                 }
-                else {
-                    if (scoreTimer.isRunning()) {
-                        scoreTimer.stop();
-                    } else {
-                        scoreTimer.start();
-                    }
-                }
-
                 break;
             case KeyEvent.VK_F1:
                 if (keyEvent.isAltDown() && keyEvent.isShiftDown()) {

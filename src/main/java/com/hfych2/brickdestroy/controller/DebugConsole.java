@@ -37,7 +37,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     private GameController gameController;
 
 
-public DebugConsole(GameController gameController){
+    public DebugConsole(GameController gameController){
 
         this.owner = gameController.getGameBoard().getOwner();
         this.gameController = gameController;
@@ -102,5 +102,9 @@ public DebugConsole(GameController gameController){
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 
+    }
+
+    public DebugPanel getDebugPanel() {
+        return debugPanel;
     }
 }

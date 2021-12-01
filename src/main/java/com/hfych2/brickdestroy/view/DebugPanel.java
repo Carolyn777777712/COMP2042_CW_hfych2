@@ -22,8 +22,6 @@ import com.hfych2.brickdestroy.controller.GameController;
 
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +43,27 @@ public class DebugPanel extends JPanel {
 
     private JSlider changeBallSpeedSlider;
 
+
+    private boolean givePenalty;
+    private boolean giveReward;
+
+    public boolean isGivePenalty() {
+        return givePenalty;
+    }
+
+    public void setGivePenalty(boolean givePenalty) {
+        this.givePenalty = givePenalty;
+    }
+
+/*
+    public boolean isGiveReward() {
+        return giveReward;
+    }
+
+    public void setGiveReward(boolean giveReward) {
+        this.giveReward = giveReward;
+}
+*/
 
     private DebugPanel(GameController gameController){
 
@@ -89,6 +108,8 @@ public class DebugPanel extends JPanel {
                 gameController.getGameBoard().setBallXSpeed(changeBallSpeedSlider.getValue());
                 gameController.getGameBoard().setBallYSpeed(changeBallSpeedSlider.getValue());
 
+                setGivePenalty(true);
+
             }
         });
         return changeBallSpeedButton;
@@ -100,13 +121,6 @@ public class DebugPanel extends JPanel {
         changeBallSpeedSlider.setSnapToTicks(true);
         changeBallSpeedSlider.setPaintTicks(true);
         changeBallSpeedSlider.setPaintLabels(true);
-/*        changeBallSpeedSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                gameController.getGameBoard().setBallXSpeed(changeBallSpeedSlider.getValue());
-                gameController.getGameBoard().setBallYSpeed(changeBallSpeedSlider.getValue());
-            }
-        });*/
 
         return changeBallSpeedSlider;
     }
@@ -130,6 +144,7 @@ public class DebugPanel extends JPanel {
         });
         return skipLevelsButton;
     }
+
     private JButton resetBallsButton(){
         JButton resetBallsButton = new JButton("Reset Balls");
         resetBallsButton.addActionListener(new ActionListener() {
@@ -137,6 +152,8 @@ public class DebugPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 gameController.getGameBoard().ballReset();
                 gameController.getGameBoard().resetGameBoard();
+
+                setGivePenalty(true);
             }
         });
         return resetBallsButton;
