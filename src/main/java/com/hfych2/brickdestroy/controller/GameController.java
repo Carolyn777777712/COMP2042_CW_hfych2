@@ -8,12 +8,14 @@ import com.hfych2.brickdestroy.view.GameView;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.text.Collator;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
 
-public class GameController implements KeyListener, MouseListener, MouseMotionListener{
+public class GameController implements KeyListener, MouseListener, MouseMotionListener {
 
     private GameBoard gameBoard;
     private GameView gameView;
@@ -57,47 +59,47 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         gameView.updateView(this.gameBoard);
 
-          scoreTimer = new Timer(1000, e -> {
+        scoreTimer = new Timer(1000, e -> {
 
-              if(debugConsole.getDebugPanel().isGivePenalty()){
-                  total = total + penaltyScore;
-              }
-              debugConsole.getDebugPanel().setGivePenalty(false);
+            if (debugConsole.getDebugPanel().isGivePenalty()) {
+                total = total + penaltyScore;
+            }
+            debugConsole.getDebugPanel().setGivePenalty(false);
 
 /*              if(debugConsole.getDebugPanel().isGiveReward()){
                   total = total + rewardScore;
               }
               debugConsole.getDebugPanel().setGiveReward(false);*/
 
-                                                    total = total + 1000;
-                                                    minutes = (total/60000) % 60;
-                                                    seconds = (total/1000) % 60;
+            total = total + 1000;
+            minutes = (total / 60000) % 60;
+            seconds = (total / 1000) % 60;
 
-                                                    formatSeconds = String.format("%02d",seconds);
-                                                    formatMinutes = String.format("%02d",minutes);
+            formatSeconds = String.format("%02d", seconds);
+            formatMinutes = String.format("%02d", minutes);
 
-                                                    gameView.setScoreMessage("Time Taken (mm:ss) "
-                                                            + formatMinutes + ":" + formatSeconds);
+            gameView.setScoreMessage("Time Taken (mm:ss) "
+                    + formatMinutes + ":" + formatSeconds);
         });
 
         debugConsole = new DebugConsole(this);
 
-        gameTimer = new Timer(10,e -> gameCycle());
+        gameTimer = new Timer(10, e -> gameCycle());
 
-        playerInfo = new PlayerInfo(userName,scores);
+        playerInfo = new PlayerInfo(userName, scores);
     }
 
-    public void resetScore(){
+    public void resetScore() {
 
         scoreTimer.stop();
         total = 0;
         minutes = 0;
         seconds = 0;
 
-        formatSeconds = String.format("%02d",seconds);
-        formatMinutes = String.format("%02d",minutes);
+        formatSeconds = String.format("%02d", seconds);
+        formatMinutes = String.format("%02d", minutes);
 
-        gameView.setScoreMessage("Time Taken(mm:ss) "+ formatMinutes + ":" + formatSeconds);
+        gameView.setScoreMessage("Time Taken(mm:ss) " + formatMinutes + ":" + formatSeconds);
     }
 
     private void gameCycle() {
@@ -125,7 +127,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         "Save Score",
                         JOptionPane.YES_NO_OPTION);
                 gameTimer.stop();
-                if (save == 0){
+                if (save == 0) {
                     scoreSaving();
 /*                    resetScore();
                     gameBoard.ballReset();
@@ -276,20 +278,95 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         int maxMinutes = 0;
         int maxSeconds = 0;
 
-        maxScore = maxScore + 1000;
-        maxMinutes = (maxScore/60000) % 60;
-        maxSeconds = (maxScore/1000) % 60;
+        maxMinutes = (maxScore / 60000) % 60;
+        maxSeconds = (maxScore / 1000) % 60;
 
         String formatMaxSeconds;
         String formatMaxMinutes;
 
-        formatMaxSeconds = String.format("%02d",maxSeconds);
-        formatMaxMinutes = String.format("%02d",maxMinutes);
+        formatMaxSeconds = String.format("%02d", maxSeconds);
+        formatMaxMinutes = String.format("%02d", maxMinutes);
 
-        System.out.println("Highest score is" + highScoreUserName + ", with a score of " +formatMaxMinutes+":"+formatMaxSeconds);
+        System.out.println("Highest score is" + highScoreUserName + ", with a score of " + formatMaxMinutes + ":" + formatMaxSeconds);
 
-        System.out.println( Arrays.toString(playerInfo.getUserName().toArray()));
-        JOptionPane.showMessageDialog(gameView,"This is your score " +formatMinutes+":"+formatSeconds,"Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println(Arrays.toString(playerInfo.getUserName().toArray()));
+        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds, "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
 
+/*
+
+        try{
+            File highScoreFile = new File("highScore.ser");
+            if(!highScoreFile.exists())
+                highScoreFile.createNewFile();
+
+            FileOutputStream writeTo = new FileOutputStream("highScore.ser",true);
+
+            ObjectOutputStream writeThis = new ObjectOutputStream(writeTo);
+
+
+            writeThis.writeObject(playerInfo);
+            writeThis.flush();
+            writeThis.close();
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PlayerInfo playerInfo2 = null;
+        try{
+            FileInputStream readOf = new FileInputStream("highScore.ser");
+            ObjectInputStream readThis = new ObjectInputStream(readOf);
+
+            playerInfo2 = (PlayerInfo)readThis.readObject();
+            readThis.close();
+            System.out.println(playerInfo2.toString());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
+        File highScoreFile = new File("highScore.txt");
+        String line = "";
+
+        try {
+            FileWriter fileWriter = new FileWriter(highScoreFile,true);
+            Writer writer = new BufferedWriter(fileWriter);
+            int size = playerInfo.getUserName().size();
+            for (int i = 0; i < size; i++) {
+
+                writer.write(playerInfo.nameToString());
+                writer.write(playerInfo.scoreToString());
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try{
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(highScoreFile));
+                    if(!reader.ready()){
+                        throw new IOException();
+                    }
+
+                while(true){
+                    try {
+                        if (!((line = reader.readLine())!=null)) break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //playerInfo.getUserName().add(line);
+                }
+                try {
+                    reader.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
