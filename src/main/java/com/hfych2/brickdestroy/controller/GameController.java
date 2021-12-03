@@ -9,7 +9,6 @@ import com.hfych2.brickdestroy.view.GameView;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.text.Collator;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
@@ -33,9 +32,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private ArrayList<String> userName = new ArrayList<String>();
     private String newUser;
     private int save;
-    private String highScoreUserName = "";
-    private ArrayList<Integer> scores = new ArrayList<Integer>();
+    private String bestScoreUserName = "";
+    private int bestScoreLevel = 0;
+    private ArrayList<Integer> score = new ArrayList<Integer>();
     private PlayerInfo playerInfo;
+    private ArrayList<Integer> currentLevel = new ArrayList<Integer>();
 
 
     public GameBoard getGameBoard() {
@@ -86,7 +87,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         gameTimer = new Timer(10, e -> gameCycle());
 
-        playerInfo = new PlayerInfo(userName, scores);
+        playerInfo = new PlayerInfo(userName, score, currentLevel);
     }
 
     public void resetScore() {
@@ -269,104 +270,44 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         playerInfo.getUserName().add(newUser);
         playerInfo.getScore().add(total);
+        playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
 
 
-        Integer maxScore = Collections.min(playerInfo.getScore());
-        Integer maxScoreIndex = playerInfo.getScore().indexOf(maxScore);
-        highScoreUserName = playerInfo.getUserName().get(maxScoreIndex);
-
-        int maxMinutes = 0;
-        int maxSeconds = 0;
-
-        maxMinutes = (maxScore / 60000) % 60;
-        maxSeconds = (maxScore / 1000) % 60;
-
-        String formatMaxSeconds;
-        String formatMaxMinutes;
-
-        formatMaxSeconds = String.format("%02d", maxSeconds);
-        formatMaxMinutes = String.format("%02d", maxMinutes);
-
-        System.out.println("Highest score is" + highScoreUserName + ", with a score of " + formatMaxMinutes + ":" + formatMaxSeconds);
-
-        System.out.println(Arrays.toString(playerInfo.getUserName().toArray()));
-        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds, "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
-
-/*
-
-        try{
-            File highScoreFile = new File("highScore.ser");
-            if(!highScoreFile.exists())
-                highScoreFile.createNewFile();
-
-            FileOutputStream writeTo = new FileOutputStream("highScore.ser",true);
-
-            ObjectOutputStream writeThis = new ObjectOutputStream(writeTo);
+        Integer minScore = Collections.min(playerInfo.getScore());
+        Integer minScoreIndex = playerInfo.getScore().indexOf(minScore);
+        bestScoreUserName = playerInfo.getUserName().get(minScoreIndex);
+        bestScoreLevel = playerInfo.getCurrentLevel().get(minScoreIndex);
 
 
-            writeThis.writeObject(playerInfo);
-            writeThis.flush();
-            writeThis.close();
+        int minMinutes = 0;
+        int minSeconds = 0;
 
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+        minMinutes = (minScore / 60000) % 60;
+        minSeconds = (minScore / 1000) % 60;
 
-        PlayerInfo playerInfo2 = null;
-        try{
-            FileInputStream readOf = new FileInputStream("highScore.ser");
-            ObjectInputStream readThis = new ObjectInputStream(readOf);
+        String formatMinSeconds;
+        String formatMinMinutes;
 
-            playerInfo2 = (PlayerInfo)readThis.readObject();
-            readThis.close();
-            System.out.println(playerInfo2.toString());
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
-        File highScoreFile = new File("highScore.txt");
-        String line = "";
+        formatMinSeconds = String.format("%02d", minSeconds);
+        formatMinMinutes = String.format("%02d", minMinutes);
+
+        JOptionPane.showMessageDialog(gameView,"The best score is "+ bestScoreUserName +"with a score of "+ formatMinMinutes+":"+formatMinSeconds+"for level: "+bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds+" for level: "+currentLevel.get(currentLevel.size()-1), "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+
+        File scoresFile = new File("scores.txt");
 
         try {
-            FileWriter fileWriter = new FileWriter(highScoreFile,true);
+            FileWriter fileWriter = new FileWriter(scoresFile,true);
             Writer writer = new BufferedWriter(fileWriter);
-            int size = playerInfo.getUserName().size();
-            for (int i = 0; i < size; i++) {
+            if (!playerInfo.getUserName().isEmpty()) {
 
                 writer.write(playerInfo.nameToString());
                 writer.write(playerInfo.scoreToString());
+                writer.write(playerInfo.currentLevelToString());
             }
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        try{
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(highScoreFile));
-                    if(!reader.ready()){
-                        throw new IOException();
-                    }
-
-                while(true){
-                    try {
-                        if (!((line = reader.readLine())!=null)) break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //playerInfo.getUserName().add(line);
-                }
-                try {
-                    reader.close();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        }//writes every level of each round (each run of the game)
     }
 }

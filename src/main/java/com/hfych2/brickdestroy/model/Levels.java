@@ -17,6 +17,9 @@ public class Levels {
     private Brick[][] levels;//all levels
     private int level;//current level indicator
 
+    public int getLevel() {
+        return level;
+    }
 
     public Levels(Wall wall) {
         this.wall = wall;
