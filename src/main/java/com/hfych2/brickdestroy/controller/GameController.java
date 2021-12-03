@@ -27,7 +27,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private int seconds = 0;
 
     private final int penaltyScore = 20000;
-    //private final int rewardScore = -20000;
 
     private ArrayList<String> userName = new ArrayList<String>();
     private String newUser;
@@ -66,11 +65,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 total = total + penaltyScore;
             }
             debugConsole.getDebugPanel().setGivePenalty(false);
-
-/*              if(debugConsole.getDebugPanel().isGiveReward()){
-                  total = total + rewardScore;
-              }
-              debugConsole.getDebugPanel().setGiveReward(false);*/
 
             total = total + 1000;
             minutes = (total / 60000) % 60;
@@ -119,6 +113,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             gameBoard.ballReset();
             gameTimer.stop();
             scoreTimer.stop();
+            debugConsole.getDebugPanel().setGivePenalty(true);
         } else if (gameBoard.getWall().isDone()) {
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");

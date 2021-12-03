@@ -45,25 +45,7 @@ public class DebugPanel extends JPanel {
 
 
     private boolean givePenalty;
-    private boolean giveReward;
 
-    public boolean isGivePenalty() {
-        return givePenalty;
-    }
-
-    public void setGivePenalty(boolean givePenalty) {
-        this.givePenalty = givePenalty;
-    }
-
-/*
-    public boolean isGiveReward() {
-        return giveReward;
-    }
-
-    public void setGiveReward(boolean giveReward) {
-        this.giveReward = giveReward;
-}
-*/
 
     private DebugPanel(GameController gameController){
 
@@ -164,6 +146,14 @@ public class DebugPanel extends JPanel {
     public void setValues(int x,int y){
         changeBallSpeedSlider.setValue(x);
         changeBallSpeedSlider.setValue(y);
+    }
+
+    public boolean isGivePenalty() {
+        return givePenalty;
+    }
+
+    public void setGivePenalty(boolean givePenalty) {
+        this.givePenalty = givePenalty;
     }
 
 }
