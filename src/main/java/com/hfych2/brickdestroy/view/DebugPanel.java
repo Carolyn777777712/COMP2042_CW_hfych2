@@ -139,6 +139,7 @@ public class DebugPanel extends JPanel {
                 if(!gameController.getGameBoard().getWall().hasLevel()){
                     skipLevelsButton.setText("Last Level");
                     skipLevelsButton.setEnabled(false);
+                   /* gameController.getGameView().showGif();*/
                 }
             }
         });

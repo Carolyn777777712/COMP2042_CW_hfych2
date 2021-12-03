@@ -8,7 +8,7 @@ public class Levels {
 
     private final Wall wall;
 
-    private static final int LEVELS_COUNT = 4;
+    private static final int LEVELS_COUNT = 5;
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
@@ -25,7 +25,7 @@ public class Levels {
         this.wall = wall;
     }
 
-    Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type) {
+    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -59,13 +59,13 @@ public class Levels {
         for (double y = brickHgt; i < makeBricks.length; i++, y += 2 * brickHgt) {
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x, y);
-            makeBricks[i] = new ClayBrick(p, brickSize);
+            makeBricks[i] = makeBrick(p, brickSize, type);
         }
         return makeBricks;
 
     }
 
-    Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB) {
+    private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -110,12 +110,16 @@ public class Levels {
         return makeBricks;
     }
 
-    Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
+    protected Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
+
         Brick[][] levelsCount = new Brick[LEVELS_COUNT][];
+
         levelsCount[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY);
         levelsCount[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, CEMENT);
         levelsCount[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
         levelsCount[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
+        levelsCount[4] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL);
+
         return levelsCount;
     }
 
@@ -128,7 +132,7 @@ public class Levels {
         return level < levels.length;
     }
 
-    Brick makeBrick(Point point, Dimension size, int type) {
+    private Brick makeBrick(Point point, Dimension size, int type) {
         Brick brickType;
         switch (type) {
             case CLAY:
