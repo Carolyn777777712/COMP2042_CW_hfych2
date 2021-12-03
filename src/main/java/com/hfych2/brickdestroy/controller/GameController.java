@@ -109,11 +109,15 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameBoard.getWall().wallReset();
                 gameBoard.resetGameBoard();
                 gameView.setMessage("Game over");
+                gameView.setScoreMessage("");
+
+                total = 0;
+                minutes = 0;
+                seconds = 0;
             }
             gameBoard.ballReset();
             gameTimer.stop();
             scoreTimer.stop();
-            debugConsole.getDebugPanel().setGivePenalty(true);
         } else if (gameBoard.getWall().isDone()) {
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");
@@ -286,13 +290,13 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         formatMinSeconds = String.format("%02d", minSeconds);
         formatMinMinutes = String.format("%02d", minMinutes);
 
-        JOptionPane.showMessageDialog(gameView,"The best score is "+ bestScoreUserName +"with a score of "+ formatMinMinutes+":"+formatMinSeconds+"for level: "+bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
-        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds+" for level: "+currentLevel.get(currentLevel.size()-1), "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gameView, "The best score is " + bestScoreUserName + "with a score of " + formatMinMinutes + ":" + formatMinSeconds + "for level: " + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds + " for level: " + currentLevel.get(currentLevel.size() - 1), "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
 
         File scoresFile = new File("scores.txt");
 
         try {
-            FileWriter fileWriter = new FileWriter(scoresFile,true);
+            FileWriter fileWriter = new FileWriter(scoresFile, true);
             Writer writer = new BufferedWriter(fileWriter);
             if (!playerInfo.getUserName().isEmpty()) {
 

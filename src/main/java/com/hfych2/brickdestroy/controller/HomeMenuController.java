@@ -23,7 +23,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
             homeMenu.getOwner().enableGameBoard();
 
         } else if (homeMenu.getInfoButton().contains(p)){
-            homeMenu.getOwner().enableView();
+            homeMenu.getOwner().enableInfoView();
         }
         else if (homeMenu.getExitButton().contains(p)) {
             System.out.println("Goodbye " + System.getProperty("user.name"));

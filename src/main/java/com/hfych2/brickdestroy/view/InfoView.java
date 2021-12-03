@@ -40,12 +40,12 @@ public class InfoView extends JTextPane implements KeyListener{
         setBorder(title);
         setEditable(false);
 
-        setPreferredSize(new Dimension(600,500));
+        setPreferredSize(new Dimension(600,450));
 
         playerInstructions();
         gameOperations();
         scoreCalculations();
-        backToMainMenu();
+        startGame();
 
         setBackground(new Color(162,228,201));
 
@@ -117,7 +117,7 @@ public class InfoView extends JTextPane implements KeyListener{
         }
     }
 
-    private void backToMainMenu(){
+    private void startGame(){
         try{
             bulletStyle();
             instructions.insertString(instructions.getLength(), "\u002A Press 'ENTER' to start playing :)", attributes);

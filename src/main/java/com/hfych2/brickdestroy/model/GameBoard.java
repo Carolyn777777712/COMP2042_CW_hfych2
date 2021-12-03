@@ -17,6 +17,8 @@
  */
 package com.hfych2.brickdestroy.model;
 
+import com.hfych2.brickdestroy.controller.GameFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -35,7 +37,7 @@ public class GameBoard {
     Player player;
     Point ballPos;
 
-    private JFrame owner;
+    private GameFrame owner;
 
     private int ballCount;
     private boolean ballLost;
@@ -44,7 +46,7 @@ public class GameBoard {
 
     private boolean showPauseMenu;
 
-    private GameBoard(JFrame owner) {
+    private GameBoard(GameFrame owner) {
 
         this.owner = owner;
 
@@ -55,7 +57,7 @@ public class GameBoard {
     }
 
     //new stuff
-    public static GameBoard createGameBoard(JFrame owner) {
+    public static GameBoard createGameBoard(GameFrame owner) {
         return new GameBoard(owner);//factory method
     }
 
@@ -114,7 +116,7 @@ public class GameBoard {
         player.moveTo(new Point(300, 430));//new
     }
 
-    public JFrame getOwner() {
+    public GameFrame getOwner() {
         return owner;
     }
 

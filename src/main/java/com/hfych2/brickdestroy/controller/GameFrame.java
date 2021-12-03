@@ -57,7 +57,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         gameView = new GameView();
         gameController = new GameController(gameBoard, gameView);
 
-        homeMenu = new HomeMenu(this,new Dimension(500,500));
+        homeMenu = new HomeMenu(this,new Dimension(600,450));
         homeMenuController = new HomeMenuController(homeMenu);
 
         infoView = new InfoView(this);
@@ -77,6 +77,15 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+/*    public void enableHomeMenu(){
+        this.remove(gameView);
+        this.remove(infoView);
+        this.add(homeMenu,BorderLayout.CENTER);
+        homeMenu.repaint();
+        this.addMouseListener(homeMenuController);
+        this.addMouseMotionListener(homeMenuController);
+    }*/
+
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -94,7 +103,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.addWindowFocusListener(this);
 
     }
-    public void enableView(){
+    public void enableInfoView(){
         this.dispose();
         this.remove(homeMenu);
         this.add(infoView,BorderLayout.CENTER);
