@@ -8,10 +8,11 @@ public class Levels {
 
     private final Wall wall;
 
-    private static final int LEVELS_COUNT = 5;
+    private static final int LEVELS_COUNT = 6;
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
+    private static final int GOLD = 4;
     private Brick[] bricks;
 
     private Brick[][] levels;//all levels
@@ -119,6 +120,7 @@ public class Levels {
         levelsCount[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
         levelsCount[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
         levelsCount[4] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL);
+        levelsCount[5] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, GOLD, CEMENT);
 
         return levelsCount;
     }
@@ -143,6 +145,9 @@ public class Levels {
                 break;
             case CEMENT:
                 brickType = new CementBrick(point, size);
+                break;
+            case GOLD:
+                brickType = new GoldBrick(point,size);
                 break;
             default:
                 throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));

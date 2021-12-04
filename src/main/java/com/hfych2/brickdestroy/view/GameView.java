@@ -1,5 +1,6 @@
 package com.hfych2.brickdestroy.view;
 
+
 import com.hfych2.brickdestroy.model.Ball;
 import com.hfych2.brickdestroy.model.Brick;
 import com.hfych2.brickdestroy.model.GameBoard;
@@ -38,31 +39,6 @@ public class GameView extends JPanel {
 
     private String scoreMessage;
 
- /*   private JButton gifButton;
-    private int clicked = 0;
-    private Timer gifTimer;
-
-    public void showGif(){
-
-        gifButton = new JButton(new ImageIcon(getClass().getResource("/gif/cuteFlyingChristmasTree.gif")));
-        gifButton.setBounds(0,0,550,450);
-        add(gifButton);
-        gifButton.addActionListener(e -> checkClicked());
-
-    }
-
-    private void checkClicked(){
-        clicked++;
-        if(clicked >= 10) {
-            remove(gifButton);
-            repaint();
-        }
-
-        gifTimer = new Timer(8000, e2 -> {
-                showGif();
-        });
-        gifTimer.start();
-    }*/
 
     public GameView(){
         initialise();
