@@ -271,27 +271,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         playerInfo.getScore().add(total);
         playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
 
-
-        Integer minScore = Collections.min(playerInfo.getScore());
-        Integer minScoreIndex = playerInfo.getScore().indexOf(minScore);
-        bestScoreUserName = playerInfo.getUserName().get(minScoreIndex);
-        bestScoreLevel = playerInfo.getCurrentLevel().get(minScoreIndex);
-
-
-        int minMinutes = 0;
-        int minSeconds = 0;
-
-        minMinutes = (minScore / 60000) % 60;
-        minSeconds = (minScore / 1000) % 60;
-
-        String formatMinSeconds;
-        String formatMinMinutes;
-
-        formatMinSeconds = String.format("%02d", minSeconds);
-        formatMinMinutes = String.format("%02d", minMinutes);
-
-        JOptionPane.showMessageDialog(gameView, "The best score is " + bestScoreUserName + "with a score of " + formatMinMinutes + ":" + formatMinSeconds + "for level: " + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
-        JOptionPane.showMessageDialog(gameView, "This is your score " + formatMinutes + ":" + formatSeconds + " for level: " + currentLevel.get(currentLevel.size() - 1), "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gameView, "This is your score "
+                + formatMinutes + ":" + formatSeconds
+                + " for level: " + currentLevel.get(currentLevel.size() - 1),
+                "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+        //Pop up for score of current level
 
         File scoresFile = new File("scores.txt");
 
@@ -308,5 +292,57 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         } catch (Exception e) {
             e.printStackTrace();
         }//writes every level of each round (each run of the game)
+
+        ArrayList<String> name = new ArrayList<>();
+        ArrayList<Integer> thisLevel = new ArrayList<>();
+        ArrayList<Integer> thisScore = new ArrayList<>();
+        String[] splitParts;
+
+        try {
+            Scanner scanner = new Scanner(scoresFile);
+
+                while (scanner.hasNextLine()) {
+                    String wholeLine = scanner.nextLine();
+                    splitParts = wholeLine.split(": ");
+                    String label = splitParts[0];
+                    String value = splitParts[1];
+
+                    if (label.equals("Name"))
+                        name.add(value);
+                    else if (label.equals("Score"))
+                        thisScore.add(Integer.parseInt(value));
+                    else
+                        thisLevel.add(Integer.parseInt(value));
+
+                }
+            Integer minScore = Collections.min(thisScore);
+            Integer minScoreIndex = thisScore.indexOf(minScore);
+            bestScoreUserName = name.get(minScoreIndex);
+            bestScoreLevel = thisLevel.get(minScoreIndex);
+
+            int minMinutes = 0;
+            int minSeconds = 0;
+
+            minMinutes = (minScore / 60000) % 60;
+            minSeconds = (minScore / 1000) % 60;
+
+            String formatMinSeconds;
+            String formatMinMinutes;
+
+            formatMinSeconds = String.format("%02d", minSeconds);
+            formatMinMinutes = String.format("%02d", minMinutes);
+
+            JOptionPane.showMessageDialog(gameView, "The all time best score is " + bestScoreUserName
+                    + " with a score of " + formatMinMinutes
+                    + ":" + formatMinSeconds + " for level: "
+                    + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
+            //Pop up all time best score across all levels
+
+            scanner.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -18,15 +18,15 @@ public class PlayerInfo {
     }
 
     public String nameToString(){
-        return "Name:"+userName+"\n";
+        return "Name: "+userName.get(userName.size()-1)+"\n";
     }
 
     public String scoreToString(){
-        return "\t\tScore: "+score+"\n";
+        return "Score: "+score.get(score.size()-1)+"\n";
     }
 
     public String currentLevelToString(){
-        return "\t\tLevel: "+currentLevel+"\n\n";
+        return "Level: "+currentLevel.get(currentLevel.size()-1)+"\n";
     }
 
     public ArrayList<String> getUserName() {
