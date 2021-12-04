@@ -36,26 +36,26 @@ public class InfoView extends JTextPane implements KeyListener{
 
         TitledBorder title = BorderFactory.createTitledBorder(border,titleText);
         title.setTitleFont(new Font("Monospaced", Font.BOLD,15));
-        title.setTitleColor(new Color(255,101,71));
+        title.setTitleColor(new Color(148,77,255));
         setBorder(title);
         setEditable(false);
 
-        setPreferredSize(new Dimension(600,450));
+        setPreferredSize(new Dimension(800,450));
 
         playerInstructions();
         gameOperations();
         scoreCalculations();
+        penaltyCalculations();
         startGame();
 
         setBackground(new Color(162,228,201));
-
     }
 
 
     private void bulletStyle(){
         attributes = new SimpleAttributeSet();
         StyleConstants.setFontFamily(attributes,"Monospaced");
-        StyleConstants.setFontSize(attributes,20);
+        StyleConstants.setFontSize(attributes,17);
         StyleConstants.setLineSpacing(attributes,2);
         StyleConstants.setAlignment(attributes,1);
         StyleConstants.setBold(attributes,true);
@@ -97,7 +97,10 @@ public class InfoView extends JTextPane implements KeyListener{
             instructions.insertString(instructions.getLength(), "\u2022 To Access Debug Console: \n", attributes);
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 Hold 'ALT' and 'SHIFT' and 'F1'\n", attributes);
-
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 When 'Focus Lost' is shown: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Press 'SPACEBAR' to continue to game\n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -106,15 +109,30 @@ public class InfoView extends JTextPane implements KeyListener{
     private void scoreCalculations() {
         try {
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u2022 Score Calculations: \n", attributes);
+            instructions.insertString(instructions.getLength(), "\u2022 Scores: \n", attributes);
             subBulletsStyle();
-            instructions.insertString(instructions.getLength(), "\t \u2022 Break 1 Clay brick   = 1 score\n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Break 1 Cement brick = 2 score\n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Break 1 Steel brick  = 3 score\n", attributes);
-
+            instructions.insertString(instructions.getLength(), "\t \u2022 Score is the time taken to complete the level\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Score is only shown/taken account when a level is completed\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"Save Score Pop Up\" will be shown after a level is completed\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"Score Pop Up\" shows the score of the current level\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The best score is the minimum time taken to complete a level\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"Best Score Pop Up\" shows the all time best score across all levels\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Each use of the penalties results in an addition of 20 seconds to score\n", attributes);
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
+    }
+
+    private void penaltyCalculations(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 Penalties: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Changing ball speed in Debug Console\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Reset balls in Debug Console\n", attributes);
+        }catch (BadLocationException e) {
+        e.printStackTrace();
+    }
     }
 
     private void startGame(){

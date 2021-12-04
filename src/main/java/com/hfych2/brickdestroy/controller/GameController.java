@@ -124,7 +124,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 save = JOptionPane.showConfirmDialog(
                         gameBoard.getOwner(),
                         "Would you like to save the current score?",
-                        "Save Score",
+                        "Save Score Pop Up",
                         JOptionPane.YES_NO_OPTION);
                 gameTimer.stop();
                 if (save == 0) {

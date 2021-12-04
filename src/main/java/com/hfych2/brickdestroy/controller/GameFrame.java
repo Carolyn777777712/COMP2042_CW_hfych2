@@ -46,6 +46,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    private JScrollPane jScrollPane;
+
     public GameFrame(){
         super();
 
@@ -65,6 +67,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.add(homeMenu,BorderLayout.CENTER);
         this.addMouseListener(homeMenuController);
         this.addMouseMotionListener(homeMenuController);
+
+        jScrollPane = new JScrollPane(infoView);
+
 
     }
 
@@ -89,7 +94,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
-        this.remove(infoView);
+        this.remove(jScrollPane);
         this.add(gameView,BorderLayout.CENTER);
         this.gameView.setPreferredSize(new Dimension(gameBoard.getDefWidth(),gameBoard.getDefHeight()));
         this.setFocusable(true);
@@ -106,7 +111,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableInfoView(){
         this.dispose();
         this.remove(homeMenu);
-        this.add(infoView,BorderLayout.CENTER);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.add(jScrollPane,BorderLayout.CENTER);
         this.setFocusable(true);
         this.addKeyListener(infoView);
         this.setUndecorated(false);
