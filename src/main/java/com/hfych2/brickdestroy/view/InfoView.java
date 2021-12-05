@@ -44,10 +44,12 @@ public class InfoView extends JTextPane implements KeyListener{
 
         playerInstructions();
         gameOperations();
+        debugConsole();
         scoreCalculations();
         penaltyCalculations();
         scoreSaving();
         savingConditions();
+        caution();
         startGame();
 
         setBackground(new Color(162,228,201));
@@ -108,6 +110,20 @@ public class InfoView extends JTextPane implements KeyListener{
         }
     }
 
+    private void debugConsole(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 How to Use Debug Console: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Use the Slider to change to preferred ball speed\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"Reset Ball Speed\" must the pressed to change the speed\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \" Reset Balls\" button resets speed and ball count to default\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"Skip to: \" button skips to the next level on click \n", attributes);
+        }catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void scoreCalculations() {
         try {
             bulletStyle();
@@ -157,11 +173,25 @@ public class InfoView extends JTextPane implements KeyListener{
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 The \"YES\" option is chosen in the \"Save Score Pop Up\" \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Level 1 is completed in less than or equal to 2 minutes time   (120000 ms) \n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Level 2 is completed in less than or equal to 2.5 minutes time (150000 ms)\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 2 is completed in less than or equal to 2.5 minutes time (150000 ms) \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Level 3 is completed in less than or equal to 3 minutes time   (180000 ms) \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Level 4 is completed in less than or equal to 3 minutes time   (180000 ms) \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Level 5 is completed in less than or equal to 4 minutes time   (240000 ms) \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Level 6 is completed in less than or equal to 4 minutes time   (240000 ms) \n", attributes);
+        }catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void caution(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 Caution: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Completion of last level and score saving will bring back to HomeMenu \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 But, \"Focus Lost\" will be shown after choosing \"START\" in the HomeMenu \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Please press 'SPACEBAR' to regain focus to the screen \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 And, select \"NO\" option for \"Save Score Pop Up\" to proceed with the game \n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
