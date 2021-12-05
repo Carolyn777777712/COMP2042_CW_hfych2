@@ -145,11 +145,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameTimer.stop();
                 if (save == 0)
                     scoreSaving();
-/*                gameBoard.getOwner().enableHomeMenu();
+                gameBoard.getOwner().enableHomeMenu();
                 resetScore();
                 gameBoard.getWall().getLevels().setLevel(0);
                 gameBoard.ballReset();
-                gameBoard.resetGameBoard();*/
+                gameBoard.resetGameBoard();
             }
         }
 
