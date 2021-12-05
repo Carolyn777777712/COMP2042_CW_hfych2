@@ -41,7 +41,6 @@ public class HomeMenu extends JPanel {
     private static final String INFO_TEXT = "INFO";
     private static final String EXIT_TEXT = "EXIT";
 
-
     private static final Color TEXT_COLOR = new Color(255,243,125);
     private static final Color CLICKED_TEXT = Color.BLACK;
     private static final Color ENTERED_TEXT = Color.BLACK;
@@ -49,7 +48,6 @@ public class HomeMenu extends JPanel {
     private static final Color CLICKED_BUTTON_COLOR = Color.RED;
     private static final Color ENTERED_START_BUTTON_COLOR = new Color(247,129,131);
     private static final Color ENTERED_EXIT_BUTTON_COLOR = new Color(255,179,112);
-
 
     private Rectangle menuFace;
     private Rectangle startButton;

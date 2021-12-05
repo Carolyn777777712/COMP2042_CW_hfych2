@@ -26,25 +26,23 @@ import java.awt.geom.Point2D;
 
 public class GameBoard {
 
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
-
+    private Ball ball;
+    private Player player;
+    private GameFrame owner;
     private Wall wall;
     private Impacts impacts;
 
-    //new stuff
-    Ball ball;
-    Player player;
-    Point ballPos;
+    private static final int DEF_WIDTH = 600;
+    private static final int DEF_HEIGHT = 450;
 
-    private GameFrame owner;
+    private Point ballPos;
+    private Point startPoint;
 
     private int ballCount;
     private boolean ballLost;
-    private Point startPoint;
-    //new stuff
 
     private boolean showPauseMenu;
+
 
     private GameBoard(GameFrame owner) {
 
@@ -56,7 +54,6 @@ public class GameBoard {
 
     }
 
-    //new stuff
     public static GameBoard createGameBoard(GameFrame owner) {
         return new GameBoard(owner);//factory method
     }
@@ -73,7 +70,6 @@ public class GameBoard {
         //initialize the first level
         wall.nextLevel();
 
-        //new
         ballCount = 3;
         ballLost = false;
         makeBall(ballPos);
@@ -87,14 +83,13 @@ public class GameBoard {
 
         ball.setSpeed(speedX, speedY);
         player = new Player((Point) ballPos.clone(), 150, 10, new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT));
-        //new
+
     }
 
     private void makeBall(Point2D ballPos) {
         ball = new RubberBall(ballPos);
     }
 
-    //new
     public void ballReset() {
         player.moveTo(new Point(300, 430));
         ball.moveTo(new Point(300, 430));
@@ -184,7 +179,7 @@ public class GameBoard {
     public static int getDefHeight() {
         return DEF_HEIGHT;
     }
-    //new
+
 
 }
 

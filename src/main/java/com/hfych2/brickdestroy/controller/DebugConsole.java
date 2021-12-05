@@ -66,6 +66,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.setLocation(x,y);
     }
 
+    public DebugPanel getDebugPanel() {
+        return debugPanel;
+    }
 
     @Override
     public void windowOpened(WindowEvent windowEvent) {
@@ -104,7 +107,4 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     }
 
-    public DebugPanel getDebugPanel() {
-        return debugPanel;
-    }
 }

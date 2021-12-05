@@ -29,20 +29,17 @@ import java.awt.event.ActionListener;
 
 public class DebugPanel extends JPanel {
 
-
     private GameController gameController;
+
+    private static final Color DEF_BKG = Color.WHITE;
 
     private int clicks = 2;
     private JButton skipLevelsButton;
-
-
-    private static final Color DEF_BKG = Color.WHITE;
 
     private JButton resetBallsButton;
     private JButton changeBallSpeedButton;
 
     private JSlider changeBallSpeedSlider;
-
 
     private boolean givePenalty;
 
@@ -76,6 +73,7 @@ public class DebugPanel extends JPanel {
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(9,9));
     }
+
     private JButton changeBallSpeedButton(){
         JButton changeBallSpeedButton = new JButton("Reset Ball Speed");
         changeBallSpeedButton.addActionListener(new ActionListener() {

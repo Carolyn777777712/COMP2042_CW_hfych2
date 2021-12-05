@@ -11,6 +11,8 @@ import java.awt.Point;
  *
  * Modified by Carolyn Han En Qi since 19/11/2021.
  */
+
+
 public class ClayBrick extends Brick {
 
     private static final String NAME = "Clay Brick";

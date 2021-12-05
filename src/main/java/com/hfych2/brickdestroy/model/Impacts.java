@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 
 
 public class Impacts {
+
     private final Wall wall;
     private GameBoard gameBoard;
 
@@ -31,7 +32,7 @@ public class Impacts {
         }
     }
 
-    boolean impactWall() {
+    private boolean impactWall() {
         for (Brick b : wall.getLevels().getBricks()) {
                 switch (b.findImpact(gameBoard.getBall())) {
                     //Vertical Impact
@@ -54,7 +55,7 @@ public class Impacts {
         return false;
     }
 
-    boolean impactBorder() {
+    private boolean impactBorder() {
         Point2D p = gameBoard.getBall().getPosition();
         return ((p.getX() < wall.getArea().getX()) || (p.getX() > (wall.getArea().getX() + wall.getArea().getWidth())));
     }

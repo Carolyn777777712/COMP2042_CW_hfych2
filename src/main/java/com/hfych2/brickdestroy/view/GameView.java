@@ -16,9 +16,8 @@ public class GameView extends JPanel {
 
     private GameBoard gameBoard;
 
-
     private static final Color BG_COLOR = Color.WHITE;
-
+    private static final Color MENU_COLOR = new Color(0, 255, 0);
 
     private Font menuFont;
     private static final int TEXT_SIZE = 30;
@@ -32,8 +31,6 @@ public class GameView extends JPanel {
     private Rectangle restartButtonRect;
     private Rectangle exitButtonRect;
 
-    private static final Color MENU_COLOR = new Color(0, 255, 0);
-
     private String message;
     private int strLen;
 
@@ -44,7 +41,7 @@ public class GameView extends JPanel {
         initialise();
     }
 
-    void initialise()
+    private void initialise()
     {
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         message = "";

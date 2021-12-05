@@ -9,11 +9,6 @@ import java.util.Random;
 
 public class Crack {
 
-    private final Brick brick;
-
-    private static final int CRACK_SECTIONS = 3;
-    private static final double JUMP_PROBABILITY = 0.7;
-
 
     public static final int LEFT = 10;
     public static final int RIGHT = 20;
@@ -22,6 +17,10 @@ public class Crack {
     public static final int VERTICAL = 100;
     public static final int HORIZONTAL = 200;
 
+    private final Brick brick;
+
+    private static final int CRACK_SECTIONS = 3;
+    private static final double JUMP_PROBABILITY = 0.7;
 
     private static Random rnd;
 

@@ -48,6 +48,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private JScrollPane jScrollPane;
 
+
     public GameFrame(){
         super();
 
@@ -70,7 +71,13 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         jScrollPane = new JScrollPane(infoView);
 
+    }
 
+    private void autoLocate(){
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (size.width - this.getWidth()) / 2;
+        int y = (size.height - this.getHeight()) / 2;
+        this.setLocation(x,y);
     }
 
     public void initialize(){
@@ -120,14 +127,6 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         initialize();
 
     }
-
-    private void autoLocate(){
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (size.width - this.getWidth()) / 2;
-        int y = (size.height - this.getHeight()) / 2;
-        this.setLocation(x,y);
-    }
-
 
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {

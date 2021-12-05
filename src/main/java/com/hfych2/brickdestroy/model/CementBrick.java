@@ -24,6 +24,20 @@ public class CementBrick extends Brick {
         brickFace = super.brickFace;
     }
 
+    private void updateBrick(){
+        if(!super.isBroken()){
+            GeneralPath path = crack.draw();
+            path.append(super.brickFace,false);
+            brickFace = path;
+        }
+    }
+
+    public void repair(){
+        super.repair();
+        crack.reset();
+        brickFace = super.brickFace;
+    }
+
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
@@ -47,17 +61,4 @@ public class CementBrick extends Brick {
         return brickFace;
     }
 
-    private void updateBrick(){
-        if(!super.isBroken()){
-            GeneralPath path = crack.draw();
-            path.append(super.brickFace,false);
-            brickFace = path;
-        }
-    }
-
-    public void repair(){
-        super.repair();
-        crack.reset();
-        brickFace = super.brickFace;
-    }
 }

@@ -18,38 +18,27 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     private GameBoard gameBoard;
     private GameView gameView;
-
+    private PlayerInfo playerInfo;
     private DebugConsole debugConsole;
 
     private Timer gameTimer;
+
+    private Timer scoreTimer;
     private int total = 0;
     private int minutes = 0;
     private int seconds = 0;
+    private String formatSeconds;
+    private String formatMinutes;
 
     private final int penaltyScore = 20000;
 
     private ArrayList<String> userName = new ArrayList<String>();
+    private ArrayList<Integer> score = new ArrayList<Integer>();
+    private ArrayList<Integer> currentLevel = new ArrayList<Integer>();
     private String newUser;
     private int save;
     private String bestScoreUserName = "";
     private int bestScoreLevel = 0;
-    private ArrayList<Integer> score = new ArrayList<Integer>();
-    private PlayerInfo playerInfo;
-    private ArrayList<Integer> currentLevel = new ArrayList<Integer>();
-
-
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
-
-    public GameView getGameView() {
-        return gameView;
-    }
-
-
-    private Timer scoreTimer;
-    private String formatSeconds;
-    private String formatMinutes;
 
 
     public GameController(GameBoard gameBoard, GameView gameView) {
@@ -82,19 +71,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         gameTimer = new Timer(10, e -> gameCycle());
 
         playerInfo = new PlayerInfo(userName, score, currentLevel);
-    }
-
-    public void resetScore() {
-
-        scoreTimer.stop();
-        total = 0;
-        minutes = 0;
-        seconds = 0;
-
-        formatSeconds = String.format("%02d", seconds);
-        formatMinutes = String.format("%02d", minutes);
-
-        gameView.setScoreMessage("Time Taken(mm:ss) " + formatMinutes + ":" + formatSeconds);
     }
 
     private void gameCycle() {
@@ -154,6 +130,184 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         }
 
         gameView.repaint();
+    }
+
+    private void scoreSaving() {
+
+        newUser = JOptionPane.showInputDialog(gameView, "What is your name?",
+                "Save Score", JOptionPane.INFORMATION_MESSAGE);
+
+        playerInfo.getUserName().add(newUser);
+        playerInfo.getScore().add(total);
+        playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
+
+        JOptionPane.showMessageDialog(gameView, "This is your score "
+                        + formatMinutes + ":" + formatSeconds
+                        + " for level: " + currentLevel.get(currentLevel.size() - 1),
+                "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
+        //Pop up for score of current level
+
+        scoreConditions();
+
+        File scoresFile = new File("highScoresList.txt");
+
+        try {
+            FileWriter fileWriter = new FileWriter(scoresFile, true);
+            Writer writer = new BufferedWriter(fileWriter);
+            if (!playerInfo.getUserName().isEmpty()) {
+
+                writer.write(playerInfo.nameToString());
+                writer.write(playerInfo.scoreToString());
+                writer.write(playerInfo.currentLevelToString());
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }//writes every level of each round (each run of the game)
+
+        ArrayList<String> name = new ArrayList<>();
+        ArrayList<Integer> thisLevel = new ArrayList<>();
+        ArrayList<Integer> thisScore = new ArrayList<>();
+        String[] splitParts;
+
+        try {
+            Scanner scanner = new Scanner(scoresFile);
+
+                while (scanner.hasNextLine()) {
+                    String wholeLine = scanner.nextLine();
+                    splitParts = wholeLine.split(": ");
+                    String label = splitParts[0];
+                    String value = splitParts[1];
+
+                    if (label.equals("Name"))
+                        name.add(value);
+                    else if (label.equals("Score"))
+                        thisScore.add(Integer.parseInt(value));
+                    else
+                        thisLevel.add(Integer.parseInt(value));
+
+                }
+            Integer minScore = Collections.min(thisScore);
+            Integer minScoreIndex = thisScore.indexOf(minScore);
+            bestScoreUserName = name.get(minScoreIndex);
+            bestScoreLevel = thisLevel.get(minScoreIndex);
+
+            int minMinutes = 0;
+            int minSeconds = 0;
+
+            minMinutes = (minScore / 60000) % 60;
+            minSeconds = (minScore / 1000) % 60;
+
+            String formatMinSeconds;
+            String formatMinMinutes;
+
+            formatMinSeconds = String.format("%02d", minSeconds);
+            formatMinMinutes = String.format("%02d", minMinutes);
+
+            JOptionPane.showMessageDialog(gameView, "The all time best score is " + bestScoreUserName
+                    + " with a score of " + formatMinMinutes
+                    + ":" + formatMinSeconds + " for level: "
+                    + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
+            //Pop up all time best score across all levels
+
+            scanner.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void scoreConditions(){
+        if(currentLevel.get(currentLevel.size()-1) == 1)
+        {
+            if(score.get(score.size()-1) <= 120000){
+                JOptionPane.showMessageDialog(gameView,
+                        "Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,
+                        "Sorry, time taken for this level needs to be less than or equal to 2 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if(currentLevel.get(currentLevel.size()-1) == 2)
+        {
+            if(score.get(score.size()-1) <= 150000){
+                JOptionPane.showMessageDialog(gameView,
+                        "Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,
+                        "Sorry, time taken for this level needs to be less than or equal to 2.5 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if((currentLevel.get(currentLevel.size()-1) == 3) || (currentLevel.get(currentLevel.size()-1) == 4))
+        {
+            if(score.get(score.size()-1) <= 180000){
+                JOptionPane.showMessageDialog(gameView,
+                        "Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,
+                        "Sorry, time taken for this level needs to be less than or equal to 3 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if((currentLevel.get(currentLevel.size()-1) == 5) || (currentLevel.get(currentLevel.size()-1) == 6))
+        {
+            if(score.get(score.size()-1) <= 240000){
+                JOptionPane.showMessageDialog(gameView,
+                        "Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,
+                        "Sorry, time taken for this level needs to be less than or equal to 4 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    public void onLostFocus() {
+        gameTimer.stop();
+        scoreTimer.stop();
+        gameView.setMessage("Focus Lost");
+        gameView.repaint();
+    }
+
+    public void resetScore() {
+
+        scoreTimer.stop();
+        total = 0;
+        minutes = 0;
+        seconds = 0;
+
+        formatSeconds = String.format("%02d", seconds);
+        formatMinutes = String.format("%02d", minutes);
+
+        gameView.setScoreMessage("Time Taken(mm:ss) " + formatMinutes + ":" + formatSeconds);
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 
     @Override
@@ -265,148 +419,4 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         }
     }
 
-    public void onLostFocus() {
-        gameTimer.stop();
-        scoreTimer.stop();
-        gameView.setMessage("Focus Lost");
-        gameView.repaint();
-    }
-
-    private void scoreSaving() {
-
-        newUser = JOptionPane.showInputDialog(gameView, "What is your name?",
-                "Save Score", JOptionPane.INFORMATION_MESSAGE);
-
-        playerInfo.getUserName().add(newUser);
-        playerInfo.getScore().add(total);
-        playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
-
-        JOptionPane.showMessageDialog(gameView, "This is your score "
-                        + formatMinutes + ":" + formatSeconds
-                        + " for level: " + currentLevel.get(currentLevel.size() - 1),
-                "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
-        //Pop up for score of current level
-
-        if(currentLevel.get(currentLevel.size()-1) == 1)
-        {
-            if(score.get(score.size()-1) <= 120000){
-                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
-                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
-                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 2 minutes to be saved into highScoreList",
-                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        else if(currentLevel.get(currentLevel.size()-1) == 2)
-        {
-            if(score.get(score.size()-1) <= 150000){
-                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
-                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
-
-            } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
-                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 2.5 minutes to be saved into highScoreList",
-                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        else if((currentLevel.get(currentLevel.size()-1) == 3) || (currentLevel.get(currentLevel.size()-1) == 4))
-        {
-            if(score.get(score.size()-1) <= 180000){
-                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
-                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
-                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 3 minutes to be saved into highScoreList",
-                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        else if((currentLevel.get(currentLevel.size()-1) == 5) || (currentLevel.get(currentLevel.size()-1) == 6))
-        {
-            if(score.get(score.size()-1) <= 240000){
-                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
-                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
-                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 4 minutes to be saved into highScoreList",
-                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-
-        File scoresFile = new File("highScoresList.txt");
-
-        try {
-            FileWriter fileWriter = new FileWriter(scoresFile, true);
-            Writer writer = new BufferedWriter(fileWriter);
-            if (!playerInfo.getUserName().isEmpty()) {
-
-                writer.write(playerInfo.nameToString());
-                writer.write(playerInfo.scoreToString());
-                writer.write(playerInfo.currentLevelToString());
-            }
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }//writes every level of each round (each run of the game)
-
-        ArrayList<String> name = new ArrayList<>();
-        ArrayList<Integer> thisLevel = new ArrayList<>();
-        ArrayList<Integer> thisScore = new ArrayList<>();
-        String[] splitParts;
-
-        try {
-            Scanner scanner = new Scanner(scoresFile);
-
-                while (scanner.hasNextLine()) {
-                    String wholeLine = scanner.nextLine();
-                    splitParts = wholeLine.split(": ");
-                    String label = splitParts[0];
-                    String value = splitParts[1];
-
-                    if (label.equals("Name"))
-                        name.add(value);
-                    else if (label.equals("Score"))
-                        thisScore.add(Integer.parseInt(value));
-                    else
-                        thisLevel.add(Integer.parseInt(value));
-
-                }
-            Integer minScore = Collections.min(thisScore);
-            Integer minScoreIndex = thisScore.indexOf(minScore);
-            bestScoreUserName = name.get(minScoreIndex);
-            bestScoreLevel = thisLevel.get(minScoreIndex);
-
-            int minMinutes = 0;
-            int minSeconds = 0;
-
-            minMinutes = (minScore / 60000) % 60;
-            minSeconds = (minScore / 1000) % 60;
-
-            String formatMinSeconds;
-            String formatMinMinutes;
-
-            formatMinSeconds = String.format("%02d", minSeconds);
-            formatMinMinutes = String.format("%02d", minMinutes);
-
-            JOptionPane.showMessageDialog(gameView, "The all time best score is " + bestScoreUserName
-                    + " with a score of " + formatMinMinutes
-                    + ":" + formatMinSeconds + " for level: "
-                    + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
-            //Pop up all time best score across all levels
-
-            scanner.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 }

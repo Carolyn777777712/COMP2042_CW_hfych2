@@ -33,7 +33,6 @@ public class PlayerInfo {
         return userName;
     }
 
-
     public ArrayList<Integer> getScore() {
         return score;
     }

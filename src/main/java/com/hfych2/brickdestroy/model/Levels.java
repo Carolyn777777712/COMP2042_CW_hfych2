@@ -18,9 +18,6 @@ public class Levels {
     private Brick[][] levels;//all levels
     private int level;//current level indicator
 
-    public int getLevel() {
-        return level;
-    }
 
     public Levels(Wall wall) {
         this.wall = wall;
@@ -64,6 +61,27 @@ public class Levels {
         }
         return makeBricks;
 
+    }
+
+    private Brick makeBrick(Point point, Dimension size, int type) {
+        Brick brickType;
+        switch (type) {
+            case CLAY:
+                brickType = new ClayBrick(point, size);
+                break;
+            case STEEL:
+                brickType = new SteelBrick(point, size);
+                break;
+            case CEMENT:
+                brickType = new CementBrick(point, size);
+                break;
+            case GOLD:
+                brickType = new GoldBrick(point,size);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
+        }
+        return brickType;
     }
 
     private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB) {
@@ -134,27 +152,6 @@ public class Levels {
         return level < levels.length;
     }
 
-    private Brick makeBrick(Point point, Dimension size, int type) {
-        Brick brickType;
-        switch (type) {
-            case CLAY:
-                brickType = new ClayBrick(point, size);
-                break;
-            case STEEL:
-                brickType = new SteelBrick(point, size);
-                break;
-            case CEMENT:
-                brickType = new CementBrick(point, size);
-                break;
-            case GOLD:
-                brickType = new GoldBrick(point,size);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
-        }
-        return brickType;
-    }
-
     public Brick[] getBricks() {
         return bricks;
     }
@@ -166,4 +163,9 @@ public class Levels {
     public void setLevel(int level) {
         this.level = level;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
 }

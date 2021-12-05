@@ -17,14 +17,14 @@ import java.awt.event.*;
 
 public class InfoView extends JTextPane implements KeyListener{
 
+    private GameFrame owner;
+
     private static final String titleText = "Instructions";
 
     private static Document instructions;
     private static SimpleAttributeSet attributes;
     private MatteBorder border;
-
-    private GameFrame owner;
-
+    
 
     public InfoView(GameFrame owner) {
 

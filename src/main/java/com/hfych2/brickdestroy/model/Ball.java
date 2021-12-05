@@ -14,14 +14,14 @@ import java.awt.geom.RectangularShape;
 
 abstract public class Ball {
 
+    protected Point2D up;
+    protected Point2D down;
+    protected Point2D left;
+    protected Point2D right;
+
     private Shape ballFace;
 
     private Point2D center;
-
-    Point2D up;
-    Point2D down;
-    Point2D left;
-    Point2D right;
 
     private Color border;
     private Color inner;
@@ -58,6 +58,14 @@ abstract public class Ball {
         return (RectangularShape) ballFace;
     }
 
+    private void setPoints(double width,double height){
+        up.setLocation(center.getX(),center.getY()-(height / 2));
+        down.setLocation(center.getX(),center.getY()+(height / 2));
+
+        left.setLocation(center.getX()-(width / 2),center.getY());
+        right.setLocation(center.getX()+(width / 2),center.getY());
+    }
+
     public void move(){
         center.setLocation((center.getX() + speedX),(center.getY() + speedY));
         double w = ball().getWidth();
@@ -77,14 +85,6 @@ abstract public class Ball {
 
         ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
         ballFace = ball();
-    }
-
-    private void setPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
-
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
     }
 
     public void setSpeed(int x,int y){

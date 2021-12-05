@@ -1,5 +1,6 @@
 package com.hfych2.brickdestroy.controller;
 
+
 import com.hfych2.brickdestroy.view.HomeMenu;
 
 

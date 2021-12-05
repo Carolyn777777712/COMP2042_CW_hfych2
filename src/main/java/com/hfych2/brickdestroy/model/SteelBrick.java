@@ -40,6 +40,12 @@ public class SteelBrick extends Brick {
         brickFace = super.brickFace;
     }
 
+    public void impact(){
+        if(rnd.nextDouble() < STEEL_PROBABILITY){
+            super.impact();
+        }
+    }
+
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
@@ -55,12 +61,6 @@ public class SteelBrick extends Brick {
             return false;
         impact();
         return  super.isBroken();
-    }
-
-    public void impact(){
-        if(rnd.nextDouble() < STEEL_PROBABILITY){
-            super.impact();
-        }
     }
 
 }

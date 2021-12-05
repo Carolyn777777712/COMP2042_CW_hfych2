@@ -15,15 +15,14 @@ abstract public class Brick  {
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
 
-
     public static final int UP_IMPACT = 100;
     public static final int DOWN_IMPACT = 200;
     public static final int LEFT_IMPACT = 300;
     public static final int RIGHT_IMPACT = 400;
 
+    protected Shape brickFace;
 
     private String name;
-    Shape brickFace;
 
     private Color border;
     private Color inner;
@@ -47,10 +46,6 @@ abstract public class Brick  {
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
     public abstract Shape getBrick();
-
-    public final boolean isBroken(){
-        return broken;
-    }
 
     public  boolean setImpact(Point2D point , int dir){
         if(broken)
@@ -90,6 +85,10 @@ abstract public class Brick  {
 
     public Color getInnerColor(){
         return inner;
+    }
+
+    public final boolean isBroken(){
+        return broken;
     }
 
 }
