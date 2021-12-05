@@ -3,6 +3,7 @@ package com.hfych2.brickdestroy.controller;
 
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.model.PlayerInfo;
+import com.hfych2.brickdestroy.view.DebugConsole;
 import com.hfych2.brickdestroy.view.GameView;
 
 

@@ -17,7 +17,7 @@
  */
 package com.hfych2.brickdestroy;
 
-import com.hfych2.brickdestroy.controller.GameFrame;
+import com.hfych2.brickdestroy.view.ViewManager;
 
 import java.awt.*;
 
@@ -25,7 +25,7 @@ import java.awt.*;
 public class GraphicsMain {
 
     public static void main(String[] args){
-        EventQueue.invokeLater(() -> new GameFrame().initialize());
+        EventQueue.invokeLater(() -> new ViewManager().initialize());
     }
 
 }

@@ -15,13 +15,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hfych2.brickdestroy.controller;
+package com.hfych2.brickdestroy.view;
 
 
+import com.hfych2.brickdestroy.controller.GameController;
+import com.hfych2.brickdestroy.controller.HomeMenuController;
 import com.hfych2.brickdestroy.model.GameBoard;
-import com.hfych2.brickdestroy.view.GameView;
-import com.hfych2.brickdestroy.view.HomeMenu;
-import com.hfych2.brickdestroy.view.InfoView;
 
 
 import javax.swing.*;
@@ -30,7 +29,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 
-public class GameFrame extends JFrame implements WindowFocusListener {
+public class ViewManager extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
@@ -49,7 +48,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private JScrollPane jScrollPane;
 
 
-    public GameFrame(){
+    public ViewManager(){
         super();
 
         gaming = false;

@@ -15,11 +15,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hfych2.brickdestroy.controller;
+package com.hfych2.brickdestroy.view;
 
 
+import com.hfych2.brickdestroy.controller.GameController;
 import com.hfych2.brickdestroy.model.Ball;
-import com.hfych2.brickdestroy.view.DebugPanel;
 
 
 import javax.swing.*;

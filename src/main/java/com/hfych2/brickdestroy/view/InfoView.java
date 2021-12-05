@@ -1,9 +1,6 @@
 package com.hfych2.brickdestroy.view;
 
 
-import com.hfych2.brickdestroy.controller.GameFrame;
-
-
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
@@ -17,16 +14,16 @@ import java.awt.event.*;
 
 public class InfoView extends JTextPane implements KeyListener{
 
-    private GameFrame owner;
+    private ViewManager owner;
 
     private static final String titleText = "Instructions";
 
     private static Document instructions;
     private static SimpleAttributeSet attributes;
     private MatteBorder border;
-    
 
-    public InfoView(GameFrame owner) {
+
+    public InfoView(ViewManager owner) {
 
         this.owner = owner;
 

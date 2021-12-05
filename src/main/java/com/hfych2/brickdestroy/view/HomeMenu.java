@@ -18,9 +18,6 @@
 package com.hfych2.brickdestroy.view;
 
 
-import com.hfych2.brickdestroy.controller.GameFrame;
-
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +28,7 @@ import java.io.IOException;
 
 public class HomeMenu extends JPanel {
 
-    private GameFrame owner;
+    private ViewManager owner;
     private Dimension area;
 
     private static final String GREETINGS = "Welcome to:";
@@ -71,7 +68,7 @@ public class HomeMenu extends JPanel {
     private boolean exitEntered;
 
 
-    public HomeMenu(GameFrame owner,Dimension area){
+    public HomeMenu(ViewManager owner, Dimension area){
 
         this.owner = owner;
         this.area = area;
@@ -297,7 +294,7 @@ public class HomeMenu extends JPanel {
         }
     }
 
-    public GameFrame getOwner() {
+    public ViewManager getOwner() {
         return owner;
     }
 
