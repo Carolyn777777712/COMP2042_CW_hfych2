@@ -129,10 +129,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameTimer.stop();
                 if (save == 0) {
                     scoreSaving();
-/*                    resetScore();
-                    gameBoard.ballReset();
-                    gameBoard.getWall().wallReset();
-                    gameBoard.resetGameBoard();*/
                 }
                 resetScore();
                 gameBoard.ballReset();
@@ -141,7 +137,19 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameBoard.getWall().nextLevel();
             } else {
                 gameView.setMessage("ALL WALLS DESTROYED");
+                save = JOptionPane.showConfirmDialog(
+                        gameBoard.getOwner(),
+                        "Would you like to save the current score?",
+                        "Save Score Pop Up",
+                        JOptionPane.YES_NO_OPTION);
                 gameTimer.stop();
+                if (save == 0)
+                    scoreSaving();
+/*                gameBoard.getOwner().enableHomeMenu();
+                resetScore();
+                gameBoard.getWall().getLevels().setLevel(0);
+                gameBoard.ballReset();
+                gameBoard.resetGameBoard();*/
             }
         }
 
@@ -265,19 +273,75 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     }
 
     private void scoreSaving() {
-        newUser = JOptionPane.showInputDialog(gameView, "What is your name?", "Save Score", JOptionPane.INFORMATION_MESSAGE);
+
+        newUser = JOptionPane.showInputDialog(gameView, "What is your name?",
+                "Save Score", JOptionPane.INFORMATION_MESSAGE);
 
         playerInfo.getUserName().add(newUser);
         playerInfo.getScore().add(total);
         playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
 
         JOptionPane.showMessageDialog(gameView, "This is your score "
-                + formatMinutes + ":" + formatSeconds
-                + " for level: " + currentLevel.get(currentLevel.size() - 1),
+                        + formatMinutes + ":" + formatSeconds
+                        + " for level: " + currentLevel.get(currentLevel.size() - 1),
                 "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
         //Pop up for score of current level
 
-        File scoresFile = new File("scores.txt");
+        if(currentLevel.get(currentLevel.size()-1) == 1)
+        {
+            if(score.get(score.size()-1) <= 120000){
+                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 2 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if(currentLevel.get(currentLevel.size()-1) == 2)
+        {
+            if(score.get(score.size()-1) <= 150000){
+                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 2.5 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if((currentLevel.get(currentLevel.size()-1) == 3) || (currentLevel.get(currentLevel.size()-1) == 4))
+        {
+            if(score.get(score.size()-1) <= 180000){
+                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 3 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else if((currentLevel.get(currentLevel.size()-1) == 5) || (currentLevel.get(currentLevel.size()-1) == 6))
+        {
+            if(score.get(score.size()-1) <= 240000){
+                JOptionPane.showMessageDialog(gameView,"Your score has been successfully saved to the highScoresList",
+                        "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
+                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
+                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                JOptionPane.showMessageDialog(gameView,"Sorry, time taken for this level needs to be less than or equal to 4 minutes to be saved into highScoreList",
+                        "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+        File scoresFile = new File("highScoresList.txt");
 
         try {
             FileWriter fileWriter = new FileWriter(scoresFile, true);
