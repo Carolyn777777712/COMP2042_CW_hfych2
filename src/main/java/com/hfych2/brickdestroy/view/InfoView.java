@@ -40,12 +40,14 @@ public class InfoView extends JTextPane implements KeyListener{
         setBorder(title);
         setEditable(false);
 
-        setPreferredSize(new Dimension(800,450));
+        setPreferredSize(new Dimension(850,450));
 
         playerInstructions();
         gameOperations();
         scoreCalculations();
         penaltyCalculations();
+        scoreSaving();
+        savingConditions();
         startGame();
 
         setBackground(new Color(162,228,201));
@@ -131,14 +133,44 @@ public class InfoView extends JTextPane implements KeyListener{
             instructions.insertString(instructions.getLength(), "\t \u2022 Changing ball speed in Debug Console\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Reset balls in Debug Console\n", attributes);
         }catch (BadLocationException e) {
-        e.printStackTrace();
+            e.printStackTrace();
+        }
     }
+
+    private void scoreSaving(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 Score Saving: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 Scores are saved in a text file: highScoresList.txt\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Scores of each level that meet the conditions are saved into file\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Scores saved in the file are unprocessed scores (in milliseconds,ms)\n", attributes);
+        }catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void savingConditions(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 Score Saving to highScoresList.txt Conditions: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 The \"YES\" option is chosen in the \"Save Score Pop Up\" \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 1 is completed in less than or equal to 2 minutes time   (120000 ms) \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 2 is completed in less than or equal to 2.5 minutes time (150000 ms)\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 3 is completed in less than or equal to 3 minutes time   (180000 ms) \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 4 is completed in less than or equal to 3 minutes time   (180000 ms) \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 5 is completed in less than or equal to 4 minutes time   (240000 ms) \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Level 6 is completed in less than or equal to 4 minutes time   (240000 ms) \n", attributes);
+        }catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startGame(){
         try{
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u002A Press 'ENTER' to start playing :)", attributes);
+            instructions.insertString(instructions.getLength(), "\u002A \u002A Press 'ENTER' to start playing :)", attributes);
         }catch (BadLocationException e){
             e.printStackTrace();
         }
