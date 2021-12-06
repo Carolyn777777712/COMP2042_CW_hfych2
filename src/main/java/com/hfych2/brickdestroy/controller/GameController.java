@@ -3,6 +3,7 @@ package com.hfych2.brickdestroy.controller;
 
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.model.PlayerInfo;
+import com.hfych2.brickdestroy.model.ScoreSorting;
 import com.hfych2.brickdestroy.view.DebugConsole;
 import com.hfych2.brickdestroy.view.GameView;
 
@@ -211,6 +212,27 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                     + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
             //Pop up all time best score across all levels
 
+            ArrayList<ScoreSorting> scoreSorting = new ArrayList<ScoreSorting>();
+
+            for(int i = 0; i < name.size(); i++)
+                scoreSorting.add(new ScoreSorting(name.get(i),thisScore.get(i),thisLevel.get(i)));
+
+            Collections.sort(scoreSorting,ScoreSorting.sortScore);
+
+            File sortedScoresFile = new File("sortedHighScoresList.txt");
+
+            try {
+                FileWriter fileWriter = new FileWriter(sortedScoresFile);
+                Writer writer = new BufferedWriter(fileWriter);
+
+                if(!scoreSorting.isEmpty())
+                    writer.write(scoreSorting.toString());
+
+                writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }//writes every level of each round (each run of the game)
+
             scanner.close();
 
         } catch (Exception e) {
@@ -222,7 +244,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private void scoreConditions(){
         if(currentLevel.get(currentLevel.size()-1) == 1)
         {
-            if(score.get(score.size()-1) <= 120000){
+            if(score.get(score.size()-1) <= 1200000){
                 JOptionPane.showMessageDialog(gameView,
                         "Your score has been successfully saved to the highScoresList",
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);

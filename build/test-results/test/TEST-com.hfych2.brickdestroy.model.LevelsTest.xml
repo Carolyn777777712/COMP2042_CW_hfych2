@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.model.LevelsTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-12-06T10:48:18" hostname="LAPTOP-SAC9PCRG" time="0.0">
+<testsuite name="com.hfych2.brickdestroy.model.LevelsTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-12-06T15:14:40" hostname="LAPTOP-SAC9PCRG" time="0.0">
   <properties/>
   <testcase name="setLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
   <testcase name="getLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
