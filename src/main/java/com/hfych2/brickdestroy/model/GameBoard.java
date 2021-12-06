@@ -62,7 +62,7 @@ public class GameBoard {
         wall = new Wall(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), 30, 3, 6 / 2);
 
         ballPos = new Point(300, 430);//new
-        this.startPoint = ballPos;
+        this.startPoint = new Point(ballPos);
 
         impacts = new Impacts(this.wall, this);
 
@@ -90,8 +90,8 @@ public class GameBoard {
     }
 
     public void ballReset() {
-        player.moveTo(new Point(300, 430));
-        ball.moveTo(new Point(300, 430));
+        player.moveTo(startPoint);
+        ball.moveTo(startPoint);
         int speedX, speedY;
         do {
             speedX = 2;
@@ -106,8 +106,8 @@ public class GameBoard {
 
     public void resetGameBoard() {
         ballCount = 3;
-        ball.moveTo(new Point(300, 430));
-        player.moveTo(new Point(300, 430));//new
+        ball.moveTo(startPoint);
+        player.moveTo(startPoint);
     }
 
     public ViewManager getOwner() {
