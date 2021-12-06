@@ -20,6 +20,7 @@ package com.hfych2.brickdestroy.view;
 
 import com.hfych2.brickdestroy.controller.GameController;
 import com.hfych2.brickdestroy.controller.HomeMenuController;
+import com.hfych2.brickdestroy.controller.InfoController;
 import com.hfych2.brickdestroy.model.GameBoard;
 
 
@@ -42,6 +43,7 @@ public class ViewManager extends JFrame implements WindowFocusListener {
     private HomeMenuController homeMenuController;
 
     private InfoView infoView;
+    private InfoController infoController;
 
     private boolean gaming;
 
@@ -63,6 +65,7 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         homeMenuController = new HomeMenuController(homeMenu);
 
         infoView = new InfoView(this);
+        infoController = new InfoController(infoView);
 
         this.add(homeMenu,BorderLayout.CENTER);
         this.addMouseListener(homeMenuController);
@@ -89,7 +92,7 @@ public class ViewManager extends JFrame implements WindowFocusListener {
     }
 
     public void enableHomeMenu(){
-       this.remove(gameView);
+        this.remove(gameView);
         this.remove(infoView);
         this.add(homeMenu,BorderLayout.CENTER);
         homeMenu.repaint();
@@ -121,7 +124,7 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         this.add(jScrollPane,BorderLayout.CENTER);
         this.setFocusable(true);
-        this.addKeyListener(infoView);
+        this.addKeyListener(infoController);
         this.setUndecorated(false);
         initialize();
 

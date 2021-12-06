@@ -9,10 +9,9 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.*;
 
 
-public class InfoView extends JTextPane implements KeyListener{
+public class InfoView extends JTextPane {
 
     private ViewManager owner;
 
@@ -203,21 +202,8 @@ public class InfoView extends JTextPane implements KeyListener{
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            owner.enableGameBoard();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    public ViewManager getOwner() {
+        return owner;
     }
 
 }
