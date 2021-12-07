@@ -233,8 +233,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 e.printStackTrace();
             }//writes every level of each round (each run of the game)
 
-            scanner.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

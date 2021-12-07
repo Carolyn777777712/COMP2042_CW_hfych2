@@ -33,9 +33,10 @@ public class HomeMenu extends JPanel {
 
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
-    private static final String CREDITS = "Version 0.1";
+    private static final String CREDITS = "Newest Version";
     private static final String START_TEXT = "START";
     private static final String INFO_TEXT = "INFO";
+    private static final String HIGH_SCORE_TEXT = "HIGHSCORES";
     private static final String EXIT_TEXT = "EXIT";
 
     private static final Color TEXT_COLOR = new Color(255,243,125);
@@ -48,8 +49,9 @@ public class HomeMenu extends JPanel {
 
     private Rectangle menuFace;
     private Rectangle startButton;
-    private Rectangle exitButton;
     private Rectangle infoButton;
+    private Rectangle highScoreButton;
+    private Rectangle exitButton;
 
     private Font greetingsFont;
     private Font gameTitleFont;
@@ -58,6 +60,7 @@ public class HomeMenu extends JPanel {
 
     private boolean startClicked;
     private boolean infoClicked;
+    private boolean highScoreClicked;
     private boolean exitClicked;
 
     private Image backgroundImage;
@@ -65,6 +68,7 @@ public class HomeMenu extends JPanel {
 
     private boolean startEntered;
     private boolean infoEntered;
+    private boolean highScoreEntered;
     private boolean exitEntered;
 
 
@@ -76,6 +80,7 @@ public class HomeMenu extends JPanel {
         initialise();
 
         initialiseHomeMenu(area);
+        setLayout(null);
 
     }
 
@@ -90,15 +95,16 @@ public class HomeMenu extends JPanel {
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
 
-        Dimension btnDim = new Dimension(area.width / 2, area.height / 8);
+        Dimension btnDim = new Dimension(area.width , area.height / 8);
         startButton = new Rectangle(btnDim);
         infoButton = new Rectangle(btnDim);
+        highScoreButton = new Rectangle(btnDim);
         exitButton = new Rectangle(btnDim);
 
 
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
-        creditsFont = new Font("Monospaced",Font.PLAIN,10);
+        creditsFont = new Font("Monospaced",Font.BOLD,20);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
 
         try {
@@ -157,7 +163,7 @@ public class HomeMenu extends JPanel {
         int sX,sY;
 
         sX = (int)(menuFace.getWidth() - greetingsRect.getWidth()) / 2;
-        sY = (int)(menuFace.getHeight() / 4);
+        sY = (int)(menuFace.getHeight() / 8);
 
         g2d.setFont(greetingsFont);
         g2d.drawString(GREETINGS,sX,sY);
@@ -183,13 +189,14 @@ public class HomeMenu extends JPanel {
 
         Rectangle2D startRect = buttonFont.getStringBounds(START_TEXT,frc);
         Rectangle2D infoRect = buttonFont.getStringBounds(INFO_TEXT,frc);
+        Rectangle2D highScoreRect = buttonFont.getStringBounds(HIGH_SCORE_TEXT,frc);
         Rectangle2D exitRect = buttonFont.getStringBounds(EXIT_TEXT,frc);
 
         g2d.setFont(buttonFont);
 
         //startButton
         int x = (menuFace.width - startButton.width) / 2;
-        int y =(int) ((menuFace.height - startButton.height) * 0.5);
+        int y =(int) ((menuFace.height - startButton.height) * 0.4);
 
         startButton.setLocation(x,y);
 
@@ -257,9 +264,45 @@ public class HomeMenu extends JPanel {
             g2d.drawString(INFO_TEXT,x,y);
         }
 
-        //exitButton
         x = infoButton.x;
         y = infoButton.y;
+
+        y *= 1.4;
+
+        highScoreButton.setLocation(x,y);
+
+        x = (int)(highScoreButton.getWidth() - highScoreRect.getWidth()) / 2;
+        y = (int)(highScoreButton.getHeight() - highScoreRect.getHeight()) / 2;
+
+        x += highScoreButton.x;
+        y += highScoreButton.y + (infoButton.height * 0.9);
+
+        g2d.setFont(buttonFont);
+
+        if(highScoreClicked){
+            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.draw(highScoreButton);
+            g2d.fill(highScoreButton);
+            g2d.setColor(CLICKED_TEXT);
+            g2d.drawString(HIGH_SCORE_TEXT,x,y);
+        }
+        else if(highScoreEntered){
+            g2d.draw(highScoreButton);
+            g2d.setColor(TEXT_COLOR);
+            g2d.fill(highScoreButton);
+            g2d.setColor(ENTERED_TEXT);
+            g2d.drawString(HIGH_SCORE_TEXT,x,y);
+
+        }
+        else{
+            g2d.setColor(TEXT_COLOR);
+            g2d.draw(highScoreButton);
+            g2d.drawString(HIGH_SCORE_TEXT,x,y);
+        }
+
+        //exitButton
+        x = highScoreButton.x;
+        y = highScoreButton.y;
 
         y *= 1.25;
 
@@ -270,7 +313,7 @@ public class HomeMenu extends JPanel {
         y = (int)(exitButton.getHeight() - exitRect.getHeight()) / 2;
 
         x += exitButton.x;
-        y += exitButton.y + (infoButton.height * 0.9);
+        y += exitButton.y + (highScoreButton.height * 0.9);
 
         if(exitClicked){
             g2d.setColor(CLICKED_BUTTON_COLOR);
@@ -306,6 +349,10 @@ public class HomeMenu extends JPanel {
         return infoButton;
     }
 
+    public Rectangle getHighScoreButton(){
+        return highScoreButton;
+    }
+
     public Rectangle getExitButton() {
         return exitButton;
     }
@@ -316,6 +363,10 @@ public class HomeMenu extends JPanel {
 
     public boolean isInfoClicked(){
         return infoClicked;
+    }
+
+    public boolean isHighScoreClicked(){
+        return highScoreClicked;
     }
 
     public boolean isExitClicked() {
@@ -330,6 +381,10 @@ public class HomeMenu extends JPanel {
         this.infoClicked = infoClicked;
     }
 
+    public void setHighScoreClicked(boolean highScoreClicked){
+        this.highScoreClicked = highScoreClicked;
+    }
+
     public void setExitClicked(boolean exitClicked) {
         this.exitClicked = exitClicked;
     }
@@ -340,6 +395,10 @@ public class HomeMenu extends JPanel {
 
     public void setInfoEntered(boolean infoEntered){
         this.infoEntered = infoEntered;
+    }
+
+    public void setHighScoreEntered(boolean highScoreEntered){
+        this.highScoreEntered = highScoreEntered;
     }
 
     public void setExitEntered(boolean exitEntered){

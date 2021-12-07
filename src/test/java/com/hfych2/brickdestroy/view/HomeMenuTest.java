@@ -16,7 +16,7 @@ public class HomeMenuTest {
 
     private Dimension area = new Dimension(600,450);
 
-    private Dimension btnDim = new Dimension(area.width / 2, area.height / 8);
+    private Dimension btnDim = new Dimension(area.width, area.height / 8);
     private Rectangle startButton = new Rectangle(btnDim);
     private Rectangle infoButton = new Rectangle(btnDim);
     private Rectangle exitButton = new Rectangle(btnDim);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.model.GameBoardTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2021-12-06T15:14:39" hostname="LAPTOP-SAC9PCRG" time="0.523">
+<testsuite name="com.hfych2.brickdestroy.model.GameBoardTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2021-12-07T11:19:44" hostname="LAPTOP-SAC9PCRG" time="0.586">
   <properties/>
   <testcase name="setBallCount" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.002"/>
-  <testcase name="isShowPauseMenu" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
-  <testcase name="setBallXSpeed" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
+  <testcase name="isShowPauseMenu" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.005"/>
+  <testcase name="setBallXSpeed" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.001"/>
   <testcase name="setBallYSpeed" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <testcase name="getDefWidth" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <testcase name="getImpacts" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
@@ -11,12 +11,12 @@
   <testcase name="ballEnd" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <testcase name="getBall" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <testcase name="getWall" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
-  <testcase name="setBallLost" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
+  <testcase name="setBallLost" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.001"/>
   <testcase name="getPlayer" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
-  <testcase name="getBallCount" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.001"/>
+  <testcase name="getBallCount" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <testcase name="setShowPauseMenu" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
-  <testcase name="isBallLost" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
-  <testcase name="getOwner" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.001"/>
+  <testcase name="isBallLost" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.001"/>
+  <testcase name="getOwner" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.002"/>
   <testcase name="getDefHeight" classname="com.hfych2.brickdestroy.model.GameBoardTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
