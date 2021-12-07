@@ -19,6 +19,7 @@ public class HomeMenuTest {
     private Dimension btnDim = new Dimension(area.width, area.height / 8);
     private Rectangle startButton = new Rectangle(btnDim);
     private Rectangle infoButton = new Rectangle(btnDim);
+    private Rectangle highScoreButton = new Rectangle(btnDim);
     private Rectangle exitButton = new Rectangle(btnDim);
 
 
@@ -38,6 +39,11 @@ public class HomeMenuTest {
     }
 
     @Test
+    public void getHighScoreButton(){
+        assertEquals(highScoreButton,homeMenu.getHighScoreButton());
+    }
+
+    @Test
     public void getExitButton() {
         assertEquals(exitButton,homeMenu.getExitButton());
     }
@@ -53,6 +59,11 @@ public class HomeMenuTest {
     }
 
     @Test
+    public void isHighScoreClicked(){
+        assertEquals(false,homeMenu.isHighScoreClicked());
+    }
+
+    @Test
     public void isExitClicked() {
         assertEquals(false, homeMenu.isExitClicked());
     }
@@ -65,6 +76,11 @@ public class HomeMenuTest {
     @Test
     public void setInfoClicked() {
         assertEquals(false,homeMenu.isInfoClicked());
+    }
+
+    @Test
+    public void setHighScoreClicked(){
+        assertEquals(false,homeMenu.isHighScoreClicked());
     }
 
     @Test
