@@ -23,8 +23,6 @@ import com.hfych2.brickdestroy.controller.GameController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class DebugPanel extends JPanel {
@@ -33,7 +31,6 @@ public class DebugPanel extends JPanel {
 
     private static final Color DEF_BKG = Color.WHITE;
 
-    private int clicks = 2;
     private JButton skipLevelsButton;
 
     private JButton resetBallsButton;
@@ -76,22 +73,7 @@ public class DebugPanel extends JPanel {
 
     private JButton changeBallSpeedButton(){
         JButton changeBallSpeedButton = new JButton("Reset Ball Speed");
-        changeBallSpeedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double overallSpeed;
 
-                overallSpeed = changeBallSpeedSlider.getValue();
-
-                changeBallSpeedButton.setText("Set ball speed to: "+ String.valueOf(overallSpeed));
-
-                gameController.getGameBoard().setBallXSpeed(changeBallSpeedSlider.getValue());
-                gameController.getGameBoard().setBallYSpeed(changeBallSpeedSlider.getValue());
-
-                setGivePenalty(true);
-
-            }
-        });
         return changeBallSpeedButton;
     }
 
@@ -107,35 +89,13 @@ public class DebugPanel extends JPanel {
 
    private JButton skipLevelsButton(){
         JButton skipLevelsButton = new JButton("Skip to: ");
-        skipLevelsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                skipLevelsButton.setText("Skip to: " + "level  " + clicks);
-                clicks++;
-                gameController.getGameBoard().getWall().nextLevel();
-                gameController.getGameBoard().ballReset();
-                gameController.resetScore();
 
-                if(!gameController.getGameBoard().getWall().hasLevel()){
-                    skipLevelsButton.setText("Last Level");
-                    skipLevelsButton.setEnabled(false);
-                }
-            }
-        });
         return skipLevelsButton;
     }
 
     private JButton resetBallsButton(){
         JButton resetBallsButton = new JButton("Reset Balls");
-        resetBallsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.getGameBoard().ballReset();
-                gameController.getGameBoard().resetGameBoard();
 
-                setGivePenalty(true);
-            }
-        });
         return resetBallsButton;
     }
 
@@ -151,6 +111,22 @@ public class DebugPanel extends JPanel {
 
     public void setGivePenalty(boolean givePenalty) {
         this.givePenalty = givePenalty;
+    }
+
+    public JButton getSkipLevelsButton() {
+        return skipLevelsButton;
+    }
+
+    public JButton getResetBallsButton() {
+        return resetBallsButton;
+    }
+
+    public JButton getChangeBallSpeedButton() {
+        return changeBallSpeedButton;
+    }
+
+    public JSlider getChangeBallSpeedSlider() {
+        return changeBallSpeedSlider;
     }
 
 }

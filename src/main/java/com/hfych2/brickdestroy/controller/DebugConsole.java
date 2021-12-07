@@ -15,11 +15,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.hfych2.brickdestroy.view;
+package com.hfych2.brickdestroy.controller;
 
 
-import com.hfych2.brickdestroy.controller.GameController;
 import com.hfych2.brickdestroy.model.Ball;
+import com.hfych2.brickdestroy.view.DebugPanel;
 
 
 import javax.swing.*;
@@ -36,6 +36,8 @@ public class DebugConsole extends JDialog implements WindowListener{
     private DebugPanel debugPanel;
     private GameController gameController;
 
+    private int clicks = 2;
+
 
     public DebugConsole(GameController gameController){
 
@@ -48,6 +50,10 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.add(debugPanel,BorderLayout.CENTER);
 
         this.pack();
+
+        resetBalls();
+        skipLevels();
+        changeSpeed();
     }
 
     private void initialize(){
@@ -68,6 +74,45 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     public DebugPanel getDebugPanel() {
         return debugPanel;
+    }
+
+    public void changeSpeed(){
+        debugPanel.getChangeBallSpeedButton().addActionListener(e -> {
+            double overallSpeed;
+
+            overallSpeed = debugPanel.getChangeBallSpeedSlider().getValue();
+
+            debugPanel.getChangeBallSpeedButton().setText("Set ball speed to: "+ String.valueOf(overallSpeed));
+
+            gameController.getGameBoard().setBallXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+            gameController.getGameBoard().setBallYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+
+            debugPanel.setGivePenalty(true);
+        });
+    }
+
+    public void skipLevels(){
+        debugPanel.getSkipLevelsButton().addActionListener(e -> {
+            debugPanel.getSkipLevelsButton().setText("Skip to: " + "level  " + clicks);
+            clicks++;
+            gameController.getGameBoard().getWall().nextLevel();
+            gameController.getGameBoard().ballReset();
+            gameController.resetScore();
+
+            if(!gameController.getGameBoard().getWall().hasLevel()){
+                debugPanel.getSkipLevelsButton().setText("Last Level");
+                debugPanel.getSkipLevelsButton().setEnabled(false);
+            }
+        });
+    }
+
+    public void resetBalls(){
+        debugPanel.getResetBallsButton().addActionListener(e -> {
+                gameController.getGameBoard().ballReset();
+                gameController.getGameBoard().resetGameBoard();
+
+                debugPanel.setGivePenalty(true);
+        });
     }
 
     @Override
