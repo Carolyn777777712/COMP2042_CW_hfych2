@@ -43,6 +43,7 @@ public class InfoView extends JTextPane {
         debugConsole();
         scoreCalculations();
         penaltyCalculations();
+        reward();
         scoreSaving();
         savingConditions();
         caution();
@@ -155,8 +156,24 @@ public class InfoView extends JTextPane {
             instructions.insertString(instructions.getLength(), "\u2022 Score Saving: \n", attributes);
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 Scores are saved in a text file: highScoresList.txt\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Sorted Scores are saved in a text file: sortedHighScoresList.txt\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Sorted Scores are displayed when \"HIGHSCORES\" button(HomeMenu) is clicked\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Scores of each level that meet the conditions are saved into file\n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Scores saved in the file are unprocessed scores (in milliseconds,ms)\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Scores saved in both files are unprocessed scores (in milliseconds,ms)\n", attributes);
+        }catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void reward(){
+        try{
+            bulletStyle();
+            instructions.insertString(instructions.getLength(), "\u2022 HighScores Display: \n", attributes);
+            subBulletsStyle();
+            instructions.insertString(instructions.getLength(), "\t \u2022 The smaller the score saved in files, the higher the score\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The best score achiever will be shown after each level is completed\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The best score achiever will be crowned \"CHAMPION\" in \"HIGHSCORES\"\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Keep the title and everyone who plays the game will know your name :)\n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -188,6 +205,7 @@ public class InfoView extends JTextPane {
             instructions.insertString(instructions.getLength(), "\t \u2022 But, \"Focus Lost\" will be shown after choosing \"START\" in the HomeMenu \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Please press 'SPACEBAR' to regain focus to the screen \n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 And, select \"NO\" option for \"Save Score Pop Up\" to proceed with the game \n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Ball speed should only be changed after the ball has left the player\n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
