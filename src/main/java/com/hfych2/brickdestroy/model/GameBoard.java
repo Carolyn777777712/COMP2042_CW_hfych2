@@ -147,14 +147,6 @@ public class GameBoard {
         return ballCount == 0;
     }
 
-    public void setBallXSpeed(int s) {
-        ball.setXSpeed(s);
-    }
-
-    public void setBallYSpeed(int s) {
-        ball.setYSpeed(s);
-    }
-
     public void setBallLost(boolean ballLost) {
         this.ballLost = ballLost;
     }

@@ -15,17 +15,18 @@ public class DebugPanelTest {
 
     @Test
     public void createDebugPanel() {
-        DebugPanel debugPanel = DebugPanel.createDebugPanel(gameController);
+        DebugPanel debugPanel = DebugPanel.createDebugPanel();
         assertNotNull(debugPanel);
     }
 
     @Test
     public void isGivePenalty() {
-        assertEquals(false,DebugPanel.createDebugPanel(gameController).isGivePenalty());
+        assertEquals(false,DebugPanel.createDebugPanel().isGivePenalty());
     }
 
     @Test
     public void setGivePenalty() {
-        assertEquals(false,DebugPanel.createDebugPanel(gameController).isGivePenalty());
+        assertEquals(false,DebugPanel.createDebugPanel().isGivePenalty());
     }
+
 }

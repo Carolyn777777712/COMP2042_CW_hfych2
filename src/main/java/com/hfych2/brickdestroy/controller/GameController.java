@@ -193,8 +193,8 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             bestScoreUserName = name.get(minScoreIndex);
             bestScoreLevel = thisLevel.get(minScoreIndex);
 
-            int minMinutes = 0;
-            int minSeconds = 0;
+            int minMinutes;
+            int minSeconds;
 
             minMinutes = (minScore / 60000) % 60;
             minSeconds = (minScore / 1000) % 60;
@@ -211,7 +211,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                     + bestScoreLevel, "Best Score Pop Up", JOptionPane.INFORMATION_MESSAGE);
             //Pop up all time best score across all levels
 
-            ArrayList<ScoreSorting> scoreSorting = new ArrayList<ScoreSorting>();
+            ArrayList<ScoreSorting> scoreSorting = new ArrayList<>();
 
             for(int i = 0; i < name.size(); i++)
                 scoreSorting.add(new ScoreSorting(name.get(i),thisScore.get(i),thisLevel.get(i)));

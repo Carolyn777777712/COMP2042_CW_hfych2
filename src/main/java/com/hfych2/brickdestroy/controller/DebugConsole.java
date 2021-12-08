@@ -46,7 +46,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         initialize();
 
-        debugPanel = DebugPanel.createDebugPanel( gameController);
+        debugPanel = DebugPanel.createDebugPanel();
         this.add(debugPanel,BorderLayout.CENTER);
 
         this.pack();
@@ -84,8 +84,8 @@ public class DebugConsole extends JDialog implements WindowListener{
 
             debugPanel.getChangeBallSpeedButton().setText("Set ball speed to: "+ String.valueOf(overallSpeed));
 
-            gameController.getGameBoard().setBallXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
-            gameController.getGameBoard().setBallYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+            gameController.getGameBoard().getBall().setXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+            gameController.getGameBoard().getBall().setYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
 
             debugPanel.setGivePenalty(true);
         });

@@ -18,16 +18,12 @@
 package com.hfych2.brickdestroy.view;
 
 
-import com.hfych2.brickdestroy.controller.GameController;
-
-
 import javax.swing.*;
 import java.awt.*;
 
 
 public class DebugPanel extends JPanel {
 
-    private GameController gameController;
 
     private static final Color DEF_BKG = Color.WHITE;
 
@@ -41,9 +37,7 @@ public class DebugPanel extends JPanel {
     private boolean givePenalty;
 
 
-    private DebugPanel(GameController gameController){
-
-        this.gameController = gameController;
+    private DebugPanel(){
 
        initialize();
 
@@ -61,8 +55,8 @@ public class DebugPanel extends JPanel {
 
     }
 
-    public static DebugPanel createDebugPanel(GameController gameController) {
-        return new DebugPanel(gameController);
+    public static DebugPanel createDebugPanel() {
+        return new DebugPanel();
     }
 
 

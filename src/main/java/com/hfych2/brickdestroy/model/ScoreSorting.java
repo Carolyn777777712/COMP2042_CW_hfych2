@@ -14,17 +14,15 @@ public class ScoreSorting {
         this.thisLevel = thisLevel;
     }
 
-    public static Comparator<ScoreSorting> sortScore = new Comparator<ScoreSorting>() {
+    public static Comparator<ScoreSorting> sortScore = (p1, p2) -> {
 
-        public int compare(ScoreSorting p1, ScoreSorting p2) {
+        int score1 = p1.getThisScore();
+        int score2 = p2.getThisScore();
 
-            int score1 = p1.getThisScore();
-            int score2 = p2.getThisScore();
-
-            return score1-score2;//ascending
+        return score1-score2;//ascending
 
 
-        }};
+    };
     @Override
     public String toString() {
         return "[Name: " + name + "\tScore: " + thisScore + "\tLevel: " + thisLevel + "]\n";
