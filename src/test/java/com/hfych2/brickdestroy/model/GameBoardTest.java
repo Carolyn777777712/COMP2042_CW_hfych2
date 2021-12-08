@@ -31,13 +31,21 @@ public class GameBoardTest {
       assertNotNull(gameBoard);
     }
 
-/*    @Test
+    @Test
     public void ballReset() {
-        player.moveTo(startPoint);
-        ball.moveTo(startPoint);
         assertEquals(ball.getPosition(),startPoint);
+        assertEquals(new Point(startPoint.x-(int)player.getPlayerFace().getBounds().getWidth()/2,
+                        startPoint.y),
+                new Point(player.getPlayerFace().getBounds().x,
+                        player.getPlayerFace().getBounds().y));
+        assertEquals(0,ball.getSpeedX());
+        assertEquals(0,ball.getSpeedY());
+        ball.setSpeed(2,-2);
+        assertEquals(2,ball.getSpeedX());
+        assertEquals(-2,ball.getSpeedY());
+        assertEquals(false,GameBoard.createGameBoard(owner).isBallLost());
 
-    }*/
+    }
 
     @Test
     public void getOwner() {
@@ -67,11 +75,14 @@ public class GameBoardTest {
         assertNotNull(impacts);
     }
 
-/*    @Test
+    @Test
     public void move() {
-
-
-    }*/
+        assertEquals(startPoint,ball.getPosition());
+        assertEquals(new Point(startPoint.x-(int)player.getPlayerFace().getBounds().getWidth()/2,
+                        startPoint.y),
+                new Point(player.getPlayerFace().getBounds().x,
+                        player.getPlayerFace().getBounds().y));
+    }
 
     @Test
     public void getBallCount() {
@@ -86,17 +97,6 @@ public class GameBoardTest {
     @Test
     public void ballEnd() {
         assertEquals(3,GameBoard.createGameBoard(owner).getBallCount());
-    }
-
-    @Test
-    public void setBallXSpeed() {
-        assertEquals(2,GameBoard.createGameBoard(owner).getBall().getSpeedX());
-
-    }
-
-    @Test
-    public void setBallYSpeed() {
-        assertEquals(-2,GameBoard.createGameBoard(owner).getBall().getSpeedY());
     }
 
     @Test
@@ -127,5 +127,15 @@ public class GameBoardTest {
     @Test
     public void getDefHeight() {
         assertEquals(450,GameBoard.createGameBoard(owner).getDefHeight());
+    }
+
+    @Test
+    public void resetGameBoard() {
+        assertEquals(3,GameBoard.createGameBoard(owner).getBallCount());
+        assertEquals(new Point(startPoint.x-(int)player.getPlayerFace().getBounds().getWidth()/2,
+                startPoint.y),
+                new Point(player.getPlayerFace().getBounds().x,
+                        player.getPlayerFace().getBounds().y));
+        assertEquals(startPoint,ball.getPosition());
     }
 }

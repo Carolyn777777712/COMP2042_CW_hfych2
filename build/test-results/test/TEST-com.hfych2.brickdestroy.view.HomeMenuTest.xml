@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.view.HomeMenuTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-12-08T03:37:17" hostname="LAPTOP-SAC9PCRG" time="0.627">
+<testsuite name="com.hfych2.brickdestroy.view.HomeMenuTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-12-08T06:10:25" hostname="LAPTOP-SAC9PCRG" time="0.555">
   <properties/>
-  <testcase name="isHighScoreClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.002"/>
-  <testcase name="getInfoButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.001"/>
+  <testcase name="isHighScoreClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
+  <testcase name="getInfoButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
   <testcase name="getHighScoreButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
   <testcase name="setStartClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.001"/>
   <testcase name="getExitButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
@@ -10,10 +10,10 @@
   <testcase name="setHighScoreClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.001"/>
   <testcase name="setExitClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
   <testcase name="setInfoClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
-  <testcase name="getStartButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.001"/>
-  <testcase name="isExitClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.003"/>
+  <testcase name="getStartButton" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
+  <testcase name="isExitClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
   <testcase name="isInfoClicked" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.001"/>
-  <testcase name="getOwner" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.0"/>
+  <testcase name="getOwner" classname="com.hfych2.brickdestroy.view.HomeMenuTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
