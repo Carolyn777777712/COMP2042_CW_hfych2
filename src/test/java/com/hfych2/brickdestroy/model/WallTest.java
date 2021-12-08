@@ -13,13 +13,6 @@ public class WallTest {
     private ViewManager owner = new ViewManager();
     private Levels levels = new Levels(wall);
 
-/*    @Test
-    public void wallReset() {
-        levels.setLevels(levels.makeLevels(new Rectangle(0,0,600,450),
-                30, 3, 6/2));
-        levels.setLevel(0);
-    }*/
-
     @Test
     public void isDone() {
         assertEquals(true, wall.isDone());

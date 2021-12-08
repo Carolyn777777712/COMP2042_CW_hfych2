@@ -1,5 +1,6 @@
 package com.hfych2.brickdestroy.model;
 
+import com.hfych2.brickdestroy.view.ViewManager;
 import org.junit.Test;
 
 import java.awt.*;
@@ -10,26 +11,19 @@ public class LevelsTest {
 
     private final Wall wall = new Wall(new Rectangle(0, 0, 600, 450), 30, 3, 6 / 2);
     private Levels levels = new Levels(wall);
-
-/*    @Test
-    public void makeLevels() {
-    }
+    private ViewManager owner = new ViewManager();
+    private GameBoard gameBoard = GameBoard.createGameBoard(owner);
 
     @Test
     public void nextLevel() {
+        int brickCount = 31;
+        assertEquals(brickCount,gameBoard.getWall().getBrickCount());
     }
 
     @Test
     public void hasLevel() {
+        assertEquals(true,gameBoard.getWall().hasLevel());
     }
-
-    @Test
-    public void getBricks() {
-    }
-
-    @Test
-    public void setLevels() {
-    }*/
 
     @Test
     public void setLevel() {
