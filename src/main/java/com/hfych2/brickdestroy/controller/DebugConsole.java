@@ -43,11 +43,11 @@ import java.awt.event.WindowListener;
  */
 public class DebugConsole extends JDialog implements WindowListener{
 
+
     private static final String TITLE = "Debug Console";
 
     private JFrame owner;
     private DebugPanel debugPanel;
-
     private GameBoard gameBoard;
     private GameView gameView;
 
@@ -59,7 +59,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      * Calls the initialise(); resetBalls(); skipLevels(); changeSpeed(); methods
      * Initialises the DebugPanel using the factory method and add to DebugConsole
      *
-     * @param
+     * @param gameBoard the gameBoard that initialises the debugConsole
      */
     public DebugConsole(GameBoard gameBoard){
 
@@ -152,15 +152,29 @@ public class DebugConsole extends JDialog implements WindowListener{
                 debugPanel.setGivePenalty(true);
         });
     }
+
+    /**
+     * Gets the gameView to call the repaint(); method
+     * @param gameView gameView to call repaint(); method
+     */
     public void updateView(GameView gameView){
         this.gameView = gameView;
     }
 
+    /**
+     * Calls the repaint(); method using gameView to update the gameView upon
+     * window closing event is detected
+     * @param windowEvent the window event detected
+     */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         gameView.repaint();
     }
 
+    /**
+     * Calls the setLocation(); method and sets the values for ball speed using the debugPanel
+     * @param windowEvent the window event detected
+     */
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
@@ -170,12 +184,10 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
-
     }
 
     @Override
     public void windowClosed(WindowEvent windowEvent) {
-
     }
 
     @Override

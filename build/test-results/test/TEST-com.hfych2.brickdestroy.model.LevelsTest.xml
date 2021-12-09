@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.model.LevelsTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-12-09T05:36:10" hostname="LAPTOP-SAC9PCRG" time="0.116">
+<testsuite name="com.hfych2.brickdestroy.model.LevelsTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-12-09T06:45:29" hostname="LAPTOP-SAC9PCRG" time="0.125">
   <properties/>
   <testcase name="hasLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
   <testcase name="nextLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
   <testcase name="setLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
-  <testcase name="getLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.001"/>
+  <testcase name="getLevel" classname="com.hfych2.brickdestroy.model.LevelsTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
