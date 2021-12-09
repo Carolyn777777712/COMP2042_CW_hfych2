@@ -2,6 +2,7 @@ package com.hfych2.brickdestroy.controller;
 
 
 import com.hfych2.brickdestroy.view.HomeMenu;
+import com.hfych2.brickdestroy.view.ViewManager;
 
 
 import javax.swing.*;
@@ -11,6 +12,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is the controller class for {@link HomeMenu}.<br>
+ * This class defines the actions when HomeMenu options are clicked.<br>
+ *
+ * It calls the {@link ViewManager#enableGameBoard()}.<br>
+ * It reads and displays sortedHighScoresList.txt
+ *      {@link HomeMenuController#readSortedHighScores()}<br>
+ *      {@link HomeMenuController#displaySortedHighScores()}.<br>
+ * It calls the {@link ViewManager#enableInfoView()}.<br>
+ * It terminates the process successfully {@link System#exit(int)}.<br>
+ *
+ */
 
 public class HomeMenuController implements MouseListener, MouseMotionListener{
 
@@ -22,11 +35,20 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
     private JTextArea jTextArea;
     private int i = 1;
 
+    /**
+     * Class constructor.
+     * @param homeMenu the view
+     */
     public HomeMenuController(HomeMenu homeMenu) {
 
         this.homeMenu = homeMenu;
     }
 
+    /**
+     * Reads the sortedHighScoresList.txt and stores its contents in an ArrayList of type String<br>
+     * @see Scanner
+     * @see ArrayList
+     */
     private void readSortedHighScores(){
         try {
             File sortedHighScoresFile = new File("sortedHighScoresList.txt");
@@ -46,6 +68,20 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         }
     }
 
+    /**
+     * Displays the sortedHighScoresList.txt contents into a JTextArea with a JScrollPane.<br>
+     * Adds a JButton to the JTextArea to proceed to the "INFO" page
+     *      with {@link ViewManager#enableInfoView()}.<br>
+     * Calls the {@link HomeMenuController#readSortedHighScores()}
+     * @see JTextArea
+     * @see JScrollPane
+     * @see JButton
+     * @see ViewManager#dispose()
+     * @see ViewManager#remove(Component)
+     * @see JTextArea#append(String)
+     * @see ViewManager#initialize()
+     *
+     */
     private void displaySortedHighScores(){
         if(i==1) {
             readSortedHighScores();
@@ -100,6 +136,18 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         homeMenu.getOwner().initialize();
     }
 
+    /**
+     * Displays different views based on option chosen in HomeMenu.<br>
+     * {@link HomeMenu#getStartButton()} {@link ViewManager#enableGameBoard()}<br>
+     * {@link HomeMenu#getInfoButton()}  {@link ViewManager#enableInfoView()}<br>
+     * {@link HomeMenu#getHighScoreButton()} {@link HomeMenuController#displaySortedHighScores()}<br>
+     * {@link HomeMenu#getExitButton()}  {@link System#exit(int)}<br>
+     *
+     * @see HomeMenu#getOwner()
+     * @see ViewManager#remove(Component)
+     *
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -123,6 +171,14 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         }
     }
 
+    /**
+     * Paints a different view of the options in HomeMenu on pressed and sets the boolean setters below to true.<br>
+     * @see HomeMenu#setStartClicked(boolean)
+     * @see HomeMenu#setInfoClicked(boolean)
+     * @see HomeMenu#setHighScoreClicked(boolean)
+     * @see HomeMenu#setExitClicked(boolean)
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -148,6 +204,14 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         }
     }
 
+    /**
+     * Paints the default view of the options in HomeMenu on released and sets the boolean setters below to false.<br>
+     * @see HomeMenu#setStartClicked(boolean)
+     * @see HomeMenu#setInfoClicked(boolean)
+     * @see HomeMenu#setHighScoreClicked(boolean)
+     * @see HomeMenu#setExitClicked(boolean)
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         if (homeMenu.isStartClicked()) {
@@ -172,6 +236,14 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         }
     }
 
+    /**
+     * Paints a different view of the options in HomeMenu on entered and sets the boolean setters below to true.<br>
+     * @see HomeMenu#setStartEntered(boolean)
+     * @see HomeMenu#setInfoEntered(boolean)
+     * @see HomeMenu#setHighScoreEntered(boolean)
+     * @see HomeMenu#setExitEntered(boolean)
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
@@ -189,6 +261,14 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
 
     }
 
+    /**
+     * Paints the default view of the options in HomeMenu on exited and sets the boolean setters below to false.<br>
+     * @see HomeMenu#setStartEntered(boolean)
+     * @see HomeMenu#setInfoEntered(boolean)
+     * @see HomeMenu#setHighScoreEntered(boolean)
+     * @see HomeMenu#setExitEntered(boolean)
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
@@ -206,11 +286,11 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
 
     }
 
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
+    /**
+     * Changes the cursor when mouse is moved into the outline area of the options in the HomeMenu.<br>
+     * @see Cursor#getPredefinedCursor(int)
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -220,5 +300,9 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         else
             homeMenu.setCursor(Cursor.getDefaultCursor());
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
     }
 }

@@ -34,8 +34,6 @@ import java.awt.event.WindowListener;
  * This class represents the DebugConsole
  * that is shown when user presses 'ALT','F1' and 'SHIFT'.
  *
- * This class extends JDialog and implements WindowListener.
- *
  * It is the controller class for the DebugPanel.
  *
  * @author Carolyn
@@ -54,10 +52,15 @@ public class DebugConsole extends JDialog implements WindowListener{
     private int clicks = 2;
 
     /**
-     * Class constructor.
+     * Class constructor.<br>
      *
-     * Calls the initialise(); resetBalls(); skipLevels(); changeSpeed(); methods
-     * Initialises the DebugPanel using the factory method and add to DebugConsole
+     * Calls the {@link DebugConsole#initialise()}
+     * {@link DebugConsole#resetBalls()}
+     * {@link DebugConsole#skipLevels()}
+     * {@link DebugConsole#changeSpeed()}
+     * methods.<br>
+     *
+     * Initialises the DebugPanel using the factory method and add to DebugConsole.
      *
      * @param gameBoard the gameBoard that initialises the debugConsole
      */
@@ -78,6 +81,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         changeSpeed();
     }
 
+    /**
+     * Initialises the DebugConsole window.
+     */
     private void initialise(){
         this.setModal(true);
         this.setTitle(TITLE);
@@ -88,6 +94,9 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
 
+    /**
+     * Sets the location of the DebugConsole window.
+     */
     private void setLocation(){
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
@@ -103,7 +112,12 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * Defines the action when the "Reset Ball Speed" button in debugPanel is pressed.
+     * Defines the action when the "Reset Ball Speed" button in debugPanel is pressed.<br>
+     *
+     * Changes the ball speed to the value of the slider on button pressed.<br>
+     *
+     * Calls the {@link DebugPanel#setGivePenalty(boolean)} method
+     * and sets it to true.
      *
      */
     public void changeSpeed(){
@@ -122,8 +136,11 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * Defines the action when "Skip to: " button in debugPanel is pressed.
+     * Defines the action when "Skip to: " button in debugPanel is pressed.<br>
      *
+     * Skips to next levels based on number of times button is pressed.<br>
+     *
+     * This button is automatically disabled once last level is reached.<br>
      */
     public void skipLevels(){
         debugPanel.getSkipLevelsButton().addActionListener(e -> {
@@ -141,8 +158,12 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * Defines the action when "Reset Balls" button in debugPanel is pressed.
+     * Defines the action when "Reset Balls" button in debugPanel is pressed.<br>
      *
+     * Resets both ball speed and ball count to default.<br>
+     *
+     * Calls the {@link DebugPanel#setGivePenalty(boolean)} method
+     * and sets it to true.
      */
     public void resetBalls(){
         debugPanel.getResetBallsButton().addActionListener(e -> {
@@ -154,15 +175,15 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * Gets the gameView to call the repaint(); method
-     * @param gameView gameView to call repaint(); method
+     * Gets the gameView to call the {@link GameView#repaint()} method<br>
+     * @param gameView gameView to call {@link GameView#repaint()} method
      */
     public void updateView(GameView gameView){
         this.gameView = gameView;
     }
 
     /**
-     * Calls the repaint(); method using gameView to update the gameView upon
+     * Calls the {@link GameView#repaint()} method to update the gameView upon
      * window closing event is detected
      * @param windowEvent the window event detected
      */
@@ -172,7 +193,8 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * Calls the setLocation(); method and sets the values for ball speed using the debugPanel
+     * Calls the {@link DebugConsole#setLocation()}method
+     * and sets the values for ball speed using {@link DebugPanel#setValues(int, int)}
      * @param windowEvent the window event detected
      */
     @Override

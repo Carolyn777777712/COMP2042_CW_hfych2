@@ -2,6 +2,7 @@ package com.hfych2.brickdestroy.controller;
 
 
 import com.hfych2.brickdestroy.model.GameBoard;
+import com.hfych2.brickdestroy.model.Player;
 import com.hfych2.brickdestroy.model.PlayerInfo;
 import com.hfych2.brickdestroy.model.ScoreSorting;
 import com.hfych2.brickdestroy.view.GameView;
@@ -14,6 +15,15 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
+/**
+ * This class is the controller class for GameBoard(model) and GameView(view).<br>
+ *
+ * It defines the action on keyboard input during the game play.<br>
+ * It reads and writes to highScoresList.txt.<br>
+ * It sorts the highScoreList.txt contents and writes to sortedHighScoresList.txt
+ *
+ * @author Carolyn
+ */
 
 public class GameController implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -31,6 +41,26 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private String bestScoreUserName = "";
     private int bestScoreLevel = 0;
 
+    /**
+     * Class constructor.<br>
+     *
+     * Calls the {@link GameView#updateView(GameBoard)}
+     * and passes in the gameBoard model<br>
+     *
+     * Calls the {@link DebugConsole#updateView(GameView)}
+     * and passes in the gameView view<br>
+     *
+     * {@link GameController#gameTimer} and {@link GameController#playerInfo}
+     * is initialised here.<br>
+     *
+     * {@link GameController#gameTimer} calls the {@link GameController#gameCycle()}
+     * using lambda expression.<br>
+     *
+     * {@link PlayerInfo#PlayerInfo(ArrayList, ArrayList, ArrayList)} is initialised here.
+     *
+     * @param gameBoard the model
+     * @param gameView the view
+     */
 
     public GameController(GameBoard gameBoard, GameView gameView) {
 
@@ -46,6 +76,15 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         playerInfo = new PlayerInfo(userName, score, currentLevel);
     }
 
+    /**
+     * Keeps track of model states and updates view when necessary.<br>
+     *
+     * Triggers the "Save Score Pop Up" which is a JOptionPane when a level is completed.<br>
+     *
+     * If user chooses to save the score, {@link GameController#scoreSaving()} is invoked.
+     *
+     * @see JOptionPane#showConfirmDialog(Component, Object, String, int) 
+     */
     private void gameCycle() {
 
         gameBoard.move();
@@ -104,6 +143,36 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         gameView.repaint();
     }
 
+    /**
+     * Saves the score to file if {@link GameController#scoreConditions()} are met.<br>
+
+     * Reads and writes to highScoresList.txt<br>
+     *
+     * Sorts all the scores saved in highScoresList.txt and
+     * writes to sortedHighScoresList.txt {@link ScoreSorting#sortScore}<br>
+     *
+     * Prompts user to input their name to save to file using JOptionPane titled "Save Score".<br>
+     * Informs user on their score of the current completed level
+     * using JOptionPane titled "Score Pop Up Message".<br>
+     * Displays the all time best score using JOptionPane titled "Best Score Pop Up".<br>
+     *
+     * Uses ArrayList to store information before writing to file.<br>
+     *     {@link PlayerInfo#getUserName()}
+     *     {@link PlayerInfo#getScore()}
+     *     {@link PlayerInfo#getCurrentLevel()}
+     *     <br>
+     * Uses Arraylist to find the all time best score.<br>
+     * Reads file contents into ArrayLists.<br>
+     * Writes ArrayList into sortedHighScoresList.txt {@link ScoreSorting#toString()}
+     *
+     * @see FileWriter
+     * @see Writer
+     * @see Scanner
+     * @see Collections#min(Collection)
+     * @see PlayerInfo
+     * @see ScoreSorting
+     *
+     */
     private void scoreSaving() {
 
         newUser = JOptionPane.showInputDialog(gameView, "What is your name?",
@@ -209,10 +278,19 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     }
 
+    /**
+     * Specifies the condition for the scores to be saved into highScoresList.txt<br>
+     *     
+     * Shows a "Score Saved Successfully" titled JOptionPane if condition is fulfilled.<br>
+     * 
+     * Shows a "Unable to Save Score" titled JOptionPane if condition is not fulfilled.<br>
+     *     
+     * @see JOptionPane#showMessageDialog(Component, Object, String, int) 
+     */
     private void scoreConditions(){
         if(currentLevel.get(currentLevel.size()-1) == 1)
         {
-            if(score.get(score.size()-1) <= 1200000){
+            if(score.get(score.size()-1) <= 120000){
                 JOptionPane.showMessageDialog(gameView,
                         "Your score has been successfully saved to the highScoresList",
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
@@ -273,6 +351,15 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * Defines the action when focus is lost.
+     *
+     * Stops both {@link GameController#gameTimer} and {@link GameBoard#getScoreTimer()}
+     *
+     * Sets message to inform user of focus lost.
+     *
+     * Calls the {@link GameView#repaint()}method.
+     */
     public void onLostFocus() {
         gameTimer.stop();
         gameBoard.getScoreTimer().stop();
@@ -280,10 +367,24 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         gameView.repaint();
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-    }
-
+    /**
+     * Defines the action for each different KeyEvent detected.<br>
+     * 
+     * Moves player left on 'A' key pressed.<br>
+     * Moves player right on 'D' key pressed.<br>
+     * Displays PauseMenu on 'ESC' key pressed.<br>
+     * Starts/Stops {@link GameController#gameTimer} and {@link GameBoard#getScoreTimer()}
+     * on 'SPACEBAR' key pressed.<br>
+     * Displays DebugConsole {@link GameBoard#getDebugConsole()}on 
+     * 'ALT', 'SHIFT', 'F1' key pressed.<br>
+     *     
+     * @see Player#moveLeft() 
+     * @see Player#moveRight() 
+     * @see Timer#stop() 
+     * @see Timer#start() 
+     * 
+     * @param keyEvent the KeyEvent detected during game play.
+     */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
@@ -323,12 +424,19 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * Stops the player from moving on key released.
+     * @param keyEvent the KeyEvent detected.
+     */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
         gameBoard.getPlayer().stop();
     }
 
+    /**
+     * Defines the action when one of the PauseMenu options are selected.
+     * @param mouseEvent the MouseEvent detected
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -339,10 +447,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             gameView.repaint();
         } else if (gameView.getRestartButtonRect().contains(p)) {
             gameView.setMessage("Restarting Game...");
-            gameBoard.ballReset();//new
+            gameBoard.ballReset();
             gameBoard.getWall().wallReset();
-            gameBoard.resetGameBoard();//new
+            gameBoard.resetGameBoard();
             gameBoard.resetScore();
+            gameBoard.setBallLost(false);
             gameBoard.setShowPauseMenu(false);
             gameView.repaint();
         } else if (gameView.getExitButtonRect().contains(p)) {
@@ -351,42 +460,51 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     }
 
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
+    /**
+     * Change the cursor when PauseMenu is shown and it is in the outline area of the 
+     * PauseMenu options.<br>
+     *
+     * @see Cursor#getPredefinedCursor(int) 
+     *     
+     * @param mouseEvent the MouseEvent detected.
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if (gameView.getExitButtonRect() != null && gameBoard.isShowPauseMenu()) {
-            if (gameView.getExitButtonRect().contains(p) || gameView.getContinueButtonRect().contains(p) || gameView.getRestartButtonRect().contains(p))
+            if (gameView.getExitButtonRect().contains(p) ||
+                    gameView.getContinueButtonRect().contains(p) ||
+                    gameView.getRestartButtonRect().contains(p))
                 gameView.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             else
                 gameView.setCursor(Cursor.getDefaultCursor());
         } else {
             gameView.setCursor(Cursor.getDefaultCursor());
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
     }
 
 }

@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 
 
-public class GameView extends JPanel {
+public class GameView extends JComponent {
 
     private GameBoard gameBoard;
 

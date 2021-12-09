@@ -95,7 +95,7 @@ public class HomeMenu extends JPanel {
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
 
-        Dimension btnDim = new Dimension(area.width , area.height / 8);
+        Dimension btnDim = new Dimension((int) (area.width /1.85), area.height / 8);
         startButton = new Rectangle(btnDim);
         infoButton = new Rectangle(btnDim);
         highScoreButton = new Rectangle(btnDim);
@@ -103,7 +103,7 @@ public class HomeMenu extends JPanel {
 
 
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
-        gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
+        gameTitleFont = new Font("Noto Mono",Font.BOLD,50);
         creditsFont = new Font("Monospaced",Font.BOLD,20);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
 
@@ -178,7 +178,7 @@ public class HomeMenu extends JPanel {
         sY += (int) creditsRect.getHeight() * 1.1;
 
         g2d.setFont(creditsFont);
-        g2d.drawString(CREDITS,sX,sY);
+        g2d.drawString(CREDITS,sX+20,sY);
 
 
     }
@@ -195,7 +195,7 @@ public class HomeMenu extends JPanel {
         g2d.setFont(buttonFont);
 
         //startButton
-        int x = (menuFace.width - startButton.width) / 2;
+        int x = (int) ((menuFace.width - startButton.width) /1.2);
         int y =(int) ((menuFace.height - startButton.height) * 0.4);
 
         startButton.setLocation(x,y);
