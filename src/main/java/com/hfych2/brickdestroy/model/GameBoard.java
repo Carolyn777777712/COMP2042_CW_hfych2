@@ -49,8 +49,8 @@ public class GameBoard {
     private int total = 0;
     private int minutes = 0;
     private int seconds = 0;
-    private String formatSeconds;
-    private String formatMinutes;
+    private String formatSeconds = "00";
+    private String formatMinutes = "00";
 
     private final int penaltyScore = 20000;
 

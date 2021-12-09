@@ -41,11 +41,11 @@ com/hfych2/brickdestroy/view/GameView.java
  com.hfych2.brickdestroy.view.GameView
 com/hfych2/brickdestroy/model/Impacts.java
  com.hfych2.brickdestroy.model.Impacts
-com/hfych2/brickdestroy/model/GameBoard.java
- com.hfych2.brickdestroy.model.GameBoard
-com/hfych2/brickdestroy/controller/DebugConsole.java
- com.hfych2.brickdestroy.controller.DebugConsole
 com/hfych2/brickdestroy/controller/GameController.java
  com.hfych2.brickdestroy.controller.GameController
 com/hfych2/brickdestroy/view/ViewManager.java
  com.hfych2.brickdestroy.view.ViewManager
+com/hfych2/brickdestroy/controller/DebugConsole.java
+ com.hfych2.brickdestroy.controller.DebugConsole
+com/hfych2/brickdestroy/model/GameBoard.java
+ com.hfych2.brickdestroy.model.GameBoard

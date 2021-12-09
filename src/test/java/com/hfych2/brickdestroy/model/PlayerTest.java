@@ -33,28 +33,28 @@ public class PlayerTest {
     public void impact() {
         assertEquals(true,
                 player.getPlayerFace().
-                contains(GameBoard.createGameBoard(owner).getBall().getPosition())
+                contains(gameBoard.getBall().getPosition())
                 &&
-                player.getPlayerFace().contains(GameBoard.createGameBoard(owner).getBall().down));
+                player.getPlayerFace().contains(gameBoard.getBall().down));
     }
 
     @Test
     public void move() {
         double x = ballPoint.getX() + moveAmount;
         assertEquals(new Point((int)x,(int)ballPoint.getY()),
-                GameBoard.createGameBoard(owner).getBall().getPosition());
+                gameBoard.getBall().getPosition());
 
         assertEquals(new Point(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y),
-                new Point(GameBoard.createGameBoard(owner).getPlayer().getPlayerFace().getBounds().x,
-                        GameBoard.createGameBoard(owner).getPlayer().getPlayerFace().getBounds().y));
+                new Point(gameBoard.getPlayer().getPlayerFace().getBounds().x,
+                        gameBoard.getPlayer().getPlayerFace().getBounds().y));
     }
 
     @Test
     public void moveTo() {
         assertEquals(new Point(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y),
-                new Point(GameBoard.createGameBoard(owner).getPlayer().getPlayerFace().getBounds().x,
-                        GameBoard.createGameBoard(owner).getPlayer().getPlayerFace().getBounds().y));
-        assertEquals(ballPoint.getLocation(),GameBoard.createGameBoard(owner).getBall().getPosition());
+                new Point(gameBoard.getPlayer().getPlayerFace().getBounds().x,
+                        gameBoard.getPlayer().getPlayerFace().getBounds().y));
+        assertEquals(ballPoint.getLocation(),gameBoard.getBall().getPosition());
     }
 
     @Test

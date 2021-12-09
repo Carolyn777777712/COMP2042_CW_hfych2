@@ -16,8 +16,7 @@ public class LevelsTest {
 
     @Test
     public void nextLevel() {
-        int brickCount = 31;
-        assertEquals(brickCount,gameBoard.getWall().getBrickCount());
+        assertEquals(31,gameBoard.getWall().getBrickCount());
     }
 
     @Test
@@ -27,7 +26,8 @@ public class LevelsTest {
 
     @Test
     public void setLevel() {
-        assertEquals(0,levels.getLevel());
+        levels.setLevel(1);
+        assertEquals(1,levels.getLevel());
     }
 
     @Test

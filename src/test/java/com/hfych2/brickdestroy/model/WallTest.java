@@ -33,12 +33,13 @@ public class WallTest {
 
     @Test
     public void getLevels() {
-        assertEquals(levels, levels);
+        assertNotNull(levels);
     }
 
     @Test
     public void setBrickCount() {
-        assertEquals(0,wall.getBrickCount());
+        wall.setBrickCount(100);
+        assertEquals(100,wall.getBrickCount());
     }
 
     @Test

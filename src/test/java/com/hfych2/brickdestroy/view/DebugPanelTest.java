@@ -13,6 +13,8 @@ public class DebugPanelTest {
 
     private GameController gameController = new GameController(GameBoard.createGameBoard(owner),gameView);
 
+    private DebugPanel debugPanel = DebugPanel.createDebugPanel();
+
     @Test
     public void createDebugPanel() {
         DebugPanel debugPanel = DebugPanel.createDebugPanel();
@@ -21,12 +23,13 @@ public class DebugPanelTest {
 
     @Test
     public void isGivePenalty() {
-        assertEquals(false,DebugPanel.createDebugPanel().isGivePenalty());
+        assertEquals(false,debugPanel.isGivePenalty());
     }
 
     @Test
     public void setGivePenalty() {
-        assertEquals(false,DebugPanel.createDebugPanel().isGivePenalty());
+        debugPanel.setGivePenalty(true);
+        assertEquals(true,debugPanel.isGivePenalty());
     }
 
 }
