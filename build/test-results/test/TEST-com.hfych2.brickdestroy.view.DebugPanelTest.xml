@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.view.DebugPanelTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-12-09T03:12:50" hostname="LAPTOP-SAC9PCRG" time="0.118">
+<testsuite name="com.hfych2.brickdestroy.view.DebugPanelTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-12-09T03:16:17" hostname="LAPTOP-SAC9PCRG" time="0.075">
   <properties/>
   <testcase name="createDebugPanel" classname="com.hfych2.brickdestroy.view.DebugPanelTest" time="0.001"/>
   <testcase name="setGivePenalty" classname="com.hfych2.brickdestroy.view.DebugPanelTest" time="0.001"/>
-  <testcase name="isGivePenalty" classname="com.hfych2.brickdestroy.view.DebugPanelTest" time="0.001"/>
+  <testcase name="isGivePenalty" classname="com.hfych2.brickdestroy.view.DebugPanelTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

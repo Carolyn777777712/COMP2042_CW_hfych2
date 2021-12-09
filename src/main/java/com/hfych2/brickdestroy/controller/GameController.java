@@ -63,7 +63,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameBoard.resetScore();
             }
             gameBoard.ballReset();
-            //gameBoard.getDebugConsole().getDebugPanel().setGivePenalty(true);
+            gameBoard.getDebugConsole().getDebugPanel().setGivePenalty(true);
             gameTimer.stop();
             gameBoard.getScoreTimer().stop();
         } else if (gameBoard.getWall().isDone()) {
