@@ -70,23 +70,21 @@ abstract public class Ball {
 
     public void move(){
         center.setLocation((center.getX() + speedX),(center.getY() + speedY));
-        double w = ball().getWidth();
-        double h = ball().getHeight();
+        double width = ball().getWidth();
+        double height = ball().getHeight();
 
-        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        setPoints(w,h);
+        ball().setFrame((center.getX() -(width / 2)),(center.getY() - (height / 2)), width, height);
+        setPoints(width, height);
 
-        ballFace = ball();
     }
 
     public void moveTo(Point p){
         center.setLocation(p);
 
-        double w = ball().getWidth();
-        double h = ball().getHeight();
+        double width = ball().getWidth();
+        double height = ball().getHeight();
 
-        ball().setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        ballFace = ball();
+        ball().setFrame((center.getX() -(width / 2)),(center.getY() - (height / 2)), width, height);
     }
 
     public void setSpeed(int x,int y){
