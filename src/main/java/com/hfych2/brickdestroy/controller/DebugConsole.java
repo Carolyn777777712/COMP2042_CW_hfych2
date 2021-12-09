@@ -19,7 +19,9 @@ package com.hfych2.brickdestroy.controller;
 
 
 import com.hfych2.brickdestroy.model.Ball;
+import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.view.DebugPanel;
+import com.hfych2.brickdestroy.view.GameView;
 
 
 import javax.swing.*;
@@ -28,23 +30,43 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
+/**
+ * This class represents the DebugConsole
+ * that is shown when user presses 'ALT','F1' and 'SHIFT'.
+ *
+ * This class extends JDialog and implements WindowListener.
+ *
+ * It is the controller class for the DebugPanel.
+ *
+ * @author Carolyn
+ *
+ */
 public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
 
     private JFrame owner;
     private DebugPanel debugPanel;
-    private GameController gameController;
+
+    private GameBoard gameBoard;
+    private GameView gameView;
 
     private int clicks = 2;
 
+    /**
+     * Class constructor.
+     *
+     * Calls the initialise(); resetBalls(); skipLevels(); changeSpeed(); methods
+     * Initialises the DebugPanel using the factory method and add to DebugConsole
+     *
+     * @param
+     */
+    public DebugConsole(GameBoard gameBoard){
 
-    public DebugConsole(GameController gameController){
+        this.owner = gameBoard.getOwner();
+        this.gameBoard = gameBoard;
 
-        this.owner = gameController.getGameBoard().getOwner();
-        this.gameController = gameController;
-
-        initialize();
+        initialise();
 
         debugPanel = DebugPanel.createDebugPanel();
         this.add(debugPanel,BorderLayout.CENTER);
@@ -56,7 +78,7 @@ public class DebugConsole extends JDialog implements WindowListener{
         changeSpeed();
     }
 
-    private void initialize(){
+    private void initialise(){
         this.setModal(true);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -72,10 +94,18 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.setLocation(x,y);
     }
 
+    /**
+     * Gets the debugPanel initialised in constructor.
+     * @return debugPanel initialised in constructor.
+     */
     public DebugPanel getDebugPanel() {
         return debugPanel;
     }
 
+    /**
+     * Defines the action when the "Reset Ball Speed" button in debugPanel is pressed.
+     *
+     */
     public void changeSpeed(){
         debugPanel.getChangeBallSpeedButton().addActionListener(e -> {
             double overallSpeed;
@@ -84,45 +114,63 @@ public class DebugConsole extends JDialog implements WindowListener{
 
             debugPanel.getChangeBallSpeedButton().setText("Set ball speed to: "+ String.valueOf(overallSpeed));
 
-            gameController.getGameBoard().getBall().setXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
-            gameController.getGameBoard().getBall().setYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+            gameBoard.getBall().setXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
+            gameBoard.getBall().setYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
 
             debugPanel.setGivePenalty(true);
         });
     }
 
+    /**
+     * Defines the action when "Skip to: " button in debugPanel is pressed.
+     *
+     */
     public void skipLevels(){
         debugPanel.getSkipLevelsButton().addActionListener(e -> {
             debugPanel.getSkipLevelsButton().setText("Skip to: " + "level  " + clicks);
             clicks++;
-            gameController.getGameBoard().getWall().nextLevel();
-            gameController.getGameBoard().ballReset();
-            gameController.resetScore();
+            gameBoard.getWall().nextLevel();
+            gameBoard.ballReset();
+            gameBoard.resetScore();
 
-            if(!gameController.getGameBoard().getWall().hasLevel()){
+            if(!gameBoard.getWall().hasLevel()){
                 debugPanel.getSkipLevelsButton().setText("Last Level");
                 debugPanel.getSkipLevelsButton().setEnabled(false);
             }
         });
     }
 
+    /**
+     * Defines the action when "Reset Balls" button in debugPanel is pressed.
+     *
+     */
     public void resetBalls(){
         debugPanel.getResetBallsButton().addActionListener(e -> {
-                gameController.getGameBoard().ballReset();
-                gameController.getGameBoard().resetGameBoard();
+                gameBoard.ballReset();
+                gameBoard.resetGameBoard();
 
                 debugPanel.setGivePenalty(true);
         });
     }
-
-    @Override
-    public void windowOpened(WindowEvent windowEvent) {
-
+    public void updateView(GameView gameView){
+        this.gameView = gameView;
     }
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameController.getGameView().repaint();
+        gameView.repaint();
+    }
+
+    @Override
+    public void windowActivated(WindowEvent windowEvent) {
+        setLocation();
+        Ball ball = gameBoard.getBall();
+        debugPanel.setValues(ball.getSpeedX(),ball.getSpeedY());
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent windowEvent) {
+
     }
 
     @Override
@@ -141,14 +189,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     @Override
-    public void windowActivated(WindowEvent windowEvent) {
-        setLocation();
-        Ball ball = gameController.getGameBoard().getBall();
-        debugPanel.setValues(ball.getSpeedX(),ball.getSpeedY());
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent windowEvent) {
+    public void windowOpened(WindowEvent windowEvent) {
 
     }
 

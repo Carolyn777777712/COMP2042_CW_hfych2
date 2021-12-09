@@ -77,6 +77,8 @@ public class GameView extends JPanel {
             drawMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
+
+        setScoreMessage("Time Taken (mm:ss)" +gameBoard.getFormatMinutes() +":" + gameBoard.getFormatSeconds());
     }
 
     private void clear(Graphics2D g2d) {

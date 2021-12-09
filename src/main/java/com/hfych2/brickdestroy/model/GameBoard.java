@@ -17,8 +17,10 @@
  */
 package com.hfych2.brickdestroy.model;
 
+import com.hfych2.brickdestroy.controller.DebugConsole;
 import com.hfych2.brickdestroy.view.ViewManager;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
@@ -30,6 +32,7 @@ public class GameBoard {
     private ViewManager owner;
     private Wall wall;
     private Impacts impacts;
+    private DebugConsole debugConsole;
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -42,6 +45,15 @@ public class GameBoard {
 
     private boolean showPauseMenu;
 
+    private Timer scoreTimer;
+    private int total = 0;
+    private int minutes = 0;
+    private int seconds = 0;
+    private String formatSeconds;
+    private String formatMinutes;
+
+    private final int penaltyScore = 20000;
+
 
     private GameBoard(ViewManager owner) {
 
@@ -50,8 +62,36 @@ public class GameBoard {
         showPauseMenu = false;
 
         initialiseGameBoard();
+        scoreTimer = new Timer(1000, e -> {
+
+            if (debugConsole.getDebugPanel().isGivePenalty()) {
+                total = total + penaltyScore;
+            }
+            debugConsole.getDebugPanel().setGivePenalty(false);
+
+            total = total + 1000;
+            minutes = (total / 60000) % 60;
+            seconds = (total / 1000) % 60;
+
+            formatSeconds = String.format("%02d", seconds);
+            formatMinutes = String.format("%02d", minutes);
+
+        });
+
+        debugConsole = new DebugConsole(this);
 
     }
+
+      public void resetScore() {
+
+          scoreTimer.stop();
+          setTotal(0);
+          setMinutes(0);
+          setSeconds(0);
+
+          setFormatMinutes(String.format("%02d", getMinutes()));
+          setFormatSeconds(String.format("%02d", getSeconds()));
+      }
 
     public static GameBoard createGameBoard(ViewManager owner) {
         return new GameBoard(owner);//factory method
@@ -126,6 +166,10 @@ public class GameBoard {
         return wall;
     }
 
+    public DebugConsole getDebugConsole() {
+        return debugConsole;
+    }
+
     public Impacts getImpacts() {
         return impacts;
     }
@@ -171,6 +215,49 @@ public class GameBoard {
         return DEF_HEIGHT;
     }
 
+    public Timer getScoreTimer() {
+        return scoreTimer;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public String getFormatSeconds() {
+        return formatSeconds;
+    }
+
+    public void setFormatSeconds(String formatSeconds) {
+        this.formatSeconds = formatSeconds;
+    }
+
+    public String getFormatMinutes() {
+        return formatMinutes;
+    }
+
+    public void setFormatMinutes(String formatMinutes) {
+        this.formatMinutes = formatMinutes;
+    }
 
 }
 

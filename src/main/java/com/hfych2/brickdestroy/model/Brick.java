@@ -9,7 +9,10 @@ import java.awt.geom.Point2D;
 /**
  * Created by filippo on 04/09/16.
  *
+ *
+ * Modified by Carolyn Han En Qi since 19/11/2021.
  */
+
 abstract public class Brick  {
 
     public static final int DEF_CRACK_DEPTH = 1;

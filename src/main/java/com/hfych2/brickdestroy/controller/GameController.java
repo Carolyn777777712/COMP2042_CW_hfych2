@@ -20,18 +20,8 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
     private GameBoard gameBoard;
     private GameView gameView;
     private PlayerInfo playerInfo;
-    private DebugConsole debugConsole;
 
     private Timer gameTimer;
-
-    private Timer scoreTimer;
-    private int total = 0;
-    private int minutes = 0;
-    private int seconds = 0;
-    private String formatSeconds;
-    private String formatMinutes;
-
-    private final int penaltyScore = 20000;
 
     private ArrayList<String> userName = new ArrayList<String>();
     private ArrayList<Integer> score = new ArrayList<Integer>();
@@ -49,25 +39,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         gameView.updateView(this.gameBoard);
 
-        scoreTimer = new Timer(1000, e -> {
-
-            if (debugConsole.getDebugPanel().isGivePenalty()) {
-                total = total + penaltyScore;
-            }
-            debugConsole.getDebugPanel().setGivePenalty(false);
-
-            total = total + 1000;
-            minutes = (total / 60000) % 60;
-            seconds = (total / 1000) % 60;
-
-            formatSeconds = String.format("%02d", seconds);
-            formatMinutes = String.format("%02d", minutes);
-
-            gameView.setScoreMessage("Time Taken (mm:ss) "
-                    + formatMinutes + ":" + formatSeconds);
-        });
-
-        debugConsole = new DebugConsole(this);
+        gameBoard.getDebugConsole().updateView(gameView);
 
         gameTimer = new Timer(10, e -> gameCycle());
 
@@ -88,13 +60,12 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 gameView.setMessage("Game over");
                 gameView.setScoreMessage("");
 
-                total = 0;
-                minutes = 0;
-                seconds = 0;
+                gameBoard.resetScore();
             }
             gameBoard.ballReset();
+            //gameBoard.getDebugConsole().getDebugPanel().setGivePenalty(true);
             gameTimer.stop();
-            scoreTimer.stop();
+            gameBoard.getScoreTimer().stop();
         } else if (gameBoard.getWall().isDone()) {
             if (gameBoard.getWall().hasLevel()) {
                 gameView.setMessage("Go to Next Level");
@@ -107,7 +78,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 if (save == 0) {
                     scoreSaving();
                 }
-                resetScore();
+                gameBoard.resetScore();
                 gameBoard.ballReset();
                 gameBoard.getWall().wallReset();
                 gameBoard.resetGameBoard();
@@ -123,7 +94,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 if (save == 0)
                     scoreSaving();
                 gameBoard.getOwner().enableHomeMenu();
-                resetScore();
+                gameBoard.resetScore();
                 gameBoard.getWall().getLevels().setLevel(0);
                 gameBoard.ballReset();
                 gameBoard.resetGameBoard();
@@ -139,11 +110,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                 "Save Score", JOptionPane.INFORMATION_MESSAGE);
 
         playerInfo.getUserName().add(newUser);
-        playerInfo.getScore().add(total);
+        playerInfo.getScore().add(gameBoard.getTotal());
         playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
 
         JOptionPane.showMessageDialog(gameView, "This is your score "
-                        + formatMinutes + ":" + formatSeconds
+                        + gameBoard.getFormatMinutes() + ":" + gameBoard.getFormatSeconds()
                         + " for level: " + currentLevel.get(currentLevel.size() - 1),
                 "Score Pop Up Message", JOptionPane.INFORMATION_MESSAGE);
         //Pop up for score of current level
@@ -304,30 +275,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     public void onLostFocus() {
         gameTimer.stop();
-        scoreTimer.stop();
+        gameBoard.getScoreTimer().stop();
         gameView.setMessage("Focus Lost");
         gameView.repaint();
-    }
-
-    public void resetScore() {
-
-        scoreTimer.stop();
-        total = 0;
-        minutes = 0;
-        seconds = 0;
-
-        formatSeconds = String.format("%02d", seconds);
-        formatMinutes = String.format("%02d", minutes);
-
-        gameView.setScoreMessage("Time Taken(mm:ss) " + formatMinutes + ":" + formatSeconds);
-    }
-
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
-
-    public GameView getGameView() {
-        return gameView;
     }
 
     @Override
@@ -346,7 +296,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             case KeyEvent.VK_ESCAPE:
                 gameBoard.setShowPauseMenu(!gameBoard.isShowPauseMenu());
                 gameView.repaint();
-                scoreTimer.stop();
+                gameBoard.getScoreTimer().stop();
                 gameTimer.stop();
                 break;
             case KeyEvent.VK_SPACE:
@@ -356,17 +306,17 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                     } else {
                         gameTimer.start();
                     }
-                    if (scoreTimer.isRunning()) {
-                        scoreTimer.stop();
+                    if (gameBoard.getScoreTimer().isRunning()) {
+                        gameBoard.getScoreTimer().stop();
                     } else {
-                        scoreTimer.start();
+                        gameBoard.getScoreTimer().start();
                     }
                 }
                 break;
             case KeyEvent.VK_F1:
                 if (keyEvent.isAltDown() && keyEvent.isShiftDown()) {
-                    debugConsole.setVisible(true);
-                    scoreTimer.stop();
+                    gameBoard.getDebugConsole().setVisible(true);
+                    gameBoard.getScoreTimer().stop();
                 }
             default:
                 gameBoard.getPlayer().stop();
@@ -392,7 +342,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
             gameBoard.ballReset();//new
             gameBoard.getWall().wallReset();
             gameBoard.resetGameBoard();//new
-            resetScore();
+            gameBoard.resetScore();
             gameBoard.setShowPauseMenu(false);
             gameView.repaint();
         } else if (gameView.getExitButtonRect().contains(p)) {
