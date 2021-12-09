@@ -132,7 +132,7 @@ public class InfoView extends JTextPane {
             instructions.insertString(instructions.getLength(), "\t \u2022 The \"Score Pop Up\" shows the score of the current level\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 The best score is the minimum time taken to complete a level\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 The \"Best Score Pop Up\" shows the all time best score across all levels\n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Each use of the penalties results in an addition of 20 seconds to score\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Each of the penalties results in an addition of 20 seconds to score\n", attributes);
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -145,6 +145,8 @@ public class InfoView extends JTextPane {
             subBulletsStyle();
             instructions.insertString(instructions.getLength(), "\t \u2022 Changing ball speed in Debug Console\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Reset balls in Debug Console\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Ball lost\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Game over\n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
