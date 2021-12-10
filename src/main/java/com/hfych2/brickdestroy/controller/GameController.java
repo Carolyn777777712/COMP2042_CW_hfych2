@@ -3,7 +3,7 @@ package com.hfych2.brickdestroy.controller;
 
 import com.hfych2.brickdestroy.model.GameBoard;
 import com.hfych2.brickdestroy.model.Player;
-import com.hfych2.brickdestroy.model.PlayerInfo;
+import com.hfych2.brickdestroy.model.User;
 import com.hfych2.brickdestroy.model.ScoreSorting;
 import com.hfych2.brickdestroy.view.GameView;
 
@@ -33,7 +33,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
     private GameBoard gameBoard;
     private GameView gameView;
-    private PlayerInfo playerInfo;
+    private User user;
 
     private Timer gameTimer;
 
@@ -54,7 +54,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
      * Calls the {@link DebugConsole#updateView(GameView)}
      * and passes in the gameView view<br>
      *
-     * {@link GameController#gameTimer} and {@link GameController#playerInfo}
+     * {@link GameController#gameTimer} and {@link GameController#user}
      * is initialised here.<br>
      *
      * {@link GameController#gameTimer} calls the {@link GameController#gameCycle()}
@@ -75,7 +75,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
 
         gameTimer = new Timer(10, e -> gameCycle());
 
-        playerInfo = new PlayerInfo(userName, score, currentLevel);
+        user = new User(userName, score, currentLevel);
     }
 
     /**
@@ -159,9 +159,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
      * Displays the all time best score using JOptionPane titled "Best Score Pop Up".<br>
      *
      * Uses ArrayList to store information before writing to file.<br>
-     *     {@link PlayerInfo#getUserName()}
-     *     {@link PlayerInfo#getScore()}
-     *     {@link PlayerInfo#getCurrentLevel()}
+     *     {@link User#getUserName()}
+     *     {@link User#getScore()}
+     *     {@link User#getCurrentLevel()}
      *     <br>
      * Uses Arraylist to find the all time best score.<br>
      * Reads file contents into ArrayLists.<br>
@@ -171,7 +171,7 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
      * @see Writer
      * @see Scanner
      * @see Collections#min(Collection)
-     * @see PlayerInfo
+     * @see User
      * @see ScoreSorting
      *
      */
@@ -180,9 +180,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         newUser = JOptionPane.showInputDialog(gameView, "What is your name?",
                 "Save Score", JOptionPane.INFORMATION_MESSAGE);
 
-        playerInfo.getUserName().add(newUser);
-        playerInfo.getScore().add(gameBoard.getTotal());
-        playerInfo.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
+        user.getUserName().add(newUser);
+        user.getScore().add(gameBoard.getTotal());
+        user.getCurrentLevel().add(gameBoard.getWall().getLevels().getLevel());
 
         JOptionPane.showMessageDialog(gameView, "This is your score "
                         + gameBoard.getFormatMinutes() + ":" + gameBoard.getFormatSeconds()
@@ -197,11 +197,11 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
         try {
             FileWriter fileWriter = new FileWriter(scoresFile, true);
             Writer writer = new BufferedWriter(fileWriter);
-            if (!playerInfo.getUserName().isEmpty()) {
+            if (!user.getUserName().isEmpty()) {
 
-                writer.write(playerInfo.nameToString());
-                writer.write(playerInfo.scoreToString());
-                writer.write(playerInfo.currentLevelToString());
+                writer.write(user.nameToString());
+                writer.write(user.scoreToString());
+                writer.write(user.currentLevelToString());
             }
             writer.close();
         } catch (Exception e) {
@@ -297,9 +297,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         "Your score has been successfully saved to the highScoresList",
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                user.getUserName().remove(user.getUserName().size()-1);
+                user.getScore().remove(user.getScore().size()-1);
+                user.getCurrentLevel().remove(user.getCurrentLevel().size()-1);
                 JOptionPane.showMessageDialog(gameView,
                         "Sorry, time taken for this level needs to be less than or equal to 2 minutes to be saved into highScoreList",
                         "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
@@ -313,9 +313,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                user.getUserName().remove(user.getUserName().size()-1);
+                user.getScore().remove(user.getScore().size()-1);
+                user.getCurrentLevel().remove(user.getCurrentLevel().size()-1);
                 JOptionPane.showMessageDialog(gameView,
                         "Sorry, time taken for this level needs to be less than or equal to 2.5 minutes to be saved into highScoreList",
                         "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
@@ -328,9 +328,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         "Your score has been successfully saved to the highScoresList",
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                user.getUserName().remove(user.getUserName().size()-1);
+                user.getScore().remove(user.getScore().size()-1);
+                user.getCurrentLevel().remove(user.getCurrentLevel().size()-1);
                 JOptionPane.showMessageDialog(gameView,
                         "Sorry, time taken for this level needs to be less than or equal to 3 minutes to be saved into highScoreList",
                         "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);
@@ -343,9 +343,9 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
                         "Your score has been successfully saved to the highScoresList",
                         "Score Saved Successfully", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                playerInfo.getUserName().remove(playerInfo.getUserName().size()-1);
-                playerInfo.getScore().remove(playerInfo.getScore().size()-1);
-                playerInfo.getCurrentLevel().remove(playerInfo.getCurrentLevel().size()-1);
+                user.getUserName().remove(user.getUserName().size()-1);
+                user.getScore().remove(user.getScore().size()-1);
+                user.getCurrentLevel().remove(user.getCurrentLevel().size()-1);
                 JOptionPane.showMessageDialog(gameView,
                         "Sorry, time taken for this level needs to be less than or equal to 4 minutes to be saved into highScoreList",
                         "Unable to Save Score", JOptionPane.INFORMATION_MESSAGE);

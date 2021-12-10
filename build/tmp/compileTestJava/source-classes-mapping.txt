@@ -2,13 +2,13 @@ com/hfych2/brickdestroy/model/LevelsTest.java
  com.hfych2.brickdestroy.model.LevelsTest
 com/hfych2/brickdestroy/model/GameBoardTest.java
  com.hfych2.brickdestroy.model.GameBoardTest
-com/hfych2/brickdestroy/model/BallTest.java
- com.hfych2.brickdestroy.model.BallTest
+com/hfych2/brickdestroy/view/HomeMenuTest.java
+ com.hfych2.brickdestroy.view.HomeMenuTest
 com/hfych2/brickdestroy/view/DebugPanelTest.java
  com.hfych2.brickdestroy.view.DebugPanelTest
 com/hfych2/brickdestroy/model/PlayerTest.java
  com.hfych2.brickdestroy.model.PlayerTest
 com/hfych2/brickdestroy/model/WallTest.java
  com.hfych2.brickdestroy.model.WallTest
-com/hfych2/brickdestroy/view/HomeMenuTest.java
- com.hfych2.brickdestroy.view.HomeMenuTest
+com/hfych2/brickdestroy/model/BallTest.java
+ com.hfych2.brickdestroy.model.BallTest

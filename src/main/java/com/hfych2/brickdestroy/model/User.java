@@ -4,14 +4,14 @@ package com.hfych2.brickdestroy.model;
 import java.util.ArrayList;
 
 
-public class PlayerInfo {
+public class User {
 
     private ArrayList <String> userName;
     private ArrayList <Integer> score;
     private ArrayList <Integer> currentLevel;
 
 
-    public PlayerInfo(ArrayList <String> userName, ArrayList <Integer> score, ArrayList<Integer> currentLevel){
+    public User(ArrayList <String> userName, ArrayList <Integer> score, ArrayList<Integer> currentLevel){
         this.userName = userName;
         this.score = score;
         this.currentLevel = currentLevel;
