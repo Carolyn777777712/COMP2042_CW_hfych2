@@ -6,7 +6,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 /**
- * This class is a brick of type Cement and the only brick type with strength of 2.<br>
+ * This class is brick of type Cement and the only brick type with strength of 2.<br>
  * This class is the only brick type that draw cracks on impact for this version.<br>
  * @see Crack
  */
@@ -23,6 +23,7 @@ public class CementBrick extends Brick {
 
     /**
      * Class constructor.<br>
+     * Calls the super class constructor and passes in the respective arguments.<br>
      * The crack is initialised here.<br>
      * Calls the {@link Brick#brickFace} and assigns to {@link CementBrick#brickFace}.
      * @param point the point of the brick.
@@ -57,7 +58,7 @@ public class CementBrick extends Brick {
     }
 
     /**
-     * Overrides the {@link Brick#makeBrickFace(Point, Dimension)}.
+     * Makes the brick.
      * @param pos the position of the brick.
      * @param size the size of the brick.
      * @return the rectangle brick made.
@@ -68,13 +69,13 @@ public class CementBrick extends Brick {
     }
 
     /**
-     * Overrides the {@link Brick#setImpact(Point2D, int)}.<br>
      * Draws the crack onto the brick if not broken
      *      by calling {@link Crack#crackBounds(Point2D, int)}
      *      and {@link CementBrick#updateBrick()}
      * @param point the point of impact.
      * @param dir the direction of damage caused by impact.
      * @return false if broken and true if not.
+     * @see Brick#isBroken()
      */
     @Override
     public boolean setImpact(Point2D point, int dir) {
@@ -90,7 +91,6 @@ public class CementBrick extends Brick {
     }
 
     /**
-     * Overrides the {@link Brick#getBrick()}.<br>
      * Gets the brick.
      * @return the brick.
      */

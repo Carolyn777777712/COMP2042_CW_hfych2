@@ -22,7 +22,9 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
+/**
+ * This class is brick of type Steel which is broken with a probability specified as {@link SteelBrick#STEEL_PROBABILITY}.
+ */
 public class SteelBrick extends Brick {
 
     private static final String NAME = "Steel Brick";
@@ -34,28 +36,59 @@ public class SteelBrick extends Brick {
     private Random rnd;
     private Shape brickFace;
 
+    /**
+     * Class constructor.<br>
+     * Calls the super class constructor and passes in the respective arguments.<br>
+     * Calls the {@link Brick#brickFace} and assigns to {@link SteelBrick#brickFace}.<br>
+     * Initialises {@link SteelBrick#rnd}.
+     * @param point the point of the brick.
+     * @param size the size of the brick.
+     */
     public SteelBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
         brickFace = super.brickFace;
     }
 
+    /**
+     * Calls the {@link Brick#impact()}
+     * if the {@link SteelBrick#rnd} is less than {@link SteelBrick#STEEL_PROBABILITY}
+     */
+    @Override
     public void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
             super.impact();
         }
     }
 
+    /**
+     * Makes the brick.
+     * @param pos the position of the brick.
+     * @param size the size of the brick.
+     * @return the rectangle brick made
+     */
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
 
+    /**
+     * Gets the brick.
+     * @return the brick.
+     */
     @Override
     public Shape getBrick() {
         return brickFace;
     }
 
+    /**
+     *
+     * @param point the point of impact.
+     * @param dir the direction of damage caused by impact.
+     * @return false if broken and true if not.
+     * @see Brick#isBroken()
+     */
+    @Override
     public  boolean setImpact(Point2D point , int dir){
         if(super.isBroken())
             return false;
