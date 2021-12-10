@@ -3,10 +3,13 @@ package com.hfych2.brickdestroy.model;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
+/**
+ * This class specifies how to draw the crack on the brick called.
+ */
 public class Crack {
 
 
@@ -30,7 +33,13 @@ public class Crack {
     private int crackDepth;
     private int steps;
 
-
+    /**
+     * Class constructor.<br>
+     * Initialises {@link Crack#crack} and {@link Crack#rnd}.
+     * @param brick the brick to draw on.
+     * @param crackDepth the depth of the crack.
+     * @param steps number of lines drawn of the crack.
+     */
     public Crack(Brick brick, int crackDepth, int steps){
 
         crack = new GeneralPath();
@@ -41,15 +50,28 @@ public class Crack {
 
     }
 
+    /**
+     * @return the crack drawn.
+     * @see GeneralPath
+     */
     public GeneralPath draw(){
 
         return crack;
     }
 
+    /**
+     * Clears the cracks drawn on the brick
+     * @see GeneralPath#reset()
+     */
     public void reset(){
         crack.reset();
     }
 
+    /**
+     * Defines the bounds for the drawing of the crack.
+     * @param point the point of impact.
+     * @param direction the direction of damage caused by impact
+     */
     protected void crackBounds(Point2D point, int direction){
         Rectangle bounds = brick.brickFace.getBounds();
 
@@ -90,6 +112,21 @@ public class Crack {
         }
     }
 
+    /**
+     * Makes the crack.<br>
+     * Use {@link GeneralPath#moveTo(double, double)} to the point of impact.<br>
+     * The bound is the {@link Crack#crackDepth}.<br>
+     * Calls {@link Crack#inMiddle(int, int, int)} to check for each {@link Crack#steps} and if
+     *      {@link Crack#inMiddle(int, int, int)} returns true
+     *      then assign {@link Crack#jumps(int, double)} value
+     *      to the second parameter of {@link GeneralPath#lineTo(double, double)}
+     * @param start point of impact.
+     * @param end ending point.
+     * @see GeneralPath#append(PathIterator, boolean)
+     * @see GeneralPath#moveTo(double, double)
+     * @see GeneralPath#lineTo(double, double)
+     * @see Crack#randomInBounds(int)
+     */
     protected void makeCrack(Point start, Point end){
 
         GeneralPath path = new GeneralPath();
@@ -105,7 +142,7 @@ public class Crack {
 
         double x,y;
 
-        for(int i = 1; i < steps;i++){
+        for(int i = 1; i < steps; i++){
 
             x = (i * w) + start.x;
             y = (i * h) + start.y + randomInBounds(bound);
@@ -121,11 +158,23 @@ public class Crack {
         crack.append(path,true);
     }
 
+    /**
+     * Generates random int.
+     * @param bound the bound.
+     * @return random int.
+     */
     private int randomInBounds(int bound){
         int n = (bound * 2) + 1;
         return rnd.nextInt(n) - bound;
     }
 
+    /**
+     * Checks if the current step is in the middle
+     * @param i     the current step
+     * @param steps the total steps
+     * @param divisions the divisions
+     * @return true if in middle and false if not
+     */
     private boolean inMiddle(int i,int steps,int divisions){
         int low = (steps / divisions);
         int up = low * (divisions - 1);
@@ -133,6 +182,14 @@ public class Crack {
         return  (i > low) && (i < up);
     }
 
+    /**
+     * Calls and return {@link Crack#randomInBounds(int)}
+     *      if the random number is larger than the {@link Crack#JUMP_PROBABILITY}
+     * @param bound the bound.
+     * @param probability the probability.
+     * @return 0 if the random number is larger than the {@link Crack#JUMP_PROBABILITY} and
+     *      returns the value of {@link Crack#randomInBounds(int)} if smaller
+     */
     private int jumps(int bound,double probability){
         if(rnd.nextDouble() > probability)
             return randomInBounds(bound);
@@ -140,8 +197,14 @@ public class Crack {
 
     }
 
+    /**
+     * Makes the random point.
+     * @param from the starting point.
+     * @param to the ending point.
+     * @param direction the direction.
+     * @return random point.
+     */
     private Point makeRandomPoint(Point from, Point to, int direction){
-
         Point randomPoint = new Point();
         int position;
 
