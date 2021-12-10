@@ -4,6 +4,8 @@ package com.hfych2.brickdestroy.model;
 import java.util.ArrayList;
 
 /**
+ * This class is a newly created class that is not from the original code.<br>
+ *
  * This class is to temporarily store user information in Arraylists
  *      before writing to highScoresList.txt
  */

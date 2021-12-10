@@ -3,6 +3,8 @@ package com.hfych2.brickdestroy.model;
 import java.util.Comparator;
 
 /**
+ * This class is a newly created class that is not from the original code.<br>
+ *
  * This class is used for score sorting functionality on sorting the highScoresList.txt
  */
 public class ScoreSorting {
