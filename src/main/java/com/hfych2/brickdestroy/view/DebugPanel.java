@@ -21,7 +21,16 @@ package com.hfych2.brickdestroy.view;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * This class has been modified from the original code along with having additions
+ *      to become a view class.<br>
+ *
+ * This class is the view class for the controller
+ *      {@link com.hfych2.brickdestroy.controller.DebugConsole}
+ *      and for the model {@link com.hfych2.brickdestroy.model.GameBoard}.<br>
+ *
+ *
+ */
 public class DebugPanel extends JPanel {
 
 
@@ -36,7 +45,12 @@ public class DebugPanel extends JPanel {
 
     private boolean givePenalty;
 
-
+    /**
+     * Class constructor.<br>
+     * Implements the factory method.<br>
+     * {@link DebugPanel#createDebugPanel()} will be replacing constructor calls.<br>
+     *  Calls the {@link DebugPanel#initialize()} method and adds the components to view.
+     */
     private DebugPanel(){
 
        initialize();
@@ -55,22 +69,38 @@ public class DebugPanel extends JPanel {
 
     }
 
+    /**
+     * Factory method to replace constructor calls.
+     * @return new DebugPanel object.
+     */
     public static DebugPanel createDebugPanel() {
         return new DebugPanel();
     }
 
-
+    /**
+     * Initialises the view.
+     */
     private void initialize(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(9,9));
     }
 
+    /**
+     * Creates the button for changing ball speed.
+     * @return the button for changing ball speed.
+     */
     private JButton changeBallSpeedButton(){
         JButton changeBallSpeedButton = new JButton("Reset Ball Speed");
 
         return changeBallSpeedButton;
     }
 
+    /**
+     * Creates the slider for changing ball speed.
+     * @param min the minimum value for the slider.
+     * @param max the maximum value for the slider.
+     * @return the slider for changing ball speed.
+     */
     private JSlider changeBallSpeedSlider(int min, int max){
         JSlider changeBallSpeedSlider = new JSlider(min, max);
         changeBallSpeedSlider.setMajorTickSpacing(1);
@@ -81,44 +111,80 @@ public class DebugPanel extends JPanel {
         return changeBallSpeedSlider;
     }
 
+    /**
+     * Creates the button for skipping levels.
+     * @return the button for skipping levels.
+     */
    private JButton skipLevelsButton(){
         JButton skipLevelsButton = new JButton("Skip to: ");
 
         return skipLevelsButton;
     }
 
+    /**
+     * Creates the button for reset balls.
+     * @return the button for reset balls.
+     */
     private JButton resetBallsButton(){
         JButton resetBallsButton = new JButton("Reset Balls");
 
         return resetBallsButton;
     }
 
-
+    /**
+     * Sets the value for the slider.
+     * @param x x value of the slider.
+     * @param y y value fo the slider.
+     */
     public void setValues(int x,int y){
         changeBallSpeedSlider.setValue(x);
         changeBallSpeedSlider.setValue(y);
     }
 
+    /**
+     * Checks if penalty is given.
+     * @return true if penalty is given and false otherwise.
+     */
     public boolean isGivePenalty() {
         return givePenalty;
     }
 
+    /**
+     * Sets if penalty is given.
+     * @param givePenalty the value to set to.
+     */
     public void setGivePenalty(boolean givePenalty) {
         this.givePenalty = givePenalty;
     }
 
+    /**
+     * Gets the skipLevelsButton.
+     * @return the skipLevelsButton.
+     */
     public JButton getSkipLevelsButton() {
         return skipLevelsButton;
     }
 
+    /**
+     * Gets the resetBallsButton.
+     * @return the resetBallsButton.
+     */
     public JButton getResetBallsButton() {
         return resetBallsButton;
     }
 
+    /**
+     * Gets the changeBallSpeedButton.
+     * @return the changeBallSpeedButton.
+     */
     public JButton getChangeBallSpeedButton() {
         return changeBallSpeedButton;
     }
 
+    /**
+     * Gets the changeBallSpeedSlider.
+     * @return the changeBallSpeedSlider.
+     */
     public JSlider getChangeBallSpeedSlider() {
         return changeBallSpeedSlider;
     }

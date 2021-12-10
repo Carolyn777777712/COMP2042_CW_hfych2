@@ -34,7 +34,7 @@ import java.awt.event.WindowListener;
  * This class represents the DebugConsole
  * that is shown when user presses 'ALT','F1' and 'SHIFT'.<br>
  *
- * This class has been modified along with having additions from the original code
+ * This class has been modified from the original code along with having additions
  *      to become a controller class.<br>
  *
  * It is the controller class for the model {@link GameBoard} and the view {@link DebugPanel}.<br>

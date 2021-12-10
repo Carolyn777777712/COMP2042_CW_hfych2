@@ -29,7 +29,8 @@ import java.awt.geom.Point2D;
  * Both {@link com.hfych2.brickdestroy.view.GameView} and {@link com.hfych2.brickdestroy.controller.GameController}
  *      are extracted from this class of the original code.<br>
  *
- * This class has been modified along with having additions.<br>
+ * This class has been modified from the original code along with having additions
+ *      to become a model class.<br>
  *
  * This class is the model class for the view {@link com.hfych2.brickdestroy.view.GameView}
  * and the controller {@link com.hfych2.brickdestroy.controller.GameController}
@@ -124,7 +125,7 @@ public class GameBoard {
     /**
      * Factory method to replace constructor calls
      * @param owner the JFrame
-     * @return constructor
+     * @return new GameBoard object
      */
     public static GameBoard createGameBoard(ViewManager owner) {
         return new GameBoard(owner);//factory method
