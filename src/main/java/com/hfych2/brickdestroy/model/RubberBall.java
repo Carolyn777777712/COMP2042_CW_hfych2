@@ -22,7 +22,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-
+/**
+ * This class is a ball of type Rubber.<br>
+ * This class is the current type of ball used for all levels.
+ */
 public class RubberBall extends Ball {
 
     private static final int DEF_RADIUS = 10;
@@ -30,11 +33,21 @@ public class RubberBall extends Ball {
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
 
+    /**
+     * Calls the super class constructor and passes in the respective arguments.
+     * @param center the center point location of the ball.
+     */
     public RubberBall(Point2D center){
         super(center,DEF_RADIUS,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
 
-
+    /**
+     * Makes the ball.
+     * @param center the center point location of the ball.
+     * @param radiusA the width of the ball.
+     * @param radiusB the height of the ball.
+     * @return
+     */
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
 
