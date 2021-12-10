@@ -9,8 +9,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
+ * This class is a newly created class that is not from the original code.<br>
+ *
  * This class is the controller class for {@link InfoView}
- * Defines the action of key pressed when InfoView is in display.<br>
+ * Defines the action to be performed on key pressed when InfoView is in display.<br>
  *
  * @author Carolyn
  */

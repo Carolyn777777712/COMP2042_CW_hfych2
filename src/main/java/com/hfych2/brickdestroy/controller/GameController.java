@@ -16,6 +16,9 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 /**
+ * This class is extracted from {@link GameBoard} of the original code
+ *      and has been modified along with having additions.<br>
+ *
  * This class is the controller class for the model {@link GameBoard}
  *      and the view {@link GameView}.<br>
  *

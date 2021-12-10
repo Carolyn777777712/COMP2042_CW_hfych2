@@ -8,7 +8,9 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 /**
- * This class specifies how to draw the crack on the brick called.
+ * This class is extracted from {@link Brick} of the original code.
+ *
+ * This class specifies how to draw the crack on the brick called.<br>
  */
 public class Crack {
 

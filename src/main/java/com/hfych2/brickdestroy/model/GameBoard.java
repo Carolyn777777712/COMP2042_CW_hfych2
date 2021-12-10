@@ -26,6 +26,11 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 /**
+ * Both {@link com.hfych2.brickdestroy.view.GameView} and {@link com.hfych2.brickdestroy.controller.GameController}
+ *      are extracted from this class of the original code.<br>
+ *
+ * This class has been modified along with having additions.<br>
+ *
  * This class is the model class for the view {@link com.hfych2.brickdestroy.view.GameView}
  * and the controller {@link com.hfych2.brickdestroy.controller.GameController}
  *

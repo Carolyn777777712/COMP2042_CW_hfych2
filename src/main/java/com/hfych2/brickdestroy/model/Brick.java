@@ -14,6 +14,8 @@ import java.awt.geom.Point2D;
  */
 
 /**
+ * The nested class, {@link Crack} was extracted from this class of the original code.<br>
+ *
  * This class is the super class for {@link ClayBrick}, {@link CementBrick}
  *      {@link SteelBrick}, {@link GoldBrick}.<br>
  * This class will be the super class for all brick objects which may be extended in the future.<br>

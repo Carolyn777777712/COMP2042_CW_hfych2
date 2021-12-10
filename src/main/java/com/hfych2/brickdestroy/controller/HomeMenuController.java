@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * This class is extracted from {@link HomeMenu} of the original code
+ *      and modified along with having additions.<br>
+ *
  * This class is the controller class for {@link HomeMenu}.<br>
- * This class defines the actions when HomeMenu options are clicked.<br>
+ * This class defines the actions to be performed when HomeMenu options are clicked.<br>
  *
  * It calls the {@link ViewManager#enableGameBoard()}.<br>
  * It reads and displays sortedHighScoresList.txt

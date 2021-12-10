@@ -6,6 +6,8 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 /**
+ * This class is a newly created class that is not from the original code.<br>
+ *
  * This class is brick of type Gold
  * which is broken with a probability as specified as {@link GoldBrick#GOLD_PROBABILITY}
  *

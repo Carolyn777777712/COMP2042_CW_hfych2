@@ -3,7 +3,14 @@ package com.hfych2.brickdestroy.model;
 
 import java.awt.*;
 
-
+/**
+ * This class is extracted from {@link Wall} of the original code
+ *      and has been modified along with having additions.<br>
+ *
+ * This class defines all the possible levels of the game.<br>
+ *
+ * @author Carolyn
+ */
 public class Levels {
 
     private final Wall wall;
@@ -19,10 +26,26 @@ public class Levels {
     private int level;//current level indicator
 
 
+    /**
+     * Class constructor.<br>
+     * @param wall the wall.
+     */
     public Levels(Wall wall) {
         this.wall = wall;
     }
 
+    /**
+     * Makes a level with wall of only consisting a single type of brick
+     *      using {@link Levels#makeBrick(Point, Dimension, int)}.<br>
+     * @param drawArea the area of the gameBoard.
+     * @param brickCnt the total number of bricks.
+     * @param lineCnt the total number of lines of bricks.
+     * @param brickSizeRatio the ratio of the brick size.
+     * @param type the type of the brick to create the level
+     * @return a wall of only consisting a single type of brick.
+     *
+     * @see Point#setLocation(Point)
+     */
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -63,6 +86,14 @@ public class Levels {
 
     }
 
+    /**
+     * Makes the brick of type specified.<br>
+     * @param point the point to put the brick.
+     * @param size the size of the brick.
+     * @param type the type of the brick.
+     * @throws IllegalArgumentException if unknown brick type is passed in as argument.
+     * @return the brick made of the specified type.
+     */
     private Brick makeBrick(Point point, Dimension size, int type) {
         Brick brickType;
         switch (type) {
@@ -84,6 +115,19 @@ public class Levels {
         return brickType;
     }
 
+    /**
+     * Makes a ChessBoardLevel with wall of consisting two types of brick
+     *      using {@link Levels#makeBrick(Point, Dimension, int)}.<br>
+     * @param drawArea the area of the gameBoard.
+     * @param brickCnt the total number of bricks.
+     * @param lineCnt the total number of lines of bricks.
+     * @param brickSizeRatio the ratio of the brick size.
+     * @param typeA the first type of brick.
+     * @param typeB the second type of brick.
+     * @return a ChessBoard wall consisting of 2 types of brick.
+     *
+     * @see Point#setLocation(Point)
+     */
     private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -129,6 +173,16 @@ public class Levels {
         return makeBricks;
     }
 
+    /**
+     * Makes the levels by calling either {@link Levels#makeSingleTypeLevel(Rectangle, int, int, double, int)}
+     *      or {@link Levels#makeChessboardLevel(Rectangle, int, int, double, int, int)}
+     *      and passing in the respective arguments.<br>
+     * @param drawArea the area of the gameBoard.
+     * @param brickCount the total number of bricks.
+     * @param lineCount the total number of lines of bricks.
+     * @param brickDimensionRatio the ratio of the brick size.
+     * @return the respective wall of bricks made.
+     */
     protected Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
 
         Brick[][] levelsCount = new Brick[LEVELS_COUNT][];
@@ -143,27 +197,50 @@ public class Levels {
         return levelsCount;
     }
 
+    /**
+     * Initialises the next level.
+     */
     public void nextLevel() {
         bricks = levels[level++];
         wall.setBrickCount(bricks.length);
     }
 
+    /**
+     * Checks if there is still another level ahead.
+     * @return true if there is still another level and false otherwise.
+     */
     public boolean hasLevel() {
         return level < levels.length;
     }
 
+    /**
+     * Gets the bricks.
+     * @return the bricks.
+     */
     public Brick[] getBricks() {
         return bricks;
     }
 
+    /**
+     * Sets the levels.
+     * @param levels the levels to set to.
+     */
     public void setLevels(Brick[][] levels) {
         this.levels = levels;
     }
 
+    /**
+     * Sets the current level.
+     * @param level the current level.
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    /**
+     * Gets the current level.
+     * @return the current level.
+     */
     public int getLevel() {
         return level;
     }
