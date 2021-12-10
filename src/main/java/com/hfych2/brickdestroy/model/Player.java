@@ -20,7 +20,9 @@ package com.hfych2.brickdestroy.model;
 
 import java.awt.*;
 
-
+/**
+ * This class defines the player.
+ */
 public class Player {
 
     private static final int DEF_MOVE_AMOUNT = 5;
@@ -34,7 +36,16 @@ public class Player {
     public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
     public static final Color INNER_COLOR = Color.GREEN;
 
-
+    /**
+     * Class constructor.<br>
+     * Initialises {@link Player#moveAmount} to zero.<br>
+     * Assigns {@link Player#makeRectangle(int, int)} to {@link Player#playerFace}.<br>
+     * Uses the fourth parameter to calculate the {@link Player#min} and {@link Player#max}
+     * @param ballPoint the ball point.
+     * @param width the width of the player
+     * @param height the height of the player
+     * @param container the area of the gameBoard
+     */
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -44,15 +55,32 @@ public class Player {
 
     }
 
+    /**
+     * Makes the rectangle player.
+     * @param width the width of the player.
+     * @param height the height of the player.
+     * @return the rectangle player made.
+     *
+     * @see Rectangle#Rectangle(Point, Dimension)
+     */
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
 
-    public boolean impact(Ball b){
-        return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
+    /**
+     * Flag for checking if the ball impacts the player.
+     * @param ball the ball.
+     * @return true if impact is detected and false otherwise.
+     */
+    public boolean impact(Ball ball){
+        return playerFace.contains(ball.getPosition()) && playerFace.contains(ball.down) ;
     }
 
+    /**
+     * Keeps the player within the area of the gameBoard when player is moved.
+     * @see Rectangle#setLocation(Point)
+     */
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
@@ -61,23 +89,43 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
-    public void moveTo(Point p){
-        ballPoint.setLocation(p);
+    /**
+     * Moves the player to a certain location point.
+     * @param point the point location to move to.
+     * @see Rectangle#setLocation(Point)
+     */
+    public void moveTo(Point point){
+        ballPoint.setLocation(point);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
+    /**
+     * Assigns negative {@link Player#DEF_MOVE_AMOUNT} to {@link Player#moveAmount}
+     *      when player is moved left.
+     */
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Assigns {@link Player#DEF_MOVE_AMOUNT} to {@link Player#moveAmount}
+     *      when player is moved right.
+     */
     public void moveRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Assigns zero to {@link Player#moveAmount} when player is not moved
+     */
     public void stop(){
         moveAmount = 0;
     }
 
+    /**
+     * Gets the player shape.
+     * @return the player shape.
+     */
     public Shape getPlayerFace(){
         return  playerFace;
     }
