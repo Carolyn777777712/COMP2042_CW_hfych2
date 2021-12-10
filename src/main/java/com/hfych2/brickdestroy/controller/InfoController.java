@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 /**
  * This class is the controller class for {@link InfoView}
  * Defines the action of key pressed when InfoView is in display.<br>
+ *
+ * @author Carolyn
  */
 public class InfoController implements KeyListener{
     private final InfoView infoView;

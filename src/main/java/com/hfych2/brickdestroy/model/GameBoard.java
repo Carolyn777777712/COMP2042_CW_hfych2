@@ -101,7 +101,7 @@ public class GameBoard {
 
         wall = new Wall(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), 30, 3, 6 / 2);
 
-        ballPos = new Point(300, 430);//new
+        ballPos = new Point(300, 430);
         this.startPoint = new Point(ballPos);
 
         impacts = new Impacts(this.wall, this);

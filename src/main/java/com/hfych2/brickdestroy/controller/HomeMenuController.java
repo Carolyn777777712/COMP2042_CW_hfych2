@@ -23,6 +23,8 @@ import java.util.Scanner;
  * It calls the {@link ViewManager#enableInfoView()}.<br>
  * It terminates the process successfully {@link System#exit(int)}.<br>
  *
+ * @author Carolyn
+ *
  */
 
 public class HomeMenuController implements MouseListener, MouseMotionListener{
