@@ -23,9 +23,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 
-
+/**
+ * {@link com.hfych2.brickdestroy.controller.HomeMenuController} is extracted
+ *      from this class of the original code.<br>
+ *
+ * This class has been modified along with having additions to become a view class.<br>
+ *
+ * This class is the view class for the
+ *      controller {@link com.hfych2.brickdestroy.controller.HomeMenuController}.
+ */
 public class HomeMenu extends JPanel {
 
     private ViewManager owner;
@@ -72,6 +81,13 @@ public class HomeMenu extends JPanel {
     private boolean exitEntered;
 
 
+    /**
+     * Class constructor.<br>
+     * Calls {@link HomeMenu#initialise()} and {@link HomeMenu#initialiseHomeMenu(Dimension)}.<br>
+     * Sets layout to null.
+     * @param owner the JFrame.
+     * @param area the area of the HomeMenu.
+     */
     public HomeMenu(ViewManager owner, Dimension area){
 
         this.owner = owner;
@@ -84,12 +100,21 @@ public class HomeMenu extends JPanel {
 
     }
 
+    /**
+     * Initialises the HomeMenu.
+     */
     private void initialise(){
 
         this.setFocusable(true);
         this.requestFocusInWindow();
     }
 
+    /**
+     * Initialises the elements of the HomeMenu.<br>
+     * @param area the area of the HomeMenu.
+     * @see ImageIO
+     * @see Image#getScaledInstance(int, int, int)
+     */
     private void initialiseHomeMenu(Dimension area){
 
         menuFace = new Rectangle(new Point(0,0),area);
@@ -116,13 +141,23 @@ public class HomeMenu extends JPanel {
         }
     }
 
-
+    /**
+     * Paints the view by calling {@link HomeMenu#drawMenu(Graphics2D)}.
+     * @param g the Graphics.
+     */
     public void paint(Graphics g){
 
         drawMenu((Graphics2D)g);
     }
 
-
+    /**
+     * Draws the HomeMenu.<br>
+     * Calls {@link HomeMenu#drawText(Graphics2D)}
+     *      and {@link HomeMenu#drawButton(Graphics2D)}.<br>
+     * Background image is drawn here.
+     * @param g2d the Graphics2D
+     * @see Graphics2D#drawImage(Image, int, int, ImageObserver)
+     */
     public void drawMenu(Graphics2D g2d){
 
         g2d.drawImage(scaledBackground,0,0,null);
@@ -150,6 +185,10 @@ public class HomeMenu extends JPanel {
         g2d.setColor(prevColor);
     }
 
+    /**
+     * Draws the text in the HomeMenu using the {@link Graphics2D#drawString(String, int, int)}.
+     * @param g2d the Graphics2D
+     */
     private void drawText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
@@ -183,6 +222,10 @@ public class HomeMenu extends JPanel {
 
     }
 
+    /**
+     * Draws the rectangle buttons in the HomeMenu.
+     * @param g2d the Graphics2D
+     */
     private void drawButton(Graphics2D g2d){
 
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -337,70 +380,138 @@ public class HomeMenu extends JPanel {
         }
     }
 
+    /**
+     * Gets the JFrame.
+     * @return the JFrame.
+     */
     public ViewManager getOwner() {
         return owner;
     }
 
+    /**
+     * Gets the rectangle startButton.
+     * @return the rectangle startButton.
+     */
     public Rectangle getStartButton() {
         return startButton;
     }
 
+    /**
+     * Gets the rectangle infoButton.
+     * @return the rectangle infoButton.
+     */
     public Rectangle getInfoButton(){
         return infoButton;
     }
 
+    /**
+     * Gets the rectangle highScoreButton.
+     * @return the rectangle highScoreButton.
+     */
     public Rectangle getHighScoreButton(){
         return highScoreButton;
     }
 
+    /**
+     * Gets the rectangle exitButton.
+     * @return the rectangle exitButton.
+     */
     public Rectangle getExitButton() {
         return exitButton;
     }
 
+    /**
+     * Flag for rectangle startButton is clicked.
+     * @return true if rectangle startButton is clicked and false otherwise.
+     */
     public boolean isStartClicked() {
         return startClicked;
     }
 
+    /**
+     * Flag for rectangle infoButton is clicked.
+     * @return true if rectangle infoButton is clicked and false otherwise.
+     */
     public boolean isInfoClicked(){
         return infoClicked;
     }
 
+    /**
+     * Flag for rectangle highScoreButton is clicked.
+     * @return true if rectangle highScoreButton is clicked and false otherwise.
+     */
     public boolean isHighScoreClicked(){
         return highScoreClicked;
     }
 
+    /**
+     * Flag for rectangle exitButton is clicked.
+     * @return true if rectangle exitButton is clicked and false otherwise.
+     */
     public boolean isExitClicked() {
         return exitClicked;
     }
 
+    /**
+     * Sets the flag for if rectangle startButton is clicked.
+     * @param startClicked true if rectangle startButton is clicked and false otherwise.
+     */
     public void setStartClicked(boolean startClicked) {
         this.startClicked = startClicked;
     }
 
+    /**
+     * Sets the flag for if rectangle infoButton is clicked.
+     * @param infoClicked true if rectangle infoButton is clicked and false otherwise.
+     */
     public void setInfoClicked(boolean infoClicked){
         this.infoClicked = infoClicked;
     }
 
+    /**
+     * Sets the flag for if rectangle highScoreButton is clicked.
+     * @param highScoreClicked true if rectangle highScoreButton is clicked and false otherwise.
+     */
     public void setHighScoreClicked(boolean highScoreClicked){
         this.highScoreClicked = highScoreClicked;
     }
 
+    /**
+     * Sets the flag for if rectangle exitButton is clicked.
+     * @param exitClicked true if rectangle exitButton is clicked and false otherwise.
+     */
     public void setExitClicked(boolean exitClicked) {
         this.exitClicked = exitClicked;
     }
 
+    /**
+     * Sets the flag for if mouse entered the HomeMenu.
+     * @param startEntered true if mouse entered the HomeMenu.
+     */
     public void setStartEntered(boolean startEntered){
         this.startEntered = startEntered;
     }
 
+    /**
+     * Sets the flag for if mouse entered the HomeMenu.
+     * @param infoEntered true if mouse entered the HomeMenu.
+     */
     public void setInfoEntered(boolean infoEntered){
         this.infoEntered = infoEntered;
     }
 
+    /**
+     * Sets the flag for if mouse entered the HomeMenu.
+     * @param highScoreEntered true if mouse entered the HomeMenu.
+     */
     public void setHighScoreEntered(boolean highScoreEntered){
         this.highScoreEntered = highScoreEntered;
     }
 
+    /**
+     * Sets the flag for if mouse entered the HomeMenu.
+     * @param exitEntered true if mouse entered the HomeMenu.
+     */
     public void setExitEntered(boolean exitEntered){
         this.exitEntered = exitEntered;
     }
