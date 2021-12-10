@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.model.BallTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-12-09T15:03:31" hostname="LAPTOP-SAC9PCRG" time="0.319">
+<testsuite name="com.hfych2.brickdestroy.model.BallTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-12-10T06:53:54" hostname="LAPTOP-SAC9PCRG" time="0.504">
   <properties/>
-  <testcase name="getPosition" classname="com.hfych2.brickdestroy.model.BallTest" time="0.001"/>
+  <testcase name="getPosition" classname="com.hfych2.brickdestroy.model.BallTest" time="0.002"/>
   <testcase name="reverseX" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <testcase name="reverseY" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <testcase name="getBorderColor" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <testcase name="getInnerColor" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
-  <testcase name="setXSpeed" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
+  <testcase name="setXSpeed" classname="com.hfych2.brickdestroy.model.BallTest" time="0.001"/>
   <testcase name="setYSpeed" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
-  <testcase name="getSpeedX" classname="com.hfych2.brickdestroy.model.BallTest" time="0.001"/>
+  <testcase name="getSpeedX" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <testcase name="getSpeedY" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <testcase name="setSpeed" classname="com.hfych2.brickdestroy.model.BallTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

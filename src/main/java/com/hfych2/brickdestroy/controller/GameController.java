@@ -16,7 +16,8 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 /**
- * This class is the controller class for GameBoard(model) and GameView(view).<br>
+ * This class is the controller class for the model {@link GameBoard}
+ *      and the view {@link GameView}.<br>
  *
  * It defines the action on keyboard input during the game play.<br>
  * It reads and writes to highScoresList.txt.<br>
@@ -55,8 +56,6 @@ public class GameController implements KeyListener, MouseListener, MouseMotionLi
      *
      * {@link GameController#gameTimer} calls the {@link GameController#gameCycle()}
      * using lambda expression.<br>
-     *
-     * {@link PlayerInfo#PlayerInfo(ArrayList, ArrayList, ArrayList)} is initialised here.
      *
      * @param gameBoard the model
      * @param gameView the view
