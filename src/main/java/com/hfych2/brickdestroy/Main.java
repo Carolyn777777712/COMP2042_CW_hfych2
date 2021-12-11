@@ -22,7 +22,7 @@ import com.hfych2.brickdestroy.view.ViewManager;
 import java.awt.*;
 
 
-public class GraphicsMain {
+public class Main {
 
     public static void main(String[] args){
         EventQueue.invokeLater(() -> new ViewManager().initialise());

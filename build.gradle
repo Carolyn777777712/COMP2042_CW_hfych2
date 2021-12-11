@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClass = 'com.hfych2.brickdestroy.GraphicsMain'
+    mainClass = 'com.hfych2.brickdestroy.Main'
 }
 sourceSets {
     main {
@@ -37,7 +37,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "com.hfych2.brickdestroy.GraphicsMain"
+        attributes "Main-Class": "com.hfych2.brickdestroy.Main"
     }
 
     from {

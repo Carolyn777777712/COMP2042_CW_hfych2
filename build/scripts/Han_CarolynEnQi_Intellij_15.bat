@@ -71,7 +71,7 @@ set CLASSPATH=%APP_HOME%\lib\Han_CarolynEnQi_Intellij_15-1.0-SNAPSHOT.jar;%APP_H
 
 
 @rem Execute Han_CarolynEnQi_Intellij_15
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HAN_CAROLYN_EN_QI_INTELLIJ_15_OPTS%  -classpath "%CLASSPATH%" com.hfych2.brickdestroy.GraphicsMain %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HAN_CAROLYN_EN_QI_INTELLIJ_15_OPTS%  -classpath "%CLASSPATH%" com.hfych2.brickdestroy.Main %*
 
 :end
 @rem End local scope for the variables with windows NT shell

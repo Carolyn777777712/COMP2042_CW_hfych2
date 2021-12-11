@@ -180,6 +180,6 @@ save () {
 APP_ARGS=`save "$@"`
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $HAN_CAROLYN_EN_QI_INTELLIJ_15_OPTS -classpath "\"$CLASSPATH\"" com.hfych2.brickdestroy.GraphicsMain "$APP_ARGS"
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $HAN_CAROLYN_EN_QI_INTELLIJ_15_OPTS -classpath "\"$CLASSPATH\"" com.hfych2.brickdestroy.Main "$APP_ARGS"
 
 exec "$JAVACMD" "$@"
