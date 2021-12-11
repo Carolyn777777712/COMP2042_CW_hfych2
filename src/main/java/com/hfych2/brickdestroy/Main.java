@@ -22,6 +22,13 @@ import com.hfych2.brickdestroy.view.ViewManager;
 import java.awt.*;
 
 
+/**
+ * This class was the GraphicsMain class of the original code and renamed to Main
+ *      to provide easier understanding of the current code.<br>
+ *
+ * The class that contains the main method that calls the {@link ViewManager#initialise()}
+ *      using the {@link EventQueue#invokeLater(Runnable)}.
+ */
 public class Main {
 
     public static void main(String[] args){

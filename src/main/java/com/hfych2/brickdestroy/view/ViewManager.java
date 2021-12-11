@@ -33,7 +33,7 @@ import java.awt.event.WindowFocusListener;
  * This class has been modified from the original code
  *      along with having additions to become a view class.<br>
  *
- * This class was the GameFrame class of the original code and
+ * This class was the GameFrame class of the original code and is
  *      renamed to provide easier understanding of the current code.<br>
  *
  * This class contains methods to enable different views.
