@@ -29,7 +29,15 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
-
+/**
+ * This class has been modified from the original code
+ *      along with having additions to become a view class.<br>
+ *
+ * This class was the GameFrame class of the original code and
+ *      renamed to provide easier understanding of the current code.<br>
+ *
+ * This class contains methods to enable different views.
+ */
 public class ViewManager extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
@@ -50,6 +58,25 @@ public class ViewManager extends JFrame implements WindowFocusListener {
     private JScrollPane jScrollPane;
 
 
+    /**
+     * Class constructor.<br>
+     *
+     * Calls the super class default constructor.<br>
+     *
+     * Initialises {@link ViewManager#gaming} to false.<br>
+     *
+     * Initialises {@link ViewManager#gameBoard}, {@link ViewManager#gameView},
+     *      {@link ViewManager#gameController}.<br>
+     *
+     * Initialises {@link ViewManager#homeMenu}, {@link ViewManager#homeMenuController}
+     *      and adds {@link ViewManager#homeMenu} to this JFrame
+     *      while also adding the listeners
+     *          needed for {@link ViewManager#homeMenuController}.<br>
+     *
+     * Initialises {@link ViewManager#infoView}, {@link ViewManager#infoController},
+     *      {@link ViewManager#jScrollPane}
+     *      while adding the {@link ViewManager#infoView} to {@link ViewManager#jScrollPane}.
+     */
     public ViewManager(){
         super();
 
@@ -75,6 +102,11 @@ public class ViewManager extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * To locate the window to the center of the screen.
+     * @see Toolkit#getScreenSize()
+     * @see JFrame#setLocation(Point)
+     */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -82,7 +114,10 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         this.setLocation(x,y);
     }
 
-    public void initialize(){
+    /**
+     * Initialises the JFrame view.
+     */
+    public void initialise(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);//new
@@ -91,6 +126,10 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+    /**
+     * Enables the homeMenu to be displayed.
+     * Calls {@link ViewManager#initialise()}
+     */
     public void enableHomeMenu(){
         this.remove(gameView);
         this.remove(infoView);
@@ -98,8 +137,13 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         homeMenu.repaint();
         this.addMouseListener(homeMenuController);
         this.addMouseMotionListener(homeMenuController);
+        initialise();
     }
 
+    /**
+     * Enables the gameBoard to be displayed.
+     * Calls {@link ViewManager#initialise()}
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -112,11 +156,18 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         this.addMouseListener(gameController);
         this.addMouseMotionListener(gameController);
         this.setUndecorated(false);
-        initialize();
+        initialise();
         /*to avoid problems with graphics focus controller is added here*/
         this.addWindowFocusListener(this);
 
     }
+
+    /**
+     * Enables the infoView to be displayed.
+     * Calls {@link ViewManager#initialise()}.
+     * @see JScrollPane#setVerticalScrollBarPolicy(int)
+     * @see JScrollPane#setHorizontalScrollBarPolicy(int)
+     */
     public void enableInfoView(){
         this.dispose();
         this.remove(homeMenu);
@@ -126,10 +177,14 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         this.setFocusable(true);
         this.addKeyListener(infoController);
         this.setUndecorated(false);
-        initialize();
+        initialise();
 
     }
 
+    /**
+     * Assigns {@link ViewManager#gaming} to true if focus is gained.
+     * @param windowEvent the WindowEvent detected.
+     */
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -143,6 +198,11 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         gaming = true;
     }
 
+    /**
+     * Calls {@link GameController#onLostFocus()} if focus is lost and
+     *      {@link ViewManager#gaming} is true.
+     * @param windowEvent the WindowEvent detected.
+     */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(gaming)

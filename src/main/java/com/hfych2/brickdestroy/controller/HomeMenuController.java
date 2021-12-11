@@ -84,7 +84,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
      * @see ViewManager#dispose()
      * @see ViewManager#remove(Component)
      * @see JTextArea#append(String)
-     * @see ViewManager#initialize()
+     * @see ViewManager#initialise()
      *
      */
     private void displaySortedHighScores(){
@@ -138,7 +138,7 @@ public class HomeMenuController implements MouseListener, MouseMotionListener{
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         homeMenu.getOwner().remove(homeMenu);
         homeMenu.getOwner().add(jScrollPane,BorderLayout.CENTER);
-        homeMenu.getOwner().initialize();
+        homeMenu.getOwner().initialise();
     }
 
     /**

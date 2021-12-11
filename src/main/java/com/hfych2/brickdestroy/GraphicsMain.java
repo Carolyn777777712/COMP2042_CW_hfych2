@@ -25,7 +25,7 @@ import java.awt.*;
 public class GraphicsMain {
 
     public static void main(String[] args){
-        EventQueue.invokeLater(() -> new ViewManager().initialize());
+        EventQueue.invokeLater(() -> new ViewManager().initialise());
     }
 
 }
