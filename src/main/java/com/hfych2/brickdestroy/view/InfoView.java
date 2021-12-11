@@ -4,13 +4,18 @@ package com.hfych2.brickdestroy.view;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import javax.swing.text.*;
 import java.awt.*;
 
-
+/**
+ * This class is a newly created class that is not from the original code.<br>
+ *
+ * This class represents the view for when the "INFO" button of the HomeMenu is clicked.<br>
+ * @see Document
+ * @see SimpleAttributeSet
+ * @see MatteBorder
+ * @see Document#insertString(int, String, AttributeSet)
+ */
 public class InfoView extends JTextPane {
 
     private ViewManager owner;
@@ -22,6 +27,14 @@ public class InfoView extends JTextPane {
     private MatteBorder border;
 
 
+    /**
+     * Class constructor.<br>
+     * Initialises the view and its elements.<br>
+     * Calls all the methods that contains the text to be diaplayed to view.
+     * @param owner the JFrame.
+     *
+     * @see TitledBorder
+     */
     public InfoView(ViewManager owner) {
 
         this.owner = owner;
@@ -52,7 +65,10 @@ public class InfoView extends JTextPane {
         setBackground(new Color(162,228,201));
     }
 
-
+    /**
+     * Defines the style for each main bullet point.
+     * @see StyleConstants
+     */
     private void bulletStyle(){
         attributes = new SimpleAttributeSet();
         StyleConstants.setFontFamily(attributes,"Monospaced");
@@ -62,6 +78,10 @@ public class InfoView extends JTextPane {
         StyleConstants.setBold(attributes,true);
     }
 
+    /**
+     * Defines the style for each sub bullet point.
+     * @see StyleConstants
+     */
     private void subBulletsStyle(){
         attributes = new SimpleAttributeSet();
         StyleConstants.setFontFamily(attributes,"Monospaced");
@@ -71,6 +91,9 @@ public class InfoView extends JTextPane {
         StyleConstants.setBold(attributes,false);
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding player.
+     */
     private void playerInstructions(){
         try {
             bulletStyle();
@@ -84,6 +107,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding game operations.
+     */
     private void gameOperations(){
         try{
             bulletStyle();
@@ -107,6 +133,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding DebugConsole.
+     */
     private void debugConsole(){
         try{
             bulletStyle();
@@ -121,6 +150,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding score calculations.
+     */
     private void scoreCalculations() {
         try {
             bulletStyle();
@@ -138,6 +170,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding penalty calculations.
+     */
     private void penaltyCalculations(){
         try{
             bulletStyle();
@@ -146,12 +181,15 @@ public class InfoView extends JTextPane {
             instructions.insertString(instructions.getLength(), "\t \u2022 Changing ball speed in Debug Console\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Reset balls in Debug Console\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Ball lost\n", attributes);
-            instructions.insertString(instructions.getLength(), "\t \u2022 Game over\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 Game over - for when all 3 balls are lost\n", attributes);
         }catch (BadLocationException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding score saving.
+     */
     private void scoreSaving(){
         try{
             bulletStyle();
@@ -167,6 +205,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding rewards.
+     */
     private void reward(){
         try{
             bulletStyle();
@@ -181,6 +222,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding score saving conditions.
+     */
     private void savingConditions(){
         try{
             bulletStyle();
@@ -198,6 +242,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding cautions.
+     */
     private void caution(){
         try{
             bulletStyle();
@@ -213,6 +260,9 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Sets the text and calls the respective style for information regarding starting the game.
+     */
     private void startGame(){
         try{
             bulletStyle();
@@ -222,6 +272,10 @@ public class InfoView extends JTextPane {
         }
     }
 
+    /**
+     * Gets the JFrame.
+     * @return the JFrame.
+     */
     public ViewManager getOwner() {
         return owner;
     }
