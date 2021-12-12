@@ -1,0 +1,7 @@
+[[Name: name2	Score: 98000	Level: 1]
+, [Name: name1	Score: 109000	Level: 1]
+, [Name: Name	Score: 110000	Level: 1]
+, [Name: newestName	Score: 116000	Level: 1]
+, [Name: thisName	Score: 134000	Level: 2]
+, [Name: newName	Score: 143000	Level: 6]
+]
