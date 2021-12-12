@@ -187,10 +187,11 @@ public class Crack {
     /**
      * Calls and return {@link Crack#randomInBounds(int)}
      *      if the random number is larger than the {@link Crack#JUMP_PROBABILITY}
+     *      to generate zig-zag pattern of crack drawn.
      * @param bound the bound.
      * @param probability the probability.
-     * @return 0 if the random number is larger than the {@link Crack#JUMP_PROBABILITY} and
-     *      returns the value of {@link Crack#randomInBounds(int)} if smaller
+     * @return 0 if the random number is smaller than the {@link Crack#JUMP_PROBABILITY} and
+     *      returns the value of {@link Crack#randomInBounds(int)} otherwise
      */
     private int jumps(int bound,double probability){
         if(rnd.nextDouble() > probability)
