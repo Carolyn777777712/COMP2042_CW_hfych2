@@ -211,9 +211,9 @@ public class InfoView extends JTextPane {
     private void reward(){
         try{
             bulletStyle();
-            instructions.insertString(instructions.getLength(), "\u2022 HighScores Display: \n", attributes);
+            instructions.insertString(instructions.getLength(), "\u2022 LeaderBoard Display: \n", attributes);
             subBulletsStyle();
-            instructions.insertString(instructions.getLength(), "\t \u2022 The smaller the score saved in files, the higher the score\n", attributes);
+            instructions.insertString(instructions.getLength(), "\t \u2022 The smaller the score, the higher the position in the \"HIGHSCORES\"\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 The best score achiever will be shown after each level is completed\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 The best score achiever will be crowned \"CHAMPION\" in \"HIGHSCORES\"\n", attributes);
             instructions.insertString(instructions.getLength(), "\t \u2022 Keep the title and everyone who plays the game will know your name :)\n", attributes);

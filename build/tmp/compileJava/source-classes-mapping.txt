@@ -33,19 +33,19 @@ com/hfych2/brickdestroy/model/Impacts.java
 com/hfych2/brickdestroy/controller/HomeMenuController.java
  com.hfych2.brickdestroy.controller.HomeMenuController
  com.hfych2.brickdestroy.controller.HomeMenuController$1
-com/hfych2/brickdestroy/controller/InfoController.java
- com.hfych2.brickdestroy.controller.InfoController
+com/hfych2/brickdestroy/model/GameBoard.java
+ com.hfych2.brickdestroy.model.GameBoard
 com/hfych2/brickdestroy/controller/GameController.java
  com.hfych2.brickdestroy.controller.GameController
 com/hfych2/brickdestroy/model/RubberBall.java
  com.hfych2.brickdestroy.model.RubberBall
+com/hfych2/brickdestroy/controller/DebugConsole.java
+ com.hfych2.brickdestroy.controller.DebugConsole
+com/hfych2/brickdestroy/Main.java
+ com.hfych2.brickdestroy.Main
+com/hfych2/brickdestroy/controller/InfoController.java
+ com.hfych2.brickdestroy.controller.InfoController
 com/hfych2/brickdestroy/view/InfoView.java
  com.hfych2.brickdestroy.view.InfoView
 com/hfych2/brickdestroy/view/ViewManager.java
  com.hfych2.brickdestroy.view.ViewManager
-com/hfych2/brickdestroy/Main.java
- com.hfych2.brickdestroy.Main
-com/hfych2/brickdestroy/controller/DebugConsole.java
- com.hfych2.brickdestroy.controller.DebugConsole
-com/hfych2/brickdestroy/model/GameBoard.java
- com.hfych2.brickdestroy.model.GameBoard
