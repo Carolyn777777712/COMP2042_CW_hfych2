@@ -149,7 +149,7 @@ public class ViewManager extends JFrame implements WindowFocusListener {
         this.remove(homeMenu);
         this.remove(jScrollPane);
         this.add(gameView,BorderLayout.CENTER);
-        this.gameView.setPreferredSize(new Dimension(gameBoard.getDefWidth(),gameBoard.getDefHeight()));
+        this.gameView.setPreferredSize(new Dimension(GameBoard.getDefWidth(), GameBoard.getDefHeight()));
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addKeyListener(gameController);

@@ -30,7 +30,7 @@ public class InfoView extends JTextPane {
     /**
      * Class constructor.<br>
      * Initialises the view and its elements.<br>
-     * Calls all the methods that contains the text to be diaplayed to view.
+     * Calls all the methods that contains the text to be displayed to view.
      * @param owner the JFrame.
      *
      * @see TitledBorder

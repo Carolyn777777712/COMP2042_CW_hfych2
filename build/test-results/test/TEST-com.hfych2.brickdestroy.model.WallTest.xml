@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hfych2.brickdestroy.model.WallTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-12-12T04:35:23" hostname="LAPTOP-SAC9PCRG" time="0.27">
+<testsuite name="com.hfych2.brickdestroy.model.WallTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-12-13T00:49:34" hostname="LAPTOP-SAC9PCRG" time="0.173">
   <properties/>
-  <testcase name="isDone" classname="com.hfych2.brickdestroy.model.WallTest" time="0.002"/>
+  <testcase name="isDone" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
   <testcase name="getArea" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
   <testcase name="hasLevel" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
-  <testcase name="getLevels" classname="com.hfych2.brickdestroy.model.WallTest" time="0.003"/>
+  <testcase name="getLevels" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
   <testcase name="getBrickCount" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
-  <testcase name="nextLevel" classname="com.hfych2.brickdestroy.model.WallTest" time="0.001"/>
-  <testcase name="setBrickCount" classname="com.hfych2.brickdestroy.model.WallTest" time="0.004"/>
+  <testcase name="nextLevel" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
+  <testcase name="setBrickCount" classname="com.hfych2.brickdestroy.model.WallTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

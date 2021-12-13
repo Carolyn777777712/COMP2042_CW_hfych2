@@ -129,7 +129,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
             overallSpeed = debugPanel.getChangeBallSpeedSlider().getValue();
 
-            debugPanel.getChangeBallSpeedButton().setText("Set ball speed to: "+ String.valueOf(overallSpeed));
+            debugPanel.getChangeBallSpeedButton().setText("Set ball speed to: "+ overallSpeed);
 
             gameBoard.getBall().setXSpeed(debugPanel.getChangeBallSpeedSlider().getValue());
             gameBoard.getBall().setYSpeed(debugPanel.getChangeBallSpeedSlider().getValue());

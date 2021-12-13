@@ -46,7 +46,7 @@ public class RubberBall extends Ball {
      * @param center the center point location of the ball.
      * @param radiusA the width of the ball.
      * @param radiusB the height of the ball.
-     * @return
+     * @return the ball made.
      */
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {

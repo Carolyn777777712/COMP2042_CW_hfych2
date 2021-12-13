@@ -77,7 +77,7 @@ public class GameView extends JComponent {
      *       {@link GameView#drawMenu(Graphics2D)},
      *       {@link GameView#drawBrick(Brick, Graphics2D)}
      *       depending on the state of the model {@link GameBoard}
-     * @param g
+     * @param g the graphics
      */
     public void paint(Graphics g) {
 
@@ -195,7 +195,7 @@ public class GameView extends JComponent {
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, gameBoard.getDefWidth(), gameBoard.getDefHeight());
+        g2d.fillRect(0, 0, GameBoard.getDefWidth(), GameBoard.getDefHeight());
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -267,7 +267,7 @@ public class GameView extends JComponent {
     }
 
     /**
-     * Sets the scoreMessgae to be displayed.
+     * Sets the scoreMessage to be displayed.
      * @param scoreMessage the scoreMessage.
      */
     public void setScoreMessage(String scoreMessage) {
